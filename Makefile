@@ -19,7 +19,7 @@ SRC_PATH= src/
 OBJ_PATH= obj/
 
 INC_NAME= wolf.h
-SRC_NAME= main.c events.c tools.c camera.c parser.c misc.c debug.c
+SRC_NAME= main.c events.c tools.c camera.c parser.c misc.c debug.c draw_scene.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
 INC= -I inc/ -I libft/inc/ -I mlx/

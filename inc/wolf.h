@@ -23,7 +23,7 @@ typedef struct	s_core
 	char		*img;
 	double		time;
 	double		oldtime;
-	t_map		map;
+	t_world		world;
 	t_camera	cam;
 }				t_core;
 
@@ -45,9 +45,9 @@ int				deal_key(int key, t_core *wolf);
 
 void			set_pixel(char *image, int x, int y, int color);
 int				quit_wolf(void *wolf);
-void			init_camera(t_camera *cam, t_map *map);
+void			init_camera(t_camera *cam, t_world *world);
 int				print_and_quit(char *error);
-void			parse_wolf_map(char *filename, t_map *map);
+void			parse_wolf_map(char *filename, t_world *world);
 
 /*
 ** ============================================================================
@@ -56,6 +56,14 @@ void			parse_wolf_map(char *filename, t_map *map);
 */
 
 void			debug_camera(t_camera *cam);
-void			debug_map(t_map *map);
+void			debug_map(t_world *world);
+
+/*
+** ============================================================================
+**	RENDER.....................................................................
+** ============================================================================
+*/
+
+void	draw_scene(t_core *wolf);
 
 #endif

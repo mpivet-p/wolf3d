@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <stddef.h>
 
-static int	get_map_data(int fd, int *array)
+static int	get_world_data(int fd, int *array)
 {
 	char	*line;
 	int		i;
@@ -21,7 +21,7 @@ static int	get_map_data(int fd, int *array)
 	return (0);
 }
 
-static int	check_line(char *str, t_map *map)
+static int	check_line(char *str, t_world *world)
 {
 	size_t	count;
 	size_t	i;
@@ -39,12 +39,12 @@ static int	check_line(char *str, t_map *map)
 		}
 		i++;
 	}
-	if ((int)count + 1 != map->width)
+	if ((int)count + 1 != world->width)
 		return (1);
 	return (0);
 }
 
-static int	get_map_line(char *str, t_map *map, int line)
+static int	get_world_line(char *str, t_world *world, int line)
 {
 	long long	tmp;
 	size_t		len;
@@ -53,32 +53,32 @@ static int	get_map_line(char *str, t_map *map, int line)
 
 	i = 0;
 	len = ft_strlen(str);
-	if (check_line(str, map) != 0)
+	if (check_line(str, world) != 0)
 		return (1);
 	tab = ft_strsplit(str, ' ');
 	while (tab[i])
 	{
-		if (map->map[i] == NULL)
-			map->map[i] = ft_memalloc(sizeof(char*) * (map->height + 1));
+		if (world->map[i] == NULL)
+			world->map[i] = ft_memalloc(sizeof(char*) * (world->height + 1));
 		tmp = 0;
 		if (ft_atol(tab[i], &tmp) != 0 || tmp > 255 || tmp < 0)
 			return (-1);
-		map->map[i][line] = tmp & 0xFF;
+		world->map[i][line] = tmp & 0xFF;
 		i++;
 	}
 	return (0);
 }
 
-static int	get_wolf_map(int fd, t_map *map)
+static int	get_wolf_map(int fd, t_world *world)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
 	line = NULL;
-	while (i < map->height && get_next_line(fd, &line) > 0)
+	while (i < world->height && get_next_line(fd, &line) > 0)
 	{
-		if (get_map_line(line, map, i) != 0)
+		if (get_world_line(line, world, i) != 0)
 		{
 			ft_putstr_fd("wolf3d: line ", STDERR_FILENO);
 			ft_putnbr_fd(i + 3, STDERR_FILENO);
@@ -88,34 +88,34 @@ static int	get_wolf_map(int fd, t_map *map)
 		ft_strdel(&line);
 		i++;
 	}
-	if (i != map->height || get_next_line(fd, &line) > 0)
+	if (i != world->height || get_next_line(fd, &line) > 0)
 	{
-		ft_putstr_fd("wolf3d: invalid map size\n", STDERR_FILENO);
+		ft_putstr_fd("wolf3d: invalid world size\n", STDERR_FILENO);
 		return (1);
 	}
 	return (0);
 }
 
-void		parse_wolf_map(char *filename, t_map *map)
+void		parse_wolf_map(char *filename, t_world *world)
 {
 	int	fd;
 	int	array[2];
 
 	if ((fd = open(filename, O_RDONLY)) < 0)
 		print_and_quit("wolf3d: invalid file\n");
-	if (get_map_data(fd, array) != 0)
+	if (get_world_data(fd, array) != 0)
 		print_and_quit("wolf3d: parse error: line 1\n");
-	map->width = array[0];
-	map->height = array[1];
-	if (get_map_data(fd, array) != 0)
+	world->width = array[0];
+	world->height = array[1];
+	if (get_world_data(fd, array) != 0)
 		print_and_quit("wolf3d: parse error: line 2\n");
-	map->spawn_x = array[0];
-	map->spawn_y = array[1];
-	if ((map->map = ft_memalloc(sizeof(char **) * (map->height + 1))) == NULL)
+	world->spawn_x = array[0];
+	world->spawn_y = array[1];
+	if ((world->map = ft_memalloc(sizeof(char **) * (world->height + 1))) == NULL)
 		print_and_quit("wolf3d: malloc error\n");
-	if (get_wolf_map(fd, map) != 0)
+	if (get_wolf_map(fd, world) != 0)
 	{
-		ft_tabdel(&(map->map));
+		ft_tabdel(&(world->map));
 		exit(EXIT_FAILURE);
 	}
 }

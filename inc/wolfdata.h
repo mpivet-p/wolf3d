@@ -56,13 +56,13 @@ typedef struct		s_camera
 	t_vector	plane;
 }					t_camera;
 
-typedef struct		s_map
+typedef struct		s_world
 {
 	int		width;
 	int		height;
 	int		spawn_x;
 	int		spawn_y;
 	char	**map;
-}					t_map;
+}					t_world;
 
 #endif

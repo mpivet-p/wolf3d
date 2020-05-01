@@ -40,7 +40,7 @@ static void	parse_wolf(int argc, char **argv, t_core *wolf)
 		ft_putstr_fd("usage: wolf3d map.txt\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	parse_wolf_map(argv[1], &(wolf->map));
+	parse_wolf_map(argv[1], &(wolf->world));
 }
 
 int			main(int argc, char **argv)
@@ -49,10 +49,11 @@ int			main(int argc, char **argv)
 
 	ft_bzero(&wolf, sizeof(t_core));
 	parse_wolf(argc, argv, &wolf);
-	init_camera(&(wolf.cam), &(wolf.map));
+	init_camera(&(wolf.cam), &(wolf.world));
 	init_core(&wolf);
-	debug_camera(&(wolf.cam));
-	debug_map(&(wolf.map));
-	mlx_loop(wolf.mlx);
+//	debug_camera(&(wolf.cam));
+//	debug_map(&(wolf.map));
+	draw_scene(&wolf);
+//	mlx_loop(wolf.mlx);
 	return (0);
 }
