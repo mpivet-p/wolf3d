@@ -43,6 +43,9 @@ static void	parse_wolf(int argc, char **argv, t_core *wolf)
 	parse_wolf_map(argv[1], &(wolf->world));
 }
 
+//	debug_camera(&(wolf.cam));
+//	debug_map(&(wolf.map));
+
 int			main(int argc, char **argv)
 {
 	t_core	wolf;
@@ -51,9 +54,9 @@ int			main(int argc, char **argv)
 	parse_wolf(argc, argv, &wolf);
 	init_camera(&(wolf.cam), &(wolf.world));
 	init_core(&wolf);
-//	debug_camera(&(wolf.cam));
-//	debug_map(&(wolf.map));
+
 	draw_scene(&wolf);
-//	mlx_loop(wolf.mlx);
+	map_visualizer(&wolf);
+	mlx_loop(wolf.mlx);
 	return (0);
 }

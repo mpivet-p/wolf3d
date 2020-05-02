@@ -21,9 +21,9 @@ void	set_pixel(char *image, int x, int y, int color)
 	i = (((SIMG_X * y) + x) * 4);
 	if (x >= 0 && y >= 0 && x < SIMG_X && y < SIMG_Y)
 	{
-		image[i + 2] = color & 0xFF0000;
-		image[i + 1] = color & 0x00FF00;
-		image[i] = color & 0x0000FF;
+		image[i + 2] = (color & 0x00FF0000) >> 16;
+		image[i + 1] = (color & 0x0000FF00) >> 8;
+		image[i] = color & 0x000000FF;
 	}
 }
 

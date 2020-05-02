@@ -76,8 +76,8 @@ static double	intersect(t_core *wolf, t_vector *raydir, int *map, int *side)
 		if (wolf->world.map[map[0]][map[1]] != 0)
 			hit = 1;
 	}
-	if (hit == 1)
-		printf("%d %d\n", map[0], map[1]);
+	if (hit != 0)
+		draw_ray(wolf, map);
 	return (side_dist.y);
 }
 
