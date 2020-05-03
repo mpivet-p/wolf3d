@@ -14,7 +14,9 @@
 #include "wolf.h"
 #include <mlx.h>
 
-void	set_pixel(char *image, int x, int y, int color)
+#include <stdio.h>
+
+void		set_pixel(char *image, int x, int y, int color)
 {
 	int i;
 
@@ -27,7 +29,16 @@ void	set_pixel(char *image, int x, int y, int color)
 	}
 }
 
-int		quit_wolf(void *param)
+t_vector	set_vec(double x, double y)
+{
+	t_vector	vec;
+
+	vec.x = x;
+	vec.y = y;
+	return (vec);
+}
+
+int			quit_wolf(void *param)
 {
 	t_core *wolf;
 

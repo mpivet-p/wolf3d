@@ -52,19 +52,18 @@ void	draw_camera(t_camera *cam, char *img, int *center)
 	}
 }
 
-void		draw_ray(t_core *wolf, int *coords)
+void		draw_ray(t_core *wolf, t_vector ray)
 {
 	t_vector	origin;
 	t_vector	dest;
 	int			shift[2];
 
 	center_map(wolf->world.width, wolf->world.height, 21, shift);
-	dest.x = coords[0] * 21 + shift[0];
-	dest.y = coords[1] * 21 + shift[1];
+	dest.x = ray.x * 21 + shift[0];
+	dest.y = ray.y * 21 + shift[1];
 	origin.x = wolf->cam.pos.x * 21 + shift[0];
 	origin.y = wolf->cam.pos.y * 21 + shift[1];
-	printf("%f %f %f %f\n", dest.x, dest.y, origin.x, origin.y);
-	bresenham(wolf, origin, dest, 0x00FF00);
+	bresenham(wolf, origin, dest, 0x0000FF00);
 
 }
 
@@ -90,5 +89,4 @@ void		map_visualizer(t_core *wolf)
 		x++;
 	}
 	draw_camera(&(wolf->cam), wolf->img, center);
-	mlx_put_image_to_window(wolf->mlx, wolf->win, wolf->screen, 0, 0);
 }

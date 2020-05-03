@@ -10,14 +10,14 @@ static t_vector	get_delta_dist(t_vector *raydir)
 {
 	t_vector	delta_dist;
 
-	if (raydir->y == 0)
-		delta_dist.x = 0;
-	else
-		delta_dist.x = (raydir->x == 0) ? 0 : fabs(1.0 / raydir->x);
 	if (raydir->x == 0)
-		delta_dist.y = 0;
+		delta_dist.x = 1;
 	else
-		delta_dist.y = (raydir->y == 0) ? 0 : fabs(1.0 / raydir->y);
+		delta_dist.x = (raydir->y == 0) ? 0 : fabs(1.0 / raydir->x);
+	if (raydir->y == 0)
+		delta_dist.y = 1;
+	else
+		delta_dist.y = (raydir->x == 0) ? 0 : fabs(1.0 / raydir->y);
 	return (delta_dist);
 }
 
@@ -59,7 +59,7 @@ static double	intersect(t_core *wolf, t_vector *raydir, int *map, int *side)
 	hit = 0;
 	delta_dist = get_delta_dist(raydir);
 	side_dist = get_side_dist(&(wolf->cam), raydir, &delta_dist, step);
-	while (hit == 0 && map[0] + 1 < wolf->world.width && map[1] + 1 < wolf->world.height)
+	while (hit == 0 && map[0] < wolf->world.width && map[1] < wolf->world.height)
 	{
 		if (side_dist.x < side_dist.y)
 		{
@@ -77,8 +77,17 @@ static double	intersect(t_core *wolf, t_vector *raydir, int *map, int *side)
 			hit = 1;
 	}
 	if (hit != 0)
-		draw_ray(wolf, map);
+		draw_ray(wolf, set_vec(map[0], map[1]));
 	return (side_dist.y);
+}
+
+void	unit(t_vector *dir)
+{
+	double	norm;
+
+	norm = sqrt(dir->x * dir->x + dir->y * dir->y);
+	dir->x /= norm;
+	dir->y /= norm;
 }
 
 void	draw_scene(t_core *wolf)
@@ -90,14 +99,15 @@ void	draw_scene(t_core *wolf)
 	int			x;
 
 	x = 0;
-	while (x < 20)
+	while (x < 10)
 	{
 		side = 0;
 		map[0] = (int)round(wolf->cam.pos.x);
 		map[1] = (int)round(wolf->cam.pos.y);
-		camera_x =  2.0 * x / (double)20.0 - 1;
+		camera_x =  2.0 * x / (double)10.0 - 1;
 		raydir.x = wolf->cam.dir.x + wolf->cam.plane.x * camera_x;
 		raydir.y = wolf->cam.dir.y + wolf->cam.plane.y * camera_x;
+		unit(&raydir);
 		intersect(wolf, &raydir, map, &side);
 		x++;
 	}

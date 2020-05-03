@@ -43,6 +43,7 @@ int				deal_key(int key, t_core *wolf);
 ** ============================================================================
 */
 
+t_vector		set_vec(double x, double y);
 void			set_pixel(char *image, int x, int y, int color);
 int				quit_wolf(void *wolf);
 void			init_camera(t_camera *cam, t_world *world);
@@ -50,7 +51,8 @@ int				print_and_quit(char *error);
 void			parse_wolf_map(char *filename, t_world *world);
 void			map_visualizer(t_core *wolf);
 void			bresenham(t_core *wolf, t_vector one, t_vector two, int color);
-void			draw_ray(t_core *wolf, int *coords);
+void			draw_ray(t_core *wolf, t_vector ray);
+void			unit(t_vector *dir);
 
 /*
 ** ============================================================================
