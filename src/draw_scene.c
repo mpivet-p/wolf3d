@@ -49,6 +49,27 @@ static t_vector	get_side_dist(t_camera *cam, t_vector *raydir,
 	return (side_dist);
 }
 
+static void	draw_square(t_core *wolf, int x, int y)
+{
+	int	color;
+	int	i;
+	int	j;
+
+	i = 0;
+	color = 0x00FF0000;
+	while (i < 20)
+	{
+		j = 0;
+		while (j < 20)
+		{
+			set_pixel(wolf->img, x * 21 + wolf->world.center[0] + i
+				, y * 21 + wolf->world.center[1] + j, color);
+			j++;
+		}
+		i++;
+	}
+}
+
 static double	intersect(t_core *wolf, t_vector *raydir, int *map, int *side)
 {
 	t_vector	delta_dist;
@@ -76,8 +97,11 @@ static double	intersect(t_core *wolf, t_vector *raydir, int *map, int *side)
 		if (wolf->world.map[map[0]][map[1]] != 0)
 			hit = 1;
 	}
-	if (hit != 0)
-		draw_ray(wolf, set_vec(map[0], map[1]));
+	if (hit != 0 && *side == 0)
+		draw_ray(wolf, set_vec(map[0] + 1, wolf->cam.pos.y + (raydir->y * (side_dist.x - 1))), 0x00FF00);
+	if (*side == 1)
+		draw_ray(wolf, set_vec(wolf->cam.pos.x + (raydir->x * (side_dist.y - 1)), map[1] + 1), 0xFF0000);
+	draw_square(wolf, map[0], map[1]);
 	return (side_dist.y);
 }
 

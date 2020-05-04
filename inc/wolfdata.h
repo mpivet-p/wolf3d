@@ -60,6 +60,7 @@ typedef struct		s_world
 {
 	int		width;
 	int		height;
+	int		center[2];
 	int		spawn_x;
 	int		spawn_y;
 	char	**map;

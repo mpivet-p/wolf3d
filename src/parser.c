@@ -118,4 +118,5 @@ void		parse_wolf_map(char *filename, t_world *world)
 		ft_tabdel(&(world->map));
 		exit(EXIT_FAILURE);
 	}
+	center_map(world->width, world->height, 21, world->center);
 }
