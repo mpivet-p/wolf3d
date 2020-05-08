@@ -54,6 +54,7 @@ void			map_visualizer(t_core *wolf);
 void			bresenham(t_core *wolf, t_vector one, t_vector two, int color);
 void			draw_ray(t_core *wolf, t_vector ray, int color);
 void			unit(t_vector *dir);
+void			draw_square(t_core *wolf, int x, int y, int color);
 
 /*
 ** ============================================================================

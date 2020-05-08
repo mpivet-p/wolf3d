@@ -44,7 +44,7 @@ void	rotate_camera(t_core *wolf, int key)
 	t_vector	save;
 	double		angle;
 
-	angle = (key == KEY_LEFT) ? -0.2 : 0.2;
+	angle = (key == KEY_LEFT) ? -0.1 : 0.1;
 	save = wolf->cam.dir;
 	wolf->cam.dir.x = (save.x * cos(angle)) - (sin(angle) * save.y);
 	wolf->cam.dir.y = (save.x * sin(angle)) + (cos(angle) * save.y);

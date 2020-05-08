@@ -3,27 +3,6 @@
 #include <mlx.h>
 #include <stdio.h>
 
-static void	draw_square(t_core *wolf, int x, int y)
-{
-	int	color;
-	int	i;
-	int	j;
-
-	i = 0;
-	color = (wolf->world.map[x][y] != 0) ? 0xFFFFFFFF : 0x121212;
-	while (i < 20)
-	{
-		j = 0;
-		while (j < 20)
-		{
-			set_pixel(wolf->img, x * 21 + wolf->world.center[0] + i
-				, y * 21 + wolf->world.center[1] + j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
 void	draw_camera(t_core *wolf, t_camera *cam, char *img)
 {
 	int x;
@@ -74,7 +53,8 @@ void		map_visualizer(t_core *wolf)
 		y = 0;
 		while (y < world->height)
 		{
-			draw_square(wolf, x, y);
+			draw_square(wolf, x, y
+			, (wolf->world.map[x][y] != 0) ? 0xFFFFFFFF : 0x121212);
 			y++;
 		}
 		x++;
