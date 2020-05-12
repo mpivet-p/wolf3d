@@ -14,8 +14,8 @@ NAME= wolf3d
 CC= gcc
 CFLAGS= -Wall -Wextra -Werror -g
 
-INC_PATH= inc/
-SRC_PATH= src/
+INC_PATH= includes/
+SRC_PATH= srcs/
 OBJ_PATH= obj/
 
 INC_NAME= wolf.h
@@ -23,7 +23,7 @@ SRC_NAME= main.c events.c tools.c camera.c parser.c misc.c debug.c draw_scene.c\
 			visualizer.c bresenham.c draw_square.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
-INC= -I inc/ -I libft/inc/ -I mlx/
+INC= -I includes/ -I libft/inc/ -I mlx/
 SRC= $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 LIBS= -L libft/ -lft -L /usr/local/lib/ -lmlx -lm

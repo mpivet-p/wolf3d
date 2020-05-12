@@ -11,4 +11,5 @@ void	init_camera(t_camera *cam, t_world *world)
 	cam->dir.y = 0;
 	cam->plane.x = 0;
 	cam->plane.y = 0.66;
+	cam->mode = WLF_RENDER;
 }

@@ -33,7 +33,7 @@
 # define KEY_Q		12
 # define KEY_E		14
 # define KEY_ESC	53
-# define KEY_SPA	49
+# define KEY_TAB	48
 # define KEY_SPA	49
 # define KEY_PGUP	116
 # define KEY_PGDWN	121
@@ -43,6 +43,9 @@
 # define MAPWIDTH	24
 # define MAPHEIGHT	24
 
+# define WLF_RENDER	0
+# define WLF_MAP	1
+
 typedef struct		s_vector
 {
 	double	x;
@@ -51,10 +54,19 @@ typedef struct		s_vector
 
 typedef struct		s_camera
 {
+	t_vector	plane;
 	t_vector	dir;
 	t_vector	pos;
-	t_vector	plane;
+	int			mode;
 }					t_camera;
+
+typedef struct		s_ray
+{
+	t_vector	side_dist;
+	t_vector	dir;
+	int			map[2];
+	int			side;
+}					t_ray;
 
 typedef struct		s_world
 {

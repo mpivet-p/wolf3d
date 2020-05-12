@@ -54,10 +54,7 @@ int			main(int argc, char **argv)
 	parse_wolf(argc, argv, &wolf);
 	init_camera(&(wolf.cam), &(wolf.world));
 	init_core(&wolf);
-
-	map_visualizer(&wolf);
 	draw_scene(&wolf);
-	mlx_put_image_to_window(wolf.mlx, wolf.win, wolf.screen, 0, 0);
 	mlx_loop(wolf.mlx);
 	return (0);
 }
