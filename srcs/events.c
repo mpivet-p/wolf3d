@@ -21,18 +21,18 @@ void	move_camera(t_core *wolf, int key)
 
 	world = &(wolf->world);
 	cam = &(wolf->cam);
-	if (key == KEY_W && cam->pos.y - 0.25 > 0
-		&& world->map[(int)(cam->pos.x)][(int)(cam->pos.y - 0.25)] == 0)
-		cam->pos.y -= 0.25;
-	else if (key == KEY_S && cam->pos.y + 0.25 < world->height
-		&& world->map[(int)(cam->pos.x)][(int)(cam->pos.y + 0.25)] == 0)
-		cam->pos.y += 0.25;
-	else if (key == KEY_A && cam->pos.x - 0.25 > 0
-		&& world->map[(int)(cam->pos.x - 0.25)][(int)(cam->pos.y)] == 0)
-		cam->pos.x -= 0.25;
-	else if (key == KEY_D && cam->pos.x + 0.25 < world->width
-		&& world->map[(int)(cam->pos.x + 0.25)][(int)(cam->pos.y)] == 0)
-		cam->pos.x += 0.25;
+	if (key == KEY_W && cam->pos.y - 0.50 > 0
+		&& world->map[(int)(cam->pos.x)][(int)(cam->pos.y - 1)] == 0)
+		cam->pos.y -= 0.50;
+	else if (key == KEY_S && cam->pos.y + 0.50 < world->height
+		&& world->map[(int)(cam->pos.x)][(int)(cam->pos.y + 0.50)] == 0)
+		cam->pos.y += 0.50;
+	else if (key == KEY_A && cam->pos.x - 0.50 > 0
+		&& world->map[(int)(cam->pos.x - 1)][(int)(cam->pos.y)] == 0)
+		cam->pos.x -= 0.50;
+	else if (key == KEY_D && cam->pos.x + 0.50 < world->width
+		&& world->map[(int)(cam->pos.x + 0.50)][(int)(cam->pos.y)] == 0)
+		cam->pos.x += 0.50;
 }
 
 void	rotate_camera(t_core *wolf, int key)
