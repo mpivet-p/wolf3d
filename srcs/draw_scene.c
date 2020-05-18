@@ -51,7 +51,7 @@ static t_vector	get_side_dist(t_camera *cam, t_vector *raydir,
 	return (side_dist);
 }
 
-static double	intersect(t_core *wolf, t_ray *ray, int *step)
+static void	intersect(t_core *wolf, t_ray *ray, int *step)
 {
 	t_vector	delta_dist;
 
@@ -74,7 +74,6 @@ static double	intersect(t_core *wolf, t_ray *ray, int *step)
 		if (wolf->world.map[ray->map[0]][ray->map[1]] != 0)
 			break ;
 	}
-	return ((ray->side == 1) ? ray->side_dist.x : ray->side_dist.y);
 }
 
 void	unit(t_vector *dir)
@@ -86,17 +85,17 @@ void	unit(t_vector *dir)
 	dir->y /= norm;
 }
 
-void	draw_map(t_core *wolf, t_ray *ray, double dist, int *step)
+void	draw_map(t_core *wolf, t_ray *ray, int *step)
 {
 	draw_square(wolf, ray->map[0], ray->map[1], 0x0000CC);
 	if (ray->side == 0)
 	{
 		draw_ray(wolf, set_vec(ray->map[0] + (step[0] == -1)
-			, wolf->cam.pos.y + (ray->dir.y * (dist - 1))), 0x00FF00);
+			, wolf->cam.pos.y + (ray->dir.y * (ray->side_dist.x - 1))), 0x00FF00);
 	}
 	else
 	{
-		draw_ray(wolf, set_vec(wolf->cam.pos.x + (ray->dir.x * (dist - 1))
+		draw_ray(wolf, set_vec(wolf->cam.pos.x + (ray->dir.x * (ray->side_dist.y - 1))
 			, ray->map[1] + (step[1] == -1)), 0xFF0000);
 	}
 }
@@ -149,7 +148,6 @@ void	render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 void	draw_scene(t_core *wolf)
 {
 	double		camera_x;
-	double		dist;
 	t_ray		ray;
 	int			step[2];
 	int			x;
@@ -165,9 +163,9 @@ void	draw_scene(t_core *wolf)
 		camera_x =  2.0 * x / (double)SIMG_Y - 1;
 		ray.dir.x = wolf->cam.dir.x + wolf->cam.plane.x * camera_x;
 		ray.dir.y = wolf->cam.dir.y + wolf->cam.plane.y * camera_x;
-		dist = intersect(wolf, &ray, step);
+		intersect(wolf, &ray, step);
 		if (wolf->cam.mode == WLF_MAP)
-			draw_map(wolf, &ray, dist, step);
+			draw_map(wolf, &ray, step);
 		else
 			render_wolf(wolf, &ray, x, step);
 		x++;
