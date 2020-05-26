@@ -14,6 +14,7 @@
 # define WOLF_H
 
 #include "wolfdata.h"
+#include <stdio.h>
 
 typedef struct	s_core
 {
@@ -44,6 +45,7 @@ int				deal_key(int key, t_core *wolf);
 */
 
 void			center_map(int width, int height, int sq_size, int *shift);
+t_vector		rotate_vector(t_vector *vector, double angle);
 t_vector		set_vec(double x, double y);
 void			set_pixel(char *image, int x, int y, int color);
 int				quit_wolf(void *wolf);
@@ -55,6 +57,13 @@ void			bresenham(t_core *wolf, t_vector one, t_vector two, int color);
 void			draw_ray(t_core *wolf, t_vector ray, int color);
 void			unit(t_vector *dir);
 void			draw_square(t_core *wolf, int x, int y, int color);
+
+void			draw_map(t_core *wolf, t_ray *ray, int *step);
+t_vector		get_side_dist(t_camera *cam, t_ray *ray,
+					t_vector *delta_dist, int *step);
+t_vector		get_delta_dist(t_vector *raydir);
+
+
 
 /*
 ** ============================================================================

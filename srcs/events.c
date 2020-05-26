@@ -20,31 +20,19 @@ void	move_camera(t_core *wolf, int key)
 	t_camera	*cam;
 	t_world		*world;
 
-	new_pos.x = wolf->cam.dir.x * 0.20;
-	new_pos.y = wolf->cam.dir.y * 0.20;
 	world = &(wolf->world);
 	cam = &(wolf->cam);
 	if (key == KEY_W || key == KEY_S)
-	{
-		new_pos.x *= (key == KEY_W) ? 1 : -1;
-		new_pos.y *= (key == KEY_W) ? 1 : -1;
-		if (world->map[(int)(cam->pos.x + new_pos.x)][(int)(cam->pos.y)] == 0)
-			cam->pos.x += new_pos.x;
-		if (world->map[(int)(cam->pos.x)][(int)(cam->pos.y + new_pos.y)] == 0)
-			cam->pos.y += new_pos.y;
-	}
+		new_pos = cam->dir;
+	else
+		new_pos = rotate_vector(&(cam->dir), M_PI / 2);
+	new_pos.x *= (key == KEY_W || key == KEY_A) ? 0.20 : -0.20;
+	new_pos.y *= (key == KEY_W || key == KEY_A) ? 0.20 : -0.20;
+	if (world->map[(int)(cam->pos.x + new_pos.x)][(int)(cam->pos.y)] == 0)
+		cam->pos.x += new_pos.x;
+	if (world->map[(int)(cam->pos.x)][(int)(cam->pos.y + new_pos.y)] == 0)
+		cam->pos.y += new_pos.y;
 }
-
-t_vector	rotate_vector(t_vector *vector, double angle)
-{
-	t_vector	new_vec;
-
-	new_vec.x = (vector->x * cos(angle)) - (sin(angle) * vector->y);
-	new_vec.y = (vector->x * sin(angle)) + (cos(angle) * vector->y);
-	return (new_vec);
-}
-
-#include <stdio.h>
 
 void	rotate_camera(t_core *wolf, int key)
 {

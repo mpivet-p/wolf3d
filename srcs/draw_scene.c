@@ -5,58 +5,12 @@
 #include <math.h>
 #include <mlx.h>
 
-#include <stdio.h>
-#include <unistd.h>
-
-static t_vector	get_delta_dist(t_vector *raydir)
-{
-	t_vector	delta_dist;
-
-	if (raydir->x == 0)
-		delta_dist.x = 1;
-	else
-		delta_dist.x = (raydir->y == 0) ? 0 : fabs(1.0 / raydir->x);
-	if (raydir->y == 0)
-		delta_dist.y = 1;
-	else
-		delta_dist.y = (raydir->x == 0) ? 0 : fabs(1.0 / raydir->y);
-	return (delta_dist);
-}
-
-static t_vector	get_side_dist(t_camera *cam, t_vector *raydir,
-		t_vector *delta_dist, int *step)
-{
-	t_vector	side_dist;
-
-	if (raydir->x < 0)
-	{
-		step[0] = -1;
-		side_dist.x = (cam->pos.x - round(cam->pos.x)) * delta_dist->x;
-	}
-	else
-	{
-		step[0] = 1;
-		side_dist.x = (round(cam->pos.x) + 1.0 - cam->pos.x) * delta_dist->x;
-	}
-	if (raydir->y < 0)
-	{
-		step[1] = -1;
-		side_dist.y = (cam->pos.y - round(cam->pos.y)) * delta_dist->y;
-	}
-	else
-	{
-		step[1] = 1;
-		side_dist.y = (round(cam->pos.y) + 1.0 - cam->pos.y) * delta_dist->y;
-	}
-	return (side_dist);
-}
-
 static void	intersect(t_core *wolf, t_ray *ray, int *step)
 {
 	t_vector	delta_dist;
 
 	delta_dist = get_delta_dist(&(ray->dir));
-	ray->side_dist = get_side_dist(&(wolf->cam), &(ray->dir), &delta_dist, step);
+	ray->side_dist = get_side_dist(&(wolf->cam), ray, &delta_dist, step);
 	while (ray->map[0] < wolf->world.width && ray->map[1] < wolf->world.height)
 	{
 		if (ray->side_dist.x < ray->side_dist.y)
@@ -76,36 +30,15 @@ static void	intersect(t_core *wolf, t_ray *ray, int *step)
 	}
 }
 
-void	unit(t_vector *dir)
+void	draw_vert(t_core *wolf, int x, int color, int start, int end)
 {
-	double	norm;
+	int		i;
 
-	norm = sqrt(dir->x * dir->x + dir->y * dir->y);
-	dir->x /= norm;
-	dir->y /= norm;
-}
-
-void	draw_map(t_core *wolf, t_ray *ray, int *step)
-{
-	draw_square(wolf, ray->map[0], ray->map[1], 0x0000CC);
-	if (ray->side == 0)
+	i = start;
+	while (i < end)
 	{
-		draw_ray(wolf, set_vec(ray->map[0] + (step[0] == -1)
-			, wolf->cam.pos.y + (ray->dir.y * (ray->side_dist.x - 1))), 0x00FF00);
-	}
-	else
-	{
-		draw_ray(wolf, set_vec(wolf->cam.pos.x + (ray->dir.x * (ray->side_dist.y - 1))
-			, ray->map[1] + (step[1] == -1)), 0xFF0000);
-	}
-}
-
-void	ver_line(t_core *wolf, int x, int color, int start, int end)
-{
-	while (start < end)
-	{
-		set_pixel(wolf->img, x, start, color);
-		start++;
+		set_pixel(wolf->img, x, i, color);
+		i++;
 	}
 }
 
@@ -142,7 +75,7 @@ void	render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 	color = get_wall_color(wolf->world.map[ray->map[0]][ray->map[1]]);
 	if (ray->side == 1)
 		color = color / 2;
-	ver_line(wolf, x, color, draw_start, draw_end);
+	draw_vert(wolf, x, color, draw_start, draw_end);
 }
 
 void	draw_scene(t_core *wolf)
@@ -158,9 +91,9 @@ void	draw_scene(t_core *wolf)
 		map_visualizer(wolf);
 	while (x < SIMG_X)
 	{
-		ray.map[0] = (int)round(wolf->cam.pos.x);
-		ray.map[1] = (int)round(wolf->cam.pos.y);
-		camera_x =  2.0 * x / (double)SIMG_Y - 1;
+		ray.map[0] = (int)(wolf->cam.pos.x);
+		ray.map[1] = (int)(wolf->cam.pos.y);
+		camera_x =  2.0 * x / (double)SIMG_X - 1;
 		ray.dir.x = wolf->cam.dir.x + wolf->cam.plane.x * camera_x;
 		ray.dir.y = wolf->cam.dir.y + wolf->cam.plane.y * camera_x;
 		intersect(wolf, &ray, step);
