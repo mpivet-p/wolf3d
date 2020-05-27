@@ -62,6 +62,7 @@ void			draw_map(t_core *wolf, t_ray *ray, int *step);
 t_vector		get_side_dist(t_camera *cam, t_ray *ray,
 					t_vector *delta_dist, int *step);
 t_vector		get_delta_dist(t_vector *raydir);
+void			get_test_textures(t_core *wolf);
 
 
 

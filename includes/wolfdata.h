@@ -46,6 +46,9 @@
 # define WLF_RENDER	0
 # define WLF_MAP	1
 
+# define TEX_HEIGHT	64
+# define TEX_WIDTH	64
+
 typedef struct		s_vector
 {
 	double	x;
@@ -64,7 +67,10 @@ typedef struct		s_ray
 {
 	t_vector	side_dist;
 	t_vector	dir;
+	double		wall_dist;
+	int			tex_num;
 	int			map[2];
+	int			tex_x;
 	int			side;
 }					t_ray;
 
@@ -76,6 +82,7 @@ typedef struct		s_world
 	int		spawn_x;
 	int		spawn_y;
 	char	**map;
+	int		texture[8][4096];
 }					t_world;
 
 #endif

@@ -54,6 +54,7 @@ int			main(int argc, char **argv)
 	parse_wolf(argc, argv, &wolf);
 	init_camera(&(wolf.cam), &(wolf.world));
 	init_core(&wolf);
+	get_test_textures(&wolf);
 	draw_scene(&wolf);
 	mlx_loop(wolf.mlx);
 	return (0);
