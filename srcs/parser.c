@@ -88,11 +88,6 @@ static int	get_wolf_map(int fd, t_world *world)
 		ft_strdel(&line);
 		i++;
 	}
-	if (i != world->height || get_next_line(fd, &line) > 0)
-	{
-		ft_putstr_fd("wolf3d: invalid world size\n", STDERR_FILENO);
-		return (1);
-	}
 	return (0);
 }
 

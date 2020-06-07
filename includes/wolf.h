@@ -15,6 +15,7 @@
 
 #include "wolfdata.h"
 #include <stdio.h>
+#include <stdint.h>
 
 typedef struct	s_core
 {
@@ -63,6 +64,7 @@ t_vector		get_side_dist(t_camera *cam, t_ray *ray,
 					t_vector *delta_dist, int *step);
 t_vector		get_delta_dist(t_vector *raydir);
 void			get_test_textures(t_core *wolf);
+int8_t			file_to_texture(t_core *wolf, t_world *world, char *file, int tex_i);
 
 
 

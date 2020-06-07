@@ -11,6 +11,10 @@
 /* ************************************************************************** */
 
 #ifndef WOLFDATA_H
+
+# define SUCCESS	0
+# define FAILURE 	-1
+
 # define WOLFDATA_H
 # define SWIN_X		1200
 # define SWIN_Y		775
@@ -46,8 +50,9 @@
 # define WLF_RENDER	0
 # define WLF_MAP	1
 
-# define TEX_HEIGHT	64
-# define TEX_WIDTH	64
+# define TEX_HEIGHT		64
+# define TEX_WIDTH		64
+# define TEX_MAX_NBR	8
 
 typedef struct		s_vector
 {
@@ -82,7 +87,7 @@ typedef struct		s_world
 	int		spawn_x;
 	int		spawn_y;
 	char	**map;
-	int		texture[8][4096];
+	int		texture[TEX_MAX_NBR][TEX_HEIGHT * TEX_WIDTH];
 }					t_world;
 
 #endif

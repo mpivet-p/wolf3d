@@ -55,6 +55,7 @@ int			main(int argc, char **argv)
 	init_camera(&(wolf.cam), &(wolf.world));
 	init_core(&wolf);
 	get_test_textures(&wolf);
+	file_to_texture(&wolf, &(wolf.world), "textures/metal.xpm", 1);
 	draw_scene(&wolf);
 	mlx_loop(wolf.mlx);
 	return (0);
