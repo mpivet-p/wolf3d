@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 17:57:35 by mpivet-p          #+#    #+#             */
+/*   Updated: 2020/06/08 18:24:03 by mpivet-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "wolf.h"
 #include "libft.h"
@@ -46,7 +56,7 @@ static int	check_line(char *str, t_world *world)
 
 static int	get_world_line(char *str, t_world *world, int line)
 {
-	long long	tmp;
+	int64_t		tmp;
 	size_t		len;
 	size_t		i;
 	char		**tab;
@@ -69,7 +79,7 @@ static int	get_world_line(char *str, t_world *world, int line)
 	return (0);
 }
 
-static int	get_wolf_map(int fd, t_world *world)
+static int	get_wolf_map(t_core *wolf, int fd, t_world *world)
 {
 	char	*line;
 	int		i;
@@ -88,10 +98,12 @@ static int	get_wolf_map(int fd, t_world *world)
 		ft_strdel(&line);
 		i++;
 	}
+	if (get_walls_properties(wolf, world, fd) != 0)
+		return (1);
 	return (0);
 }
 
-void		parse_wolf_map(char *filename, t_world *world)
+void		parse_wolf_map(t_core *wolf, t_world *world, char *filename)
 {
 	int	fd;
 	int	array[2];
@@ -106,9 +118,9 @@ void		parse_wolf_map(char *filename, t_world *world)
 		print_and_quit("wolf3d: parse error: line 2\n");
 	world->spawn_x = array[0];
 	world->spawn_y = array[1];
-	if ((world->map = ft_memalloc(sizeof(char **) * (world->height + 1))) == NULL)
+	if (!(world->map = ft_memalloc(sizeof(char **) * (world->height + 1))))
 		print_and_quit("wolf3d: malloc error\n");
-	if (get_wolf_map(fd, world) != 0)
+	if (get_wolf_map(wolf, fd, world) != 0)
 	{
 		ft_tabdel(&(world->map));
 		exit(EXIT_FAILURE);

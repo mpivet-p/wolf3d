@@ -6,12 +6,13 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/08/22 01:42:52 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:13:05 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLFDATA_H
 
+#include <stdint.h>
 # define SUCCESS	0
 # define FAILURE 	-1
 
@@ -52,7 +53,7 @@
 
 # define TEX_HEIGHT		64
 # define TEX_WIDTH		64
-# define TEX_MAX_NBR	8
+# define TEX_MAX_NBR	16
 
 typedef struct		s_vector
 {
@@ -79,6 +80,12 @@ typedef struct		s_ray
 	int			side;
 }					t_ray;
 
+typedef struct		s_wall
+{
+	int8_t	tex_id[4];
+	int8_t	crossable;
+}					t_wall;
+
 typedef struct		s_world
 {
 	int		width;
@@ -88,6 +95,7 @@ typedef struct		s_world
 	int		spawn_y;
 	char	**map;
 	int		texture[TEX_MAX_NBR][TEX_HEIGHT * TEX_WIDTH];
+	t_wall	wall[256];
 }					t_world;
 
 #endif

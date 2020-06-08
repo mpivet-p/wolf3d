@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 18:44:21 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/08/11 01:08:48 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/08 19:08:38 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ int				ft_sqrt(int nb);
 void			ft_tabdel(char ***array);
 t_opts			get_options(int argc, char **argv, char *allowed);
 int8_t			ft_atol(const char *s, int64_t *result);
+int				ft_tablen(char **array);
 
 #endif

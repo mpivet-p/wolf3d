@@ -39,15 +39,15 @@ int8_t	file_to_texture(t_core *wolf, t_world *world, char *file, int tex_i)
 	if (!(ptr = mlx_xpm_file_to_image(wolf->mlx, file, &width, &height)))
 	{
 		ft_putstr_fd("wolf: texture file error\n", STDERR_FILENO);
-		return (FAILURE);
+		return (1);
 	}
 	else if (width != TEX_WIDTH || height != TEX_HEIGHT)
 	{
 		ft_putstr_fd("wolf: texture size error\n", STDERR_FILENO);
-		return (FAILURE);
+		return (1);
 	}
 	fill_texture(world, mlx_get_data_addr(
 		ptr, &(tools[0]), &(tools[1]), &(tools[2])), tex_i);
 	mlx_destroy_image(wolf->mlx, ptr);
-	return (SUCCESS);
+	return (0);
 }

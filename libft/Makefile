@@ -6,7 +6,7 @@
 #    By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/02 22:00:41 by mpivet-p          #+#    #+#              #
-#    Updated: 2019/08/06 12:46:22 by mpivet-p         ###   ########.fr        #
+#    Updated: 2020/06/08 19:12:27 by mpivet-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC_NAME = ft_atoi.c ft_atol.c ft_base_size.c ft_bzero.c ft_isalnum.c \
 	ft_tolower.c ft_toupper.c ft_sqrt.c get_next_line.c print_bits.c \
 	get_options.c ft_cat_buffer.c ft_sort_params.c ft_splitwhitespaces.c \
 	ft_strreplace.c ft_strbchr.c ft_putscap.c free_tab.c how_many_lines.c \
-	tabdup.c tab_realloc.c ft_clamp.c ft_max.c ft_tabdel.c
+	tabdup.c tab_realloc.c ft_clamp.c ft_max.c ft_tabdel.c ft_tablen.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
 INC= -I inc/
