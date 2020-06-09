@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:35 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/08 18:24:03 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/09 19:06:47 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static int	get_wolf_map(t_core *wolf, int fd, t_world *world)
 		ft_strdel(&line);
 		i++;
 	}
-	if (get_walls_properties(wolf, world, fd) != 0)
+	if (get_walls_properties(wolf, fd) != 0)
 		return (1);
 	return (0);
 }

@@ -6,11 +6,12 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/08 19:17:37 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/09 20:04:02 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
+#include "libft.h"
 
 static int8_t	get_index(char **array, char *key)
 {
@@ -25,18 +26,30 @@ static int8_t	get_index(char **array, char *key)
 	}
 	if (i < TEX_MAX_NBR && (array[i] = ft_strdup(key)) != NULL)
 		return (i);
-	return (1);
+	return (-1);
 }
 
-static int	set_new_wall(t_world *world, char **properties)
+static int	set_new_wall(t_core *wolf, char **properties, char **files, int *tex_i)
 {
 	int64_t	wall_id;
+	int		tex_id;
 
+	(void)wolf;
+	tex_id = 0;
 	if (ft_atol(properties[0], &wall_id) != 0)
 		return (1);
+	if ((tex_id = get_index(files, properties[1])) < 0)
+		return (1);
+	if (tex_id == *tex_i)
+	{
+		if (file_to_texture(wolf, &(wolf->world), properties[1], *tex_i) != 0)
+			return (1);
+		(*tex_i)++;
+	}
+	return (0);
 }
 
-int8_t	get_walls_properties(t_core *wolf, t_world *world, int fd)
+int8_t	get_walls_properties(t_core *wolf, int fd)
 {
 	char	**files;
 	char	**array;
@@ -51,13 +64,13 @@ int8_t	get_walls_properties(t_core *wolf, t_world *world, int fd)
 		{
 			array = ft_strsplit(line, ':');
 			ft_strdel(&line);
-			if (!array || ft_tablen(array) < 3)
+			if (!array || ft_tablen(array) < 2)
 			{
 				ft_tabdel(&files);
 				ft_putstr_fd("wolf: map properties failure\n", STDERR_FILENO);
 				return (1);
 			}
-			if (set_new_wall(wolf, world, array) != 0)
+			if (set_new_wall(wolf, array, files, &tex_i) != 0)
 			{
 				ft_tabdel(&files);
 				ft_putstr_fd("wolf: incorrect properties format\n", STDERR_FILENO);
@@ -65,4 +78,5 @@ int8_t	get_walls_properties(t_core *wolf, t_world *world, int fd)
 			}
 		}
 	}
+	return (0);
 }

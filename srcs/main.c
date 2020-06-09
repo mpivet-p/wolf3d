@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/08/22 01:37:41 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/09 19:49:48 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void		init_core(t_core *wolf)
 {
 	int			tools[3];
 
-	if (!(wolf->mlx = mlx_init()))
-		quit_wolf(wolf);
 	if (!(wolf->win = mlx_new_window(wolf->mlx, SWIN_X, SWIN_Y, "wolf3d par mpivet-p")))
 		quit_wolf(wolf);
 	if (!(wolf->screen = mlx_new_image(wolf->mlx, SIMG_X, SIMG_Y)))
@@ -40,7 +38,7 @@ static void	parse_wolf(int argc, char **argv, t_core *wolf)
 		ft_putstr_fd("usage: wolf3d map.txt\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	parse_wolf_map(argv[1], &(wolf->world));
+	parse_wolf_map(wolf, &(wolf->world), argv[1]);
 }
 
 //	debug_camera(&(wolf.cam));
@@ -51,11 +49,12 @@ int			main(int argc, char **argv)
 	t_core	wolf;
 
 	ft_bzero(&wolf, sizeof(t_core));
+	if (!(wolf.mlx = mlx_init()))
+		quit_wolf(&wolf);
 	parse_wolf(argc, argv, &wolf);
 	init_camera(&(wolf.cam), &(wolf.world));
 	init_core(&wolf);
-	get_test_textures(&wolf);
-	file_to_texture(&wolf, &(wolf.world), "textures/metal.xpm", 1);
+	//get_test_textures(&wolf);
 	draw_scene(&wolf);
 	mlx_loop(wolf.mlx);
 	return (0);

@@ -20,12 +20,12 @@
 4 0 0 0 9 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 5 0 0 9 9 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+7 0 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 1 2 2 3 3 2 3 2 3 2 3 2 3 2 3 2 3 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-#wall_id:North:South:East:West:{true/false}(crossable)
-#wall_id:texture_for_all_walls:{true/false}(crossable)
+#wall_id:North:South:East:West:{true/false}(crossable false default)
+#wall_id:texture_for_all_walls:{true/false}(crossable false default)
 1:textures/metal.xpm
 2:textures/blue_wall.xpm:textures/brick.xpm:textures/moss.xpm:textures/weird.xpm
 3:textures/blue_wall.xpm
