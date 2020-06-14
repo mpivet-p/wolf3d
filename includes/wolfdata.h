@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/08 19:13:05 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/14 04:51:43 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,21 @@
 # define MAPWIDTH	24
 # define MAPHEIGHT	24
 
+# define TRUE		1
+# define FALSE		0
+
 # define WLF_RENDER	0
 # define WLF_MAP	1
 
 # define TEX_HEIGHT		64
 # define TEX_WIDTH		64
 # define TEX_MAX_NBR	16
+
+# define TEX_ALL	0
+# define TEX_NORTH	0
+# define TEX_SOUTH	1
+# define TEX_EAST	2
+# define TEX_WEST	3
 
 typedef struct		s_vector
 {
@@ -94,7 +103,7 @@ typedef struct		s_world
 	int		spawn_x;
 	int		spawn_y;
 	char	**map;
-	int		texture[TEX_MAX_NBR][TEX_HEIGHT * TEX_WIDTH];
+	int		texture[TEX_MAX_NBR + 1][TEX_HEIGHT * TEX_WIDTH];
 	t_wall	wall[256];
 }					t_world;
 

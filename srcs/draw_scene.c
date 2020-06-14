@@ -71,6 +71,32 @@ int		get_texture_x(t_camera *cam, t_ray *ray)
 	return (tex_x);
 }
 
+int		get_tex_dir(t_wall *wall, t_ray *ray)
+{
+	int		ret;
+	
+	if (wall->tex_id[1] == 0)
+		ret = TEX_ALL;
+	else if (ray->side == 0 && ray->dir.x > 0)
+	{
+		ret = TEX_EAST;
+	}
+	else if (ray->side == 0 && ray->dir.x < 0)
+	{
+		ret = TEX_WEST;
+	}
+	else if (ray->side == 1 && ray->dir.y > 0)
+	{
+		ret = TEX_NORTH;
+	}
+	else
+	{
+		ret = TEX_SOUTH;
+	}
+	ret = wall->tex_id[ret] - 1;
+	return ((ret < 0) ? TEX_MAX_NBR : ret);
+}
+
 void	render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 {
 	int			line_height;
@@ -87,7 +113,8 @@ void	render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 	tmp = (line_height / 2) + (SIMG_Y / 2);
 	start_end[1] = (tmp >= SIMG_Y) ? SIMG_Y - 1 : tmp;
 	ray->tex_x = get_texture_x(&(wolf->cam), ray);
-	ray->tex_num = wolf->world.map[ray->map[0]][ray->map[1]] - 1;
+	ray->tex_num = wolf->world.map[ray->map[0]][ray->map[1]];
+	ray->tex_num = get_tex_dir(&(wolf->world.wall[ray->tex_num]), ray);
 	draw_vert(wolf, x, start_end, ray);
 }
 

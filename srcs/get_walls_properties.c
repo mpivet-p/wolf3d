@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/09 20:04:02 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/14 04:22:28 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,30 @@ static int	set_new_wall(t_core *wolf, char **properties, char **files, int *tex_
 {
 	int64_t	wall_id;
 	int		tex_id;
+	int		len;
+	int		i;
 
-	(void)wolf;
 	tex_id = 0;
+	i = 0;
+	len = ft_tablen(properties);
 	if (ft_atol(properties[0], &wall_id) != 0)
 		return (1);
-	if ((tex_id = get_index(files, properties[1])) < 0)
-		return (1);
-	if (tex_id == *tex_i)
+	while (++i < len)
 	{
-		if (file_to_texture(wolf, &(wolf->world), properties[1], *tex_i) != 0)
+		if (i == len - 1 && (i > 1 || i > 5) && ft_strcmp(properties[i], "true") == 0)
+		{
+			wolf->world.wall[wall_id].crossable = TRUE;
+			break ;
+		}
+		if ((tex_id = get_index(files, properties[i])) < 0)
 			return (1);
-		(*tex_i)++;
+		wolf->world.wall[wall_id].tex_id[i - 1] = tex_id + 1;
+		if (tex_id == *tex_i)
+		{
+			if (file_to_texture(wolf, &(wolf->world), properties[i], *tex_i) != 0)
+				return (1);
+			(*tex_i)++;
+		}
 	}
 	return (0);
 }
@@ -64,7 +76,7 @@ int8_t	get_walls_properties(t_core *wolf, int fd)
 		{
 			array = ft_strsplit(line, ':');
 			ft_strdel(&line);
-			if (!array || ft_tablen(array) < 2)
+			if (!array)
 			{
 				ft_tabdel(&files);
 				ft_putstr_fd("wolf: map properties failure\n", STDERR_FILENO);
