@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/14 04:22:28 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/15 02:32:53 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,25 +70,20 @@ int8_t	get_walls_properties(t_core *wolf, int fd)
 
 	files = (char**)ft_memalloc(sizeof(char**) * (TEX_MAX_NBR + 1));
 	tex_i = 0;
-	while (get_next_line(fd, &line) > 0)
+	while (tex_i != -1 && get_next_line(fd, &line) > 0)
 	{
 		if (ft_strlen(line) != 0 && line[0] != '#')
 		{
 			array = ft_strsplit(line, ':');
-			ft_strdel(&line);
-			if (!array)
+			if (!array || set_new_wall(wolf, array, files, &tex_i) != 0)
 			{
-				ft_tabdel(&files);
-				ft_putstr_fd("wolf: map properties failure\n", STDERR_FILENO);
-				return (1);
+				ft_putstr_fd("wolf3d: parsing properties error\n", STDERR_FILENO);
+				tex_i = -1;
 			}
-			if (set_new_wall(wolf, array, files, &tex_i) != 0)
-			{
-				ft_tabdel(&files);
-				ft_putstr_fd("wolf: incorrect properties format\n", STDERR_FILENO);
-				return (1);
-			}
+			ft_tabdel(&array);
 		}
+		ft_strdel(&line);
 	}
-	return (0);
+	ft_tabdel(&files);
+	return ((tex_i != -1) ? 0 : 1);
 }

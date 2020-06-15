@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_textures.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/15 03:21:08 by mpivet-p          #+#    #+#             */
+/*   Updated: 2020/06/15 03:35:27 by mpivet-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf.h"
+
 /*
 **	xycolor = y * 128 / TEX_HEIGHT + x * 128 / TEX_WIDTH;
 **	wolf->world.texture[0][TEX_WIDTH * y + x] = 65536 * 254 * (x != y && x != TEX_WIDTH - y - 1);
@@ -8,10 +21,12 @@
 **	wolf->world.texture[5][TEX_WIDTH * y + x] = 65536 * 192 * (x % 16 && y % 16);
 **	wolf->world.texture[6][TEX_WIDTH * y + x] = 65536 * (y * 256 / TEX_HEIGHT);
 **	wolf->world.texture[7][TEX_WIDTH * y + x] = 128 + 256 * 128 + 65536 * 128;
+**	xorcolor = (x * 256 / TEX_WIDTH) ^ (y * 256 / TEX_HEIGHT);
+**	wolf->world.texture[TEX_MAX_NBR][TEX_WIDTH * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor;
 */
+
 void	get_test_textures(t_core *wolf)
 {
-	int	xorcolor;
 	int	x;
 	int	y;
 	
@@ -21,8 +36,10 @@ void	get_test_textures(t_core *wolf)
 		y = 0;
 		while (y < TEX_HEIGHT)
 		{
-			xorcolor = (x * 256 / TEX_WIDTH) ^ (y * 256 / TEX_HEIGHT);
-			wolf->world.texture[TEX_MAX_NBR][TEX_WIDTH * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor;
+			if ((x + (y / 16 * 16)) % (TEX_HEIGHT / 2) < TEX_HEIGHT / 4)
+				wolf->world.texture[TEX_MAX_NBR][TEX_WIDTH * y + x] = 0xFF00FF;
+			else
+				wolf->world.texture[TEX_MAX_NBR][TEX_WIDTH * y + x] = 0;
 			y++;
 		}
 		x++;
