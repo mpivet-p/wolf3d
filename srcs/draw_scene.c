@@ -43,8 +43,9 @@ void	draw_vert(t_core *wolf, int x, int *start_end, t_ray *ray)
 	line_height = (int)(SIMG_Y / ray->wall_dist);
 	step = 1.0 * TEX_HEIGHT / line_height;
 	tex_pos = (start_end[0] - SIMG_Y / 2 + line_height / 2) * step;
-	while (++i < start_end[0])
-		set_pixel(wolf->img, x, i, 0x7FC7E3);
+	i = start_end[0];
+//	while (++i < start_end[0])
+//		set_pixel(wolf->img, x, i, 0x7FC7E3);
 	while (i < start_end[1])
 	{
 		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
@@ -129,6 +130,8 @@ void	draw_scene(t_core *wolf)
 	ft_bzero(wolf->img, SIMG_X * SIMG_Y * 4);
 	if (wolf->cam.mode == WLF_MAP)
 		map_visualizer(wolf);
+	else
+		floor_ceiling_casting(wolf);
 	while (x < SIMG_X)
 	{
 		ray.map[0] = (int)(wolf->cam.pos.x);

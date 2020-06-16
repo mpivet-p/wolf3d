@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/15 04:09:20 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/16 03:55:47 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ typedef struct		s_vector
 	double	x;
 	double	y;
 }					t_vector;
+
+typedef struct		s_vecint
+{
+	int	x;
+	int	y;
+}					t_vecint;
 
 typedef struct		s_camera
 {

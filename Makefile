@@ -6,7 +6,7 @@
 #    By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 02:45:47 by mpivet-p          #+#    #+#              #
-#    Updated: 2020/06/15 04:10:38 by mpivet-p         ###   ########.fr        #
+#    Updated: 2020/06/16 03:14:57 by mpivet-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ INC_NAME= wolf.h
 SRC_NAME= main.c events.c tools.c camera.c parser.c misc.c debug.c draw_scene.c\
 			visualizer.c bresenham.c draw_square.c rotate_vector.c draw_map.c\
 			delta_dist.c side_dist.c test_textures.c get_textures.c\
-			get_walls_properties.c
+			get_walls_properties.c floor_ceiling_casting.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
 INC= -I includes/ -I libft/inc/ -I mlx/
