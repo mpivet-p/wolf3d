@@ -1,8 +1,8 @@
-#Wolf3d
+# Wolf3d
 
 **Wolf3d** est un projet de la branche graphique de l'école 42. Le but de celui ci est de créer un jeu sur le modèle de **Wolfenstein 3D** (un jeu des années 90). Pour cela, j'ai implémenté une méthode de calcul d'image appelé **raycasting**. 
 
-##Le rendu
+## Le rendu
 
 Le raycasting est une méthode de rendu rapide, il permet de d'avoir un jeu fluide bien que les calculs ne soient effectués sur le CPU.
 
@@ -10,7 +10,7 @@ Le raycasting est une méthode de rendu rapide, il permet de d'avoir un jeu flui
 	<img src="imgs/wolf3d_1.png" width="80%">
 </p>
 
-##Le parsing
+## Le parsing
 
 Le chemin vers la carte doit être passée en **paramètre au lancement du programme**.
 
@@ -25,7 +25,7 @@ La carte doit être formatée ainsi:
 	<img src="imgs/wolf3d_3.png" width="70%">
 </p>
 
-##Bonus
+## Bonus
 
 J'ai prévu de réaliser plusieurs bonus dont voici la liste:
 
