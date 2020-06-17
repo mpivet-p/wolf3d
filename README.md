@@ -1,6 +1,5 @@
-<h1 align="center">Wolf3d</h1>
+#Wolf3d
 
-<br>
 **Wolf3d** est un projet de la branche graphique de l'école 42. Le but de celui ci est de créer un jeu sur le modèle de **Wolfenstein 3D** (un jeu des années 90). Pour cela, j'ai implémenté une méthode de calcul d'image appelé **raycasting**. 
 
 ##Le rendu
