@@ -20,7 +20,7 @@ static void	draw_lines(t_core *wolf, t_vector *floor, int y)
 	int			x;
 
 	x = 0;
-	while (x < SIMG_X)
+	while (++x < SIMG_X)
 	{
 		cell.x = (int)(floor[1].x);
 		cell.y = (int)(floor[1].y);
@@ -28,15 +28,12 @@ static void	draw_lines(t_core *wolf, t_vector *floor, int y)
 		tex.y = (int)(TEX_HEIGHT * (floor[1].y - cell.y)) & (TEX_HEIGHT - 1);
 		floor[1].x += floor[0].x;
 		floor[1].y += floor[0].y;
-		//FLOOR
-		color = wolf->world.texture[TEX_MAX_NBR][TEX_WIDTH * tex.y + tex.x];
+		color = wolf->world.texture[7][TEX_WIDTH * tex.y + tex.x];
 		color = (color >> 1) & 0x7F7F7F;
 		set_pixel(wolf->img, x, y, color);
-		//CEILING
 		color = wolf->world.texture[6][TEX_WIDTH * tex.y + tex.x];
 		color = (color >> 1) & 0x7F7F7F;
 		set_pixel(wolf->img, x, SIMG_Y - y - 1, color);
-		x++;
 	}
 }
 void	floor_ceiling_casting(t_core *wolf)
@@ -60,8 +57,8 @@ void	floor_ceiling_casting(t_core *wolf)
 		row_distance = pos_z / p;
 		floor[0].x = row_distance * (dir[1].x - dir[0].x) / SIMG_X;
 		floor[0].y = row_distance * (dir[1].y - dir[0].y) / SIMG_X;
-		floor[1].x = wolf->cam.pos.x + row_distance + dir[0].x;
-		floor[1].y = wolf->cam.pos.y + row_distance + dir[0].y;
+		floor[1].x = row_distance * dir[0].x - wolf->cam.pos.x;
+		floor[1].y = row_distance * dir[0].y - wolf->cam.pos.y;
 		draw_lines(wolf, floor, y);
 		y++;
 	}
