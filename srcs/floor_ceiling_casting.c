@@ -29,11 +29,11 @@ static void	draw_lines(t_core *wolf, t_vector *floor, int y)
 		floor[1].x += floor[0].x;
 		floor[1].y += floor[0].y;
 		//FLOOR
-		color = wolf->world.texture[4][TEX_WIDTH * tex.y + tex.x];
+		color = wolf->world.texture[TEX_MAX_NBR][TEX_WIDTH * tex.y + tex.x];
 		color = (color >> 1) & 0x7F7F7F;
 		set_pixel(wolf->img, x, y, color);
 		//CEILING
-		color = wolf->world.texture[4][TEX_WIDTH * tex.y + tex.x];
+		color = wolf->world.texture[6][TEX_WIDTH * tex.y + tex.x];
 		color = (color >> 1) & 0x7F7F7F;
 		set_pixel(wolf->img, x, SIMG_Y - y - 1, color);
 		x++;
@@ -44,7 +44,7 @@ void	floor_ceiling_casting(t_core *wolf)
 	t_vector	floor[2];
 	t_vector	dir[2];
 	double		row_distance;
-	int			pos_z;
+	double		pos_z;
 	int			p;
 	int			y;
 
@@ -52,7 +52,7 @@ void	floor_ceiling_casting(t_core *wolf)
 	dir[0].y = wolf->cam.dir.y - wolf->cam.plane.y;
 	dir[1].x = wolf->cam.dir.x + wolf->cam.plane.x;
 	dir[1].y = wolf->cam.dir.y + wolf->cam.plane.y;
-	pos_z = 0.5 * SIMG_Y;
+	pos_z = SIMG_Y / 2;
 	y = 0;
 	while (y < pos_z)
 	{
