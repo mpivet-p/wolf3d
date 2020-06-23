@@ -103,14 +103,16 @@ typedef struct		s_wall
 
 typedef struct		s_world
 {
-	int		width;
-	int		height;
-	int		center[2];
-	int		spawn_x;
-	int		spawn_y;
-	char	**map;
-	int		texture[TEX_MAX_NBR + 1][TEX_HEIGHT * TEX_WIDTH];
-	t_wall	wall[256];
+	int8_t		ceiling;
+	int8_t		width;
+	int8_t		height;
+	int8_t		center[2];
+	int8_t		spawn_x;
+	int8_t		spawn_y;
+	int8_t		floor;
+	char		**map;
+	int			texture[TEX_MAX_NBR + 1][TEX_HEIGHT * TEX_WIDTH];
+	t_wall		wall[256];
 }					t_world;
 
 #endif

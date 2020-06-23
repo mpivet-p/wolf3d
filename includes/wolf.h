@@ -45,7 +45,7 @@ int				deal_key(int key, t_core *wolf);
 ** ============================================================================
 */
 
-void			center_map(int width, int height, int sq_size, int *shift);
+void			center_map(int width, int height, int sq_size, int8_t *shift);
 t_vector		rotate_vector(t_vector *vector, double angle);
 t_vector		set_vec(double x, double y);
 void			set_pixel(char *image, int x, int y, int color);

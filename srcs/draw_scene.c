@@ -122,6 +122,7 @@ void	render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 void	draw_scene(t_core *wolf)
 {
 	double		camera_x;
+	double		z_buffer[SIMG_X];
 	t_ray		ray;
 	int			step[2];
 	int			x;
@@ -143,7 +144,10 @@ void	draw_scene(t_core *wolf)
 		if (wolf->cam.mode == WLF_MAP)
 			draw_map(wolf, &ray, step);
 		else
+		{
 			render_wolf(wolf, &ray, x, step);
+			z_buffer[x] = ray.wall_dist;
+		}
 		x++;
 	}
 	mlx_put_image_to_window(wolf->mlx, wolf->win, wolf->screen, 0, 0);

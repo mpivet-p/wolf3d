@@ -24,8 +24,6 @@
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 1 2 2 3 3 2 3 2 3 2 3 2 3 2 3 2 3 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-#wall_id:North:South:East:West:{true/false}(crossable false default)
-#wall_id:texture_for_all_walls:{true/false}(crossable false default)
 1:textures/metal.xpm
 2:textures/blue_wall.xpm:textures/brick.xpm:textures/moss.xpm:textures/weird.xpm
 3:textures/blue_wall.xpm
@@ -35,3 +33,5 @@
 7:textures/wall.xpm
 8:textures/weird.xpm
 9:textures/wood.xpm
+floor:textures/metal.xpm
+ceiling:textures/blue_wall.xpm

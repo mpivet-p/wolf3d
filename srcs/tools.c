@@ -50,7 +50,7 @@ int			quit_wolf(void *param)
 	exit(0);
 }
 
-void		center_map(int width, int height, int sq_size, int *shift)
+void		center_map(int width, int height, int sq_size, int8_t *shift)
 {
 	shift[0] = (SIMG_X - (width * sq_size)) / 2.0;
 	shift[1] = (SIMG_Y - (height * sq_size)) / 2.0;
