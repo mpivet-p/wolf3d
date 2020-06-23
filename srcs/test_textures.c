@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 03:21:08 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/15 03:35:27 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/23 15:14:24 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	get_test_textures(t_core *wolf)
 		while (y < TEX_HEIGHT)
 		{
 			if ((x + (y / 16 * 16)) % (TEX_HEIGHT / 2) < TEX_HEIGHT / 4)
-				wolf->world.texture[TEX_MAX_NBR][TEX_WIDTH * y + x] = 0xFF00FF;
+				wolf->world.texture[TEX_MAX][TEX_WIDTH * y + x] = 0xFF00FF;
 			else
-				wolf->world.texture[TEX_MAX_NBR][TEX_WIDTH * y + x] = 0;
+				wolf->world.texture[TEX_MAX][TEX_WIDTH * y + x] = 0;
 			y++;
 		}
 		x++;

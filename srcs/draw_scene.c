@@ -96,7 +96,7 @@ int		get_tex_dir(t_wall *wall, t_ray *ray)
 		ret = TEX_SOUTH;
 	}
 	ret = wall->tex_id[ret] - 1;
-	return ((ret < 0) ? TEX_MAX_NBR : ret);
+	return ((ret < 0) ? TEX_MAX : ret);
 }
 
 void	render_wolf(t_core *wolf, t_ray *ray, int x, int *step)

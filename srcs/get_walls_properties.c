@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/15 02:32:53 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/23 15:14:42 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int8_t	get_index(char **array, char *key)
 			return (i);
 		i++;
 	}
-	if (i < TEX_MAX_NBR && (array[i] = ft_strdup(key)) != NULL)
+	if (i < TEX_MAX && (array[i] = ft_strdup(key)) != NULL)
 		return (i);
 	return (-1);
 }
@@ -92,7 +92,7 @@ int8_t	get_walls_properties(t_core *wolf, int fd)
 	char	*line;
 	int		tex_i;
 
-	files = (char**)ft_memalloc(sizeof(char**) * (TEX_MAX_NBR + 1));
+	files = (char**)ft_memalloc(sizeof(char**) * (TEX_MAX + 1));
 	tex_i = 0;
 	while (tex_i != -1 && get_next_line(fd, &line) > 0)
 	{
