@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 03:54:59 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/16 05:22:37 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/23 14:15:40 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	draw_lines(t_core *wolf, t_vector *floor, int y)
 	t_vecint	cell;
 	t_vecint	tex;
 	int			color;
+	int			tex_num;
 	int			x;
 
 	x = 0;
@@ -28,12 +29,16 @@ static void	draw_lines(t_core *wolf, t_vector *floor, int y)
 		tex.y = (int)(TEX_HEIGHT * (floor[1].y - cell.y)) & (TEX_HEIGHT - 1);
 		floor[1].x += floor[0].x;
 		floor[1].y += floor[0].y;
-		color = wolf->world.texture[7][TEX_WIDTH * tex.y + tex.x];
-		color = (color >> 1) & 0x7F7F7F;
-		set_pixel(wolf->img, x, y, color);
-		color = wolf->world.texture[6][TEX_WIDTH * tex.y + tex.x];
-		color = (color >> 1) & 0x7F7F7F;
-		set_pixel(wolf->img, x, SIMG_Y - y - 1, color);
+		if ((tex_num = wolf->world.ceiling) >= 0)
+		{
+			color = wolf->world.texture[tex_num][TEX_WIDTH * tex.y + tex.x];
+			set_pixel(wolf->img, x, y, ((color >> 1) & 0x7F7F7F));
+		}
+		if ((tex_num = wolf->world.floor) >= 0)
+		{
+			color = wolf->world.texture[tex_num][TEX_WIDTH * tex.y + tex.x];
+			set_pixel(wolf->img, x, SIMG_Y - y - 1, ((color >> 1) & 0x7F7F7F));
+		}
 	}
 }
 void	floor_ceiling_casting(t_core *wolf)

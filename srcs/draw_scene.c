@@ -39,23 +39,24 @@ void	draw_vert(t_core *wolf, int x, int *start_end, t_ray *ray)
 	int		color;
 	int		i;
 
-//	i = -1;
+	i = (wolf->world.ceiling < 0) ? -1 : start_end[0];
 	line_height = (int)(SIMG_Y / ray->wall_dist);
 	step = 1.0 * TEX_HEIGHT / line_height;
 	tex_pos = (start_end[0] - SIMG_Y / 2 + line_height / 2) * step;
-	i = start_end[0];
-//	while (++i < start_end[0])
-//		set_pixel(wolf->img, x, i, 0x7FC7E3);
+	while (++i < start_end[0])
+		set_pixel(wolf->img, x, i, 0x7FC7E3);
 	while (i < start_end[1])
 	{
 		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
 		tex_pos += step;
 		color = wolf->world.texture[ray->tex_num][TEX_HEIGHT * tex_y + ray->tex_x];
-		if (ray->side == 1)
-			color = (color >> 1) & 8355711;
+			color = (ray->side == 1) ? (color >> 1) & 8355711 : color;
 		set_pixel(wolf->img, x, i, color);
 		i++;
 	}
+	if (wolf->world.floor < 0 && i--)
+		while (++i < SIMG_Y)
+			set_pixel(wolf->img, x, i, 0x401904);
 }
 
 int		get_texture_x(t_camera *cam, t_ray *ray)

@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/14 02:26:24 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/23 14:16:18 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int			main(int argc, char **argv)
 	ft_bzero(&wolf, sizeof(t_core));
 	if (!(wolf.mlx = mlx_init()))
 		quit_wolf(&wolf);
+	wolf.world.ceiling = -1;
+	wolf.world.floor = -1;
 	parse_wolf(argc, argv, &wolf);
 	init_camera(&(wolf.cam), &(wolf.world));
 	init_core(&wolf);
