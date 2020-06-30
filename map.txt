@@ -33,5 +33,5 @@
 7:textures/wall.xpm
 8:textures/weird.xpm
 9:textures/wood.xpm
-#floor:textures/wall.xpm
-#ceiling:textures/wood.xpm
+floor:textures/wall.xpm
+ceiling:textures/wood.xpm

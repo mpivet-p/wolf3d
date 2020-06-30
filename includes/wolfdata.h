@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/23 15:34:34 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/06/30 19:13:03 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define TEX_HEIGHT		64
 # define TEX_WIDTH		64
 # define TEX_MAX		16
-# define SPRT_TEX_MAX	32
+# define SPRT_TEX_MAX	8
 # define SPRT_MAX		32
 
 # define TEX_ALL	0
@@ -121,6 +121,7 @@ typedef struct		s_world
 	int8_t		spawn_y;
 	int8_t		floor;
 	char		**map;
+	int8_t		sprt_nbr;
 	int			sprt_tex[SPRT_TEX_MAX + 1][TEX_HEIGHT * TEX_WIDTH];
 	int			texture[TEX_MAX + 1][TEX_HEIGHT * TEX_WIDTH];
 	t_wall		wall[256];
