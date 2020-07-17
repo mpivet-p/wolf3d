@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 14:36:50 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/17 04:37:08 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/17 12:37:20 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	sort_sprites(int *sprite_order, double *sprite_dist, int len)
 	int	i;
 
 	i = 0;
-	while (i < len + 1)
+	while (i < len - 1)
 	{
 		if (sprite_dist[sprite_order[i]] > sprite_dist[sprite_order[i + 1]])
 		{
@@ -42,7 +42,7 @@ static void	get_sprite_dist(t_core *wolf, int *sprite_order)
 
 	i = 0;
 	pos = &(wolf->cam.pos);
-	sprt = (wolf->world.sprites);
+	sprt = wolf->world.sprites;
 	while (i < wolf->world.sprt_nbr)
 	{
 		sprite_order[i] = i;
@@ -53,7 +53,7 @@ static void	get_sprite_dist(t_core *wolf, int *sprite_order)
 	}
 	sort_sprites(sprite_order, sprite_dist, wolf->world.sprt_nbr);
 }
-
+/*
 static void	draw_sprite_vert(t_core *wolf, int sprite_screen_x
 			, t_vecint *sprite_dim, t_vector *transform, t_vecint *draw_end
 			, t_vecint *draw_start, double *z_buffer, int8_t tex_id)
@@ -75,7 +75,8 @@ static void	draw_sprite_vert(t_core *wolf, int sprite_screen_x
 			{
         		d = (y) * 256 - SIMG_Y * 128 + sprite_dim->y * 128;
         		tex.y = ((d * TEX_HEIGHT) / sprite_dim->y) / 256;
-        		color = wolf->world.sprt_tex[tex_id][TEX_WIDTH * tex.y + tex.x];
+        	//	color = wolf->world.sprt_tex[tex_id][TEX_WIDTH * tex.y + tex.x];
+        		color = wolf->world.texture[tex_id][TEX_WIDTH * tex.y + tex.x];
         		if ((color & 0x00FFFFFF) != 0)
 					set_pixel(wolf->img, x, y, color);
 				y++;
@@ -83,7 +84,7 @@ static void	draw_sprite_vert(t_core *wolf, int sprite_screen_x
 		}
 		x++;
 	}
-}
+}*/
 
 static void	prepare_sprites(t_core *wolf, t_sprite *curr_sprite, double correc, double *z_buffer)
 {
@@ -94,6 +95,7 @@ static void	prepare_sprites(t_core *wolf, t_sprite *curr_sprite, double correc, 
 	t_vector	sprite;
 	int			sprite_screen_x;
 
+	(void)z_buffer;
 	sprite.x = curr_sprite->x - wolf->cam.pos.x;
 	sprite.y = curr_sprite->y - wolf->cam.pos.y;
 	transform.x = correc * (wolf->cam.dir.y * sprite.x - wolf->cam.dir.x * sprite.y);
@@ -113,7 +115,7 @@ static void	prepare_sprites(t_core *wolf, t_sprite *curr_sprite, double correc, 
 	draw_start.x = sprite_dim.x / 2 + sprite_screen_x;
 	if (draw_end.x < 0)
 		draw_end.x = SIMG_X - 1;
-	draw_sprite_vert(wolf, sprite_screen_x, &sprite_dim, &transform, &draw_end, &draw_start, z_buffer, curr_sprite->tex_id);
+	//draw_sprite_vert(wolf, sprite_screen_x, &sprite_dim, &transform, &draw_end, &draw_start, z_buffer, curr_sprite->tex_id);
 }
 
 void	draw_sprites(t_core *wolf, double *z_buffer)
@@ -124,6 +126,11 @@ void	draw_sprites(t_core *wolf, double *z_buffer)
 
 	i = 0;
 	correction = 1.0 / (wolf->cam.plane.x * wolf->cam.dir.y - wolf->cam.dir.x * wolf->cam.plane.y);
+	
+	wolf->world.sprt_nbr = 1;
+	wolf->world.sprites[0].x = 5;
+	wolf->world.sprites[0].y = 10;
+	wolf->world.sprites[0].tex_id = 2;
 	get_sprite_dist(wolf, sprite_order);
 	while (i < wolf->world.sprt_nbr)
 	{

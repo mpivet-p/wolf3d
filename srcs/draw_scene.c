@@ -151,6 +151,6 @@ void	draw_scene(t_core *wolf)
 		}
 		x++;
 	}
-	//draw_sprites(wolf, z_buffer);
+	draw_sprites(wolf, z_buffer);
 	mlx_put_image_to_window(wolf->mlx, wolf->win, wolf->screen, 0, 0);
 }

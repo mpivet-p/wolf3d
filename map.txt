@@ -35,3 +35,4 @@
 9:textures/wood.xpm
 floor:textures/colorstone.xpm
 ceiling:textures/wood.xpm
+#7.0:3.0:textures/pillar.xpm
