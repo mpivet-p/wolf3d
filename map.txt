@@ -24,14 +24,14 @@
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 1 2 2 3 3 2 3 2 3 2 3 2 3 2 3 2 3 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1:textures/metal.xpm
-2:textures/blue_wall.xpm:textures/brick.xpm:textures/moss.xpm:textures/weird.xpm
-3:textures/blue_wall.xpm
-4:textures/brick.xpm
-5:textures/flag.xpm
-6:textures/moss.xpm
-7:textures/wall.xpm
-8:textures/weird.xpm
+1:textures/greystone.xpm
+2:textures/bluestone.xpm:textures/redbrick.xpm:textures/mossy.xpm:textures/purplestone.xpm
+3:textures/bluestone.xpm
+4:textures/redbrick.xpm
+5:textures/eagle.xpm
+6:textures/mossy.xpm
+7:textures/colorstone.xpm
+8:textures/purplestone.xpm
 9:textures/wood.xpm
-floor:textures/wall.xpm
+floor:textures/colorstone.xpm
 ceiling:textures/wood.xpm

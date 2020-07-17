@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/23 14:16:18 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/17 04:38:08 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <mlx.h>
 #include <stdio.h>
 
-void		init_core(t_core *wolf)
+static void		init_core(t_core *wolf)
 {
 	int			tools[3];
 

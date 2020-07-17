@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/16 03:57:02 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/17 04:36:19 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ void			debug_map(t_world *world);
 
 void	draw_scene(t_core *wolf);
 void	floor_ceiling_casting(t_core *wolf);
+void	draw_sprites(t_core *wolf, double *z_buffer);
 
 #endif
