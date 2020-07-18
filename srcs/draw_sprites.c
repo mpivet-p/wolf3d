@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 14:36:50 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/18 14:15:23 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/18 14:35:27 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ static void	draw_sprite_vert(t_core *wolf, int sprite_screen_x
 	int			d;
 	int			y;
 
-	(void)d;
-	(void)tex_id;
-	(void)wolf;
-	(void)color;
 	x = draw_start->x;
 	while (x < draw_end->x)
 	{
@@ -116,10 +112,8 @@ static void	prepare_sprites(t_core *wolf, t_sprite *curr_sprite, double correc, 
 	if (draw_start.x < 0)
 		draw_start.x = 0;
 	draw_end.x = sprite_size / 2 + sprite_screen_x;
-//	draw_end.x = (SIMG_X / transform.x) / 2 + sprite_screen_x;
-	if (draw_end.x < 0 || draw_end.x > SIMG_X)
+	if (draw_end.x >= SIMG_X)
 		draw_end.x = SIMG_X - 1;
-	printf("%d %d %d %d\n", draw_start.x, draw_end.x, draw_start.y, draw_end.y);
 	draw_sprite_vert(wolf, sprite_screen_x, sprite_size, &transform, &draw_end, &draw_start, z_buffer, curr_sprite->tex_id);
 }
 
