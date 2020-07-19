@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_walls_properties.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/08 17:57:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/23 15:14:42 by mpivet-p         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "wolf.h"
 #include "libft.h"
 
@@ -61,31 +49,37 @@ static int	set_new_wall(t_core *wolf, char **properties, char **files, int *tex_
 	return (0);
 }
 
-int8_t	get_property_line(t_core *wolf, char **prp, char **files, int *tex_i)
+int8_t	set_floor_or_ceiling(t_core *wolf, char **prp, char **files, int *tex_i)
 {
 	int	tex_num;
 
-	if ((ft_strcmp("floor", prp[0]) == 0 || ft_strcmp("ceiling", prp[0]) == 0)
-		&& ft_tablen(prp) == 2)
+	if ((tex_num = get_index(files, prp[1])) < 0)
+		return (1);
+	if (tex_num == *tex_i)
 	{
-		if ((tex_num = get_index(files, prp[1])) < 0)
+		if (file_to_texture(wolf, &(wolf->world), prp[1], *tex_i) != 0)
 			return (1);
-		if (tex_num == *tex_i)
-		{
-			if (file_to_texture(wolf, &(wolf->world), prp[1], *tex_i) != 0)
-				return (1);
-			(*tex_i)++;
-		}
-		if (prp[0][0] == 'f')
-			wolf->world.floor = tex_num;
-		else
-			wolf->world.ceiling = tex_num;
-		return (0);
+		(*tex_i)++;
 	}
+	if (prp[0][0] == 'f')
+		wolf->world.floor = tex_num;
+	else
+		wolf->world.ceiling = tex_num;
+	return (0);
+}
+
+int8_t	get_property_line(t_core *wolf, char **prp, char **files, int *tex_i)
+{
+
+	if ((ft_strcmp("floor", prp[0]) == 0 || ft_strcmp("ceiling", prp[0]) == 0)
+			&& ft_tablen(prp) == 2)
+		return (set_new_wall(wolf, prp, files, tex_i));
+	if (ft_strcmp(prp[0], "sprite") == 0 && ft_tablen(prp) == 4)
+		return (set_new_sprite(wolf, prp, files, tex_i))
 	return (set_new_wall(wolf, prp, files, tex_i));
 }
 
-int8_t	get_walls_properties(t_core *wolf, int fd)
+int8_t	get_map_properties(t_core *wolf, int fd)
 {
 	char	**files;
 	char	**prp;

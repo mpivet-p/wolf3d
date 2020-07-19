@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:35 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/09 19:06:47 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/19 13:41:13 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	get_world_line(char *str, t_world *world, int line)
 	return (0);
 }
 
-static int	get_wolf_map(t_core *wolf, int fd, t_world *world)
+static int	get_wolf_map(int fd, t_world *world)
 {
 	char	*line;
 	int		i;
@@ -98,9 +98,23 @@ static int	get_wolf_map(t_core *wolf, int fd, t_world *world)
 		ft_strdel(&line);
 		i++;
 	}
-	if (get_walls_properties(wolf, fd) != 0)
-		return (1);
 	return (0);
+}
+
+static void	get_world_dimensions(t_world *world, int *array, int fd)
+{
+	if (get_world_data(fd, array) != 0)
+		print_and_quit("wolf3d: parse error: line 1\n");
+	world->width = array[0];
+	world->height = array[1];
+}
+
+static void	get_spawn_coords(t_world *world, int *array, int fd)
+{
+	if (get_world_data(fd, array) != 0)
+		print_and_quit("wolf3d: parse error: line 2\n");
+	world->spawn_x = array[0];
+	world->spawn_y = array[1];
 }
 
 void		parse_wolf_map(t_core *wolf, t_world *world, char *filename)
@@ -110,17 +124,14 @@ void		parse_wolf_map(t_core *wolf, t_world *world, char *filename)
 
 	if ((fd = open(filename, O_RDONLY)) < 0)
 		print_and_quit("wolf3d: invalid file\n");
-	if (get_world_data(fd, array) != 0)
-		print_and_quit("wolf3d: parse error: line 1\n");
-	world->width = array[0];
-	world->height = array[1];
-	if (get_world_data(fd, array) != 0)
-		print_and_quit("wolf3d: parse error: line 2\n");
-	world->spawn_x = array[0];
-	world->spawn_y = array[1];
+	world->ceiling = -1;
+	world->floor = -1;
+	get_world_dimensions(world, array, fd);
+	get_spawn_coords(world, array, fd);
 	if (!(world->map = ft_memalloc(sizeof(char **) * (world->height + 1))))
 		print_and_quit("wolf3d: malloc error\n");
-	if (get_wolf_map(wolf, fd, world) != 0)
+	if (get_wolf_map(fd, world) != SUCCESS
+		|| get_map_properties(wolf, fd) != SUCCESS)
 	{
 		ft_tabdel(&(world->map));
 		exit(EXIT_FAILURE);

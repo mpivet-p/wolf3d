@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/17 04:38:08 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/19 11:50:09 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,24 @@ static void		init_core(t_core *wolf)
 	mlx_hook(wolf->win, 4, 0, mouse_press, wolf);
 }
 
-static void	parse_wolf(int argc, char **argv, t_core *wolf)
+static void	parse_wolf(int argc, char **argv)
 {
 	if (argc != 2 || ft_strlen(argv[1]) < 5)
 	{
 		ft_putstr_fd("usage: wolf3d map.txt\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	parse_wolf_map(wolf, &(wolf->world), argv[1]);
 }
-
-//	debug_camera(&(wolf.cam));
-//	debug_map(&(wolf.map));
 
 int			main(int argc, char **argv)
 {
 	t_core	wolf;
 
 	ft_bzero(&wolf, sizeof(t_core));
+	parse_wolf(argc, argv);
 	if (!(wolf.mlx = mlx_init()))
 		quit_wolf(&wolf);
-	wolf.world.ceiling = -1;
-	wolf.world.floor = -1;
-	parse_wolf(argc, argv, &wolf);
+	parse_wolf_map(&wolf, &(wolf.world), argv[1]);
 	init_camera(&(wolf.cam), &(wolf.world));
 	init_core(&wolf);
 	get_test_textures(&wolf);

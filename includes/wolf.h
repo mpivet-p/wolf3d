@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/17 04:36:19 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/19 13:41:28 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			parse_wolf_map(t_core *wolf, t_world *world, char *filename);
 void			get_test_textures(t_core *wolf);
 int8_t			file_to_texture(
 		t_core *wolf, t_world *world, char *file, int tex_i);
-int8_t			get_walls_properties(t_core *wolf, int fd);
+int8_t			get_map_properties(t_core *wolf, int fd);
 
 /*
 ** ============================================================================

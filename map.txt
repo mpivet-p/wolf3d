@@ -36,4 +36,5 @@
 10:textures/pillar.xpm
 floor:textures/colorstone.xpm
 ceiling:textures/wood.xpm
-#7.0:3.0:textures/pillar.xpm
+#sprite:x:y:texture path
+sprite:7.0:3.0:textures/pillar.xpm
