@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 14:36:50 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/18 14:35:27 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/20 13:59:06 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static void	draw_sprite_vert(t_core *wolf, int sprite_screen_x
 			{
         		d = y * 256 - SIMG_Y * 128 + sprite_size * 128;
         		tex.y = ((d * TEX_HEIGHT) / sprite_size) / 256;
-        	//	color = wolf->world.sprt_tex[tex_id][TEX_WIDTH * tex.y + tex.x];
         		color = wolf->world.texture[tex_id][TEX_WIDTH * tex.y + tex.x];
         		if ((color & 0x00FFFFFF) != 0)
 					set_pixel(wolf->img, x, y, color);
@@ -125,12 +124,6 @@ void	draw_sprites(t_core *wolf, double *z_buffer)
 
 	i = 0;
 	correction = 1.0 / (wolf->cam.plane.x * wolf->cam.dir.y - wolf->cam.dir.x * wolf->cam.plane.y);
-
-	wolf->world.sprt_nbr = 1;
-	wolf->world.sprites[0].x = 5;
-	wolf->world.sprites[0].y = 10;
-	wolf->world.sprites[0].tex_id = 8;
-
 	get_sprite_dist(wolf, sprite_order);
 	while (i < wolf->world.sprt_nbr)
 	{

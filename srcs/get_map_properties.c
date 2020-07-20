@@ -1,5 +1,7 @@
 #include "wolf.h"
 #include "libft.h"
+#include <limits.h>
+#include <math.h>
 
 static int8_t	get_index(char **array, char *key)
 {
@@ -49,18 +51,27 @@ static int	set_new_wall(t_core *wolf, char **properties, char **files, int *tex_
 	return (0);
 }
 
+int		register_new_texture(t_core *wolf, char **prp, char **files, int *tex_i)
+{	
+	int	tex_num;
+
+	if ((tex_num = get_index(files, prp[1])) < 0)
+		return (FAILURE);
+	if (tex_num == *tex_i)
+	{
+		if (file_to_texture(wolf, &(wolf->world), prp[1], *tex_i) != 0)
+			return (FAILURE);
+		(*tex_i)++;
+	}
+	return (tex_num);
+}
+
 int8_t	set_floor_or_ceiling(t_core *wolf, char **prp, char **files, int *tex_i)
 {
 	int	tex_num;
 
-	if ((tex_num = get_index(files, prp[1])) < 0)
-		return (1);
-	if (tex_num == *tex_i)
-	{
-		if (file_to_texture(wolf, &(wolf->world), prp[1], *tex_i) != 0)
-			return (1);
-		(*tex_i)++;
-	}
+	if ((tex_num = register_new_texture(wolf, prp, files, tex_i)) == FAILURE)
+		return (FAILURE);
 	if (prp[0][0] == 'f')
 		wolf->world.floor = tex_num;
 	else
@@ -68,14 +79,61 @@ int8_t	set_floor_or_ceiling(t_core *wolf, char **prp, char **files, int *tex_i)
 	return (0);
 }
 
+int8_t	char_to_double(char *str, double *num)
+{
+	int64_t	tmp;
+	int8_t	ret;
+	char	**tab;
+
+	ret = SUCCESS;
+	if ((tab = ft_strsplit(str, '.')) == NULL)
+		return (FAILURE);
+	if (ft_tablen(tab) <= 2 && ft_atol(tab[0], &tmp) == SUCCESS && tmp < 100 && tmp >= 0)
+	{
+		*num = tmp;
+		if (ft_tablen(tab) == 2 && ft_atol(tab[1], &tmp) == SUCCESS && tmp < INT_MAX)
+		{
+			//*num += tmp / (int)pow(10, log(tmp) + 1);
+			num += 0;
+		}
+		else
+			ret = FAILURE;
+	}
+	else
+		ret = FAILURE;
+	free_tab(&tab);
+	return (ret);
+	
+}
+
+int8_t	set_new_sprite(t_core *wolf, char **prp, char **files, int *tex_i)
+{
+	t_sprite	*sprt;
+	int8_t		ret;
+	int			tex_num;
+
+	ret = SUCCESS;
+	sprt = &(wolf->world.sprites[wolf->world.sprt_nbr]);
+	if ((tex_num = register_new_texture(wolf, prp, files, tex_i)) == FAILURE)
+		return (FAILURE);
+	sprt->tex_id = tex_num;
+	if (char_to_double(prp[2], &(sprt->x)) != SUCCESS)
+		ret = FAILURE;
+	if (ret == SUCCESS && char_to_double(prp[3], &(sprt->y)) != SUCCESS)
+		ret = FAILURE;
+	if (ret == SUCCESS)
+		wolf->world.sprt_nbr++;
+	return (ret);
+}
+
 int8_t	get_property_line(t_core *wolf, char **prp, char **files, int *tex_i)
 {
 
 	if ((ft_strcmp("floor", prp[0]) == 0 || ft_strcmp("ceiling", prp[0]) == 0)
 			&& ft_tablen(prp) == 2)
-		return (set_new_wall(wolf, prp, files, tex_i));
+		return (set_floor_or_ceiling(wolf, prp, files, tex_i));
 	if (ft_strcmp(prp[0], "sprite") == 0 && ft_tablen(prp) == 4)
-		return (set_new_sprite(wolf, prp, files, tex_i))
+		return (set_new_sprite(wolf, prp, files, tex_i));
 	return (set_new_wall(wolf, prp, files, tex_i));
 }
 
@@ -95,8 +153,9 @@ int8_t	get_map_properties(t_core *wolf, int fd)
 			prp = ft_strsplit(line, ':');
 			if (!prp || get_property_line(wolf, prp, files, &tex_i) != 0)
 			{
-				ft_putstr_fd("wolf3d: parsing properties error\n"
+				ft_putstr_fd("wolf3d: parsing properties error: "
 				, STDERR_FILENO);
+				ft_putendl_fd(line, STDERR_FILENO);
 				tex_i = -1;
 			}
 			ft_tabdel(&prp);
