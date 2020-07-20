@@ -6,7 +6,7 @@
 #    By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 02:45:47 by mpivet-p          #+#    #+#              #
-#    Updated: 2020/07/20 11:17:06 by mpivet-p         ###   ########.fr        #
+#    Updated: 2020/07/20 15:17:20 by mpivet-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,9 @@ OBJ_PATH= obj/
 INC_NAME= wolf.h
 SRC_NAME= main.c events.c tools.c camera.c parser.c misc.c draw_scene.c\
 			visualizer.c bresenham.c draw_square.c rotate_vector.c draw_map.c\
-			delta_dist.c side_dist.c test_textures.c get_textures.c\
-			get_map_properties.c floor_ceiling_casting.c draw_sprites.c
+			delta_dist.c side_dist.c textures_tools.c set_new_sprite.c\
+			get_map_properties.c set_new_wall.c floor_ceiling_casting.c\
+			get_index.c draw_sprites.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
 INC= -I includes/ -I libft/inc/ -I mlx/

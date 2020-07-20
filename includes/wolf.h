@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/19 13:41:28 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:13:41 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,13 @@ void			get_test_textures(t_core *wolf);
 int8_t			file_to_texture(
 		t_core *wolf, t_world *world, char *file, int tex_i);
 int8_t			get_map_properties(t_core *wolf, int fd);
+int8_t			get_index(char **array, char *key);
+int8_t			set_new_sprite(t_core *wolf, char **prp, char **files
+		, int *tex_i);
+int				set_new_wall(t_core *wolf, char **properties
+		, char **files, int *tex_i);
+int				register_new_texture(t_core *wolf, char **prp
+		, char **files, int *tex_i);
 
 /*
 ** ============================================================================

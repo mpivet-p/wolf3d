@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visualizer.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/20 14:44:26 by mpivet-p          #+#    #+#             */
+/*   Updated: 2020/07/20 14:47:52 by mpivet-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf.h"
 #include "libft.h"
 #include <mlx.h>
-#include <stdio.h>
 
-void	draw_camera(t_core *wolf, t_camera *cam, char *img)
+static void	draw_camera(t_core *wolf, t_camera *cam, char *img)
 {
 	int x;
 	int	y;
@@ -36,7 +47,6 @@ void		draw_ray(t_core *wolf, t_vector ray, int color)
 	origin.x = wolf->cam.pos.x * 21 + wolf->world.center[0];
 	origin.y = wolf->cam.pos.y * 21 + wolf->world.center[1];
 	bresenham(wolf, origin, dest, color);
-
 }
 
 void		map_visualizer(t_core *wolf)
