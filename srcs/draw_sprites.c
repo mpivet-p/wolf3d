@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 14:36:50 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 16:00:33 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/20 16:09:34 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	sort_sprites(int *sprite_order, double *sprite_dist, int len)
 	i = 0;
 	while (i < len - 1)
 	{
-		if (sprite_dist[sprite_order[i]] > sprite_dist[sprite_order[i + 1]])
+		if (sprite_dist[sprite_order[i]] < sprite_dist[sprite_order[i + 1]])
 		{
 			tmp = sprite_order[i];
 			sprite_order[i] = sprite_order[i + 1];
@@ -133,7 +133,7 @@ void		draw_sprites(t_core *wolf, double *z_buffer)
 	get_sprite_dist(wolf, sprite_order);
 	while (i < wolf->world.sprt_nbr)
 	{
-		prepare_sprites(wolf, &(wolf->world.sprites[i]), correction, z_buffer);
+		prepare_sprites(wolf, &(wolf->world.sprites[sprite_order[i]]), correction, z_buffer);
 		i++;
 	}
 }
