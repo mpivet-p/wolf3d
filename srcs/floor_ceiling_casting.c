@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 03:54:59 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/06/23 14:15:40 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:45:20 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	draw_lines(t_core *wolf, t_vector *floor, int y)
 		}
 	}
 }
+
 void	floor_ceiling_casting(t_core *wolf)
 {
 	t_vector	floor[2];
@@ -50,12 +51,12 @@ void	floor_ceiling_casting(t_core *wolf)
 	int			p;
 	int			y;
 
+	y = 0;
+	pos_z = SIMG_Y / 2;
 	dir[0].x = wolf->cam.dir.x - wolf->cam.plane.x;
 	dir[0].y = wolf->cam.dir.y - wolf->cam.plane.y;
 	dir[1].x = wolf->cam.dir.x + wolf->cam.plane.x;
 	dir[1].y = wolf->cam.dir.y + wolf->cam.plane.y;
-	pos_z = SIMG_Y / 2;
-	y = 0;
 	while (y < pos_z)
 	{
 		p = y - SIMG_Y / 2;

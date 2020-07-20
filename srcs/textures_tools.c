@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:07:26 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 15:10:32 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:20:17 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 **	* xorcolor + 65536 * xorcolor;
 */
 
-void	get_test_textures(t_core *wolf)
+void		get_test_textures(t_core *wolf)
 {
 	int	x;
 	int	y;
@@ -78,7 +78,7 @@ static void	fill_texture(t_world *world, char *img, int tex_i)
 	}
 }
 
-int8_t	file_to_texture(t_core *wolf, t_world *world, char *file, int tex_i)
+int8_t		file_to_texture(t_core *wolf, t_world *world, char *file, int tex_i)
 {
 	void	*ptr;
 	int		tools[3];
@@ -101,8 +101,9 @@ int8_t	file_to_texture(t_core *wolf, t_world *world, char *file, int tex_i)
 	return (0);
 }
 
-int		register_new_texture(t_core *wolf, char **prp, char **files, int *tex_i)
-{	
+int			register_new_texture(
+		t_core *wolf, char **prp, char **files, int *tex_i)
+{
 	int	tex_num;
 
 	if ((tex_num = get_index(files, prp[1])) < 0)

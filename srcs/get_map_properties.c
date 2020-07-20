@@ -1,7 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_map_properties.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/20 15:40:11 by mpivet-p          #+#    #+#             */
+/*   Updated: 2020/07/20 15:41:23 by mpivet-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "wolf.h"
 #include "libft.h"
 
-static int8_t	set_floor_or_ceiling(t_core *wolf, char **prp, char **files, int *tex_i)
+static int8_t	set_floor_or_ceiling(
+		t_core *wolf, char **prp, char **files, int *tex_i)
 {
 	int	tex_num;
 
@@ -14,9 +27,9 @@ static int8_t	set_floor_or_ceiling(t_core *wolf, char **prp, char **files, int *
 	return (0);
 }
 
-static int8_t	get_property_line(t_core *wolf, char **prp, char **files, int *tex_i)
+static int8_t	get_property_line(
+		t_core *wolf, char **prp, char **files, int *tex_i)
 {
-
 	if ((ft_strcmp("floor", prp[0]) == 0 || ft_strcmp("ceiling", prp[0]) == 0)
 			&& ft_tablen(prp) == 2)
 		return (set_floor_or_ceiling(wolf, prp, files, tex_i));
@@ -25,7 +38,7 @@ static int8_t	get_property_line(t_core *wolf, char **prp, char **files, int *tex
 	return (set_new_wall(wolf, prp, files, tex_i));
 }
 
-int8_t	get_map_properties(t_core *wolf, int fd)
+int8_t			get_map_properties(t_core *wolf, int fd)
 {
 	char	**files;
 	char	**prp;

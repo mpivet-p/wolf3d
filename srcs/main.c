@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/19 11:50:09 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:21:40 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 #include <mlx.h>
 #include <stdio.h>
 
-static void		init_core(t_core *wolf)
+static void	init_core(t_core *wolf)
 {
 	int			tools[3];
 
-	if (!(wolf->win = mlx_new_window(wolf->mlx, SWIN_X, SWIN_Y, "wolf3d par mpivet-p")))
+	if (!(wolf->win = mlx_new_window(
+					wolf->mlx, SWIN_X, SWIN_Y, "wolf3d par mpivet-p")))
 		quit_wolf(wolf);
 	if (!(wolf->screen = mlx_new_image(wolf->mlx, SIMG_X, SIMG_Y)))
 		quit_wolf(wolf);

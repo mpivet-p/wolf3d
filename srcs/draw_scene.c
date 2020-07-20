@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_scene.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/20 15:47:25 by mpivet-p          #+#    #+#             */
+/*   Updated: 2020/07/20 15:53:57 by mpivet-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "wolf.h"
 #include "libft.h"
@@ -30,7 +40,7 @@ static void	intersect(t_core *wolf, t_ray *ray, int *step)
 	}
 }
 
-void	draw_vert(t_core *wolf, int x, int *start_end, t_ray *ray)
+void		draw_vert(t_core *wolf, int x, int *start_end, t_ray *ray)
 {
 	double	line_height;
 	double	tex_pos;
@@ -59,7 +69,7 @@ void	draw_vert(t_core *wolf, int x, int *start_end, t_ray *ray)
 			set_pixel(wolf->img, x, i, 0x401904);
 }
 
-int		get_texture_x(t_camera *cam, t_ray *ray)
+int			get_texture_x(t_camera *cam, t_ray *ray)
 {
 	double	wall_x;
 	int		tex_x;
@@ -73,10 +83,10 @@ int		get_texture_x(t_camera *cam, t_ray *ray)
 	return (tex_x);
 }
 
-int		get_tex_dir(t_wall *wall, t_ray *ray)
+int			get_tex_dir(t_wall *wall, t_ray *ray)
 {
 	int		ret;
-	
+
 	if (wall->tex_id[1] == 0)
 		ret = TEX_ALL;
 	else if (ray->side == 0 && ray->dir.x > 0)
@@ -99,16 +109,18 @@ int		get_tex_dir(t_wall *wall, t_ray *ray)
 	return ((ret < 0) ? TEX_MAX : ret);
 }
 
-void	render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
+void		render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 {
 	int			line_height;
 	int			start_end[2];
 	double		tmp;
 
 	if (ray->side == 0)
-		ray->wall_dist = (ray->map[0] - wolf->cam.pos.x + (1 - step[0]) / 2) / ray->dir.x;
+		ray->wall_dist = (ray->map[0] - wolf->cam.pos.x
+				+ (1 - step[0]) / 2) / ray->dir.x;
 	else
-		ray->wall_dist = (ray->map[1] - wolf->cam.pos.y + (1 - step[1]) / 2) / ray->dir.y;
+		ray->wall_dist = (ray->map[1] - wolf->cam.pos.y
+				+ (1 - step[1]) / 2) / ray->dir.y;
 	line_height = (int)(SIMG_Y / ray->wall_dist);
 	tmp = (line_height / -2) + (SIMG_Y / 2);
 	start_end[0] = (tmp < 0) ? 0 : tmp;
@@ -120,7 +132,7 @@ void	render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 	draw_vert(wolf, x, start_end, ray);
 }
 
-void	draw_scene(t_core *wolf)
+void		draw_scene(t_core *wolf)
 {
 	double		camera_x;
 	double		z_buffer[SIMG_X];
@@ -138,7 +150,7 @@ void	draw_scene(t_core *wolf)
 	{
 		ray.map[0] = (int)(wolf->cam.pos.x);
 		ray.map[1] = (int)(wolf->cam.pos.y);
-		camera_x =  2.0 * x / (double)SIMG_X - 1;
+		camera_x = 2.0 * x / (double)SIMG_X - 1;
 		ray.dir.x = wolf->cam.dir.x + wolf->cam.plane.x * camera_x;
 		ray.dir.y = wolf->cam.dir.y + wolf->cam.plane.y * camera_x;
 		intersect(wolf, &ray, step);
