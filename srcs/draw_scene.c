@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:47:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 15:53:57 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/21 16:09:29 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,18 @@
 #include <math.h>
 #include <mlx.h>
 
-static void	intersect(t_core *wolf, t_ray *ray, int *step)
+static void	prepare_draw_vert(
+		int *start_end, t_ray *ray, double *step, double *tex_pos)
 {
-	t_vector	delta_dist;
+	double	line_height;
 
-	delta_dist = get_delta_dist(&(ray->dir));
-	ray->side_dist = get_side_dist(&(wolf->cam), ray, &delta_dist, step);
-	while (ray->map[0] < wolf->world.width && ray->map[1] < wolf->world.height)
-	{
-		if (ray->side_dist.x < ray->side_dist.y)
-		{
-			ray->side_dist.x += delta_dist.x;
-			ray->map[0] += step[0];
-			ray->side = 0;
-		}
-		else
-		{
-			ray->side_dist.y += delta_dist.y;
-			ray->map[1] += step[1];
-			ray->side = 1;
-		}
-		if (wolf->world.map[ray->map[0]][ray->map[1]] != 0)
-			break ;
-	}
+	line_height = (int)(SIMG_Y / ray->wall_dist);
+	*step = 1.0 * TEX_HEIGHT / line_height;
+	*tex_pos = (start_end[0] - SIMG_Y / 2 + line_height / 2) * *step;
 }
 
 void		draw_vert(t_core *wolf, int x, int *start_end, t_ray *ray)
 {
-	double	line_height;
 	double	tex_pos;
 	double	step;
 	int		tex_y;
@@ -50,17 +34,16 @@ void		draw_vert(t_core *wolf, int x, int *start_end, t_ray *ray)
 	int		i;
 
 	i = (wolf->world.ceiling < 0) ? -1 : start_end[0];
-	line_height = (int)(SIMG_Y / ray->wall_dist);
-	step = 1.0 * TEX_HEIGHT / line_height;
-	tex_pos = (start_end[0] - SIMG_Y / 2 + line_height / 2) * step;
+	prepare_draw_vert(start_end, ray, &step, &tex_pos);
 	while (++i < start_end[0])
 		set_pixel(wolf->img, x, i, 0x7FC7E3);
 	while (i < start_end[1])
 	{
 		tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
 		tex_pos += step;
-		color = wolf->world.texture[ray->tex_num][TEX_HEIGHT * tex_y + ray->tex_x];
-			color = (ray->side == 1) ? (color >> 1) & 8355711 : color;
+		color = wolf->world.texture[ray->tex_num][TEX_HEIGHT
+			* tex_y + ray->tex_x];
+		color = (ray->side == 1) ? (color >> 1) & 8355711 : color;
 		set_pixel(wolf->img, x, i, color);
 		i++;
 	}
@@ -83,33 +66,7 @@ int			get_texture_x(t_camera *cam, t_ray *ray)
 	return (tex_x);
 }
 
-int			get_tex_dir(t_wall *wall, t_ray *ray)
-{
-	int		ret;
-
-	if (wall->tex_id[1] == 0)
-		ret = TEX_ALL;
-	else if (ray->side == 0 && ray->dir.x > 0)
-	{
-		ret = TEX_EAST;
-	}
-	else if (ray->side == 0 && ray->dir.x < 0)
-	{
-		ret = TEX_WEST;
-	}
-	else if (ray->side == 1 && ray->dir.y > 0)
-	{
-		ret = TEX_NORTH;
-	}
-	else
-	{
-		ret = TEX_SOUTH;
-	}
-	ret = wall->tex_id[ret] - 1;
-	return ((ret < 0) ? TEX_MAX : ret);
-}
-
-void		render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
+double		render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 {
 	int			line_height;
 	int			start_end[2];
@@ -130,6 +87,7 @@ void		render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 	ray->tex_num = wolf->world.map[ray->map[0]][ray->map[1]];
 	ray->tex_num = get_tex_dir(&(wolf->world.wall[ray->tex_num]), ray);
 	draw_vert(wolf, x, start_end, ray);
+	return (ray->wall_dist);
 }
 
 void		draw_scene(t_core *wolf)
@@ -140,13 +98,11 @@ void		draw_scene(t_core *wolf)
 	int			step[2];
 	int			x;
 
-	x = 0;
+	x = -1;
 	ft_bzero(wolf->img, SIMG_X * SIMG_Y * 4);
-	if (wolf->cam.mode == WLF_MAP)
-		map_visualizer(wolf);
-	else
-		floor_ceiling_casting(wolf);
-	while (x < SIMG_X)
+	map_visualizer(wolf);
+	floor_ceiling_casting(wolf);
+	while (++x < SIMG_X)
 	{
 		ray.map[0] = (int)(wolf->cam.pos.x);
 		ray.map[1] = (int)(wolf->cam.pos.y);
@@ -154,14 +110,9 @@ void		draw_scene(t_core *wolf)
 		ray.dir.x = wolf->cam.dir.x + wolf->cam.plane.x * camera_x;
 		ray.dir.y = wolf->cam.dir.y + wolf->cam.plane.y * camera_x;
 		intersect(wolf, &ray, step);
-		if (wolf->cam.mode == WLF_MAP)
-			draw_map(wolf, &ray, step);
-		else
-		{
-			render_wolf(wolf, &ray, x, step);
-			z_buffer[x] = ray.wall_dist;
-		}
-		x++;
+		draw_map(wolf, &ray, step);
+		if (wolf->cam.mode != WLF_MAP)
+			z_buffer[x] = render_wolf(wolf, &ray, x, step);
 	}
 	draw_sprites(wolf, z_buffer);
 	mlx_put_image_to_window(wolf->mlx, wolf->win, wolf->screen, 0, 0);

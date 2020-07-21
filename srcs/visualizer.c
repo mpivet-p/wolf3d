@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 14:44:26 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 14:47:52 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/21 15:37:12 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void		map_visualizer(t_core *wolf)
 	int		y;
 
 	x = 0;
+	if (wolf->cam.mode != WLF_MAP)
+		return ;
 	world = &(wolf->world);
 	ft_bzero(wolf->img, 4 * SIMG_X * SIMG_Y);
 	while (x < world->width)

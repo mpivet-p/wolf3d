@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 12:37:32 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/21 11:37:03 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,15 @@ typedef struct		s_sprite
 typedef struct		s_world
 {
 	t_sprite	sprites[SPRT_MAX];
+	int8_t		sprt_nbr;
 	int8_t		ceiling;
-	int8_t		width;
-	int8_t		height;
-	int8_t		center[2];
 	int8_t		spawn_x;
 	int8_t		spawn_y;
+	int8_t		height;
+	int8_t		width;
 	int8_t		floor;
 	char		**map;
-	int8_t		sprt_nbr;
+	int			center[2];
 	int			texture[TEX_MAX + 1][TEX_HEIGHT * TEX_WIDTH];
 	t_wall		wall[256];
 }					t_world;

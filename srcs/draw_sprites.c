@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 14:36:50 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 16:09:34 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/21 15:36:37 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void		draw_sprites(t_core *wolf, double *z_buffer)
 	int		i;
 
 	i = 0;
+	if (wolf->cam.mode == WLF_MAP)
+		return ;
 	correction = 1.0 / (wolf->cam.plane.x * wolf->cam.dir.y
 				- wolf->cam.dir.x * wolf->cam.plane.y);
 	get_sprite_dist(wolf, sprite_order);

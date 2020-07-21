@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 04:49:56 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/08/22 05:19:45 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/21 11:37:36 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int			quit_wolf(void *param)
 	exit(0);
 }
 
-void		center_map(int width, int height, int sq_size, int8_t *shift)
+void		center_map(int width, int height, int sq_size, int *shift)
 {
-	shift[0] = (SIMG_X - (width * sq_size)) / 2.0;
-	shift[1] = (SIMG_Y - (height * sq_size)) / 2.0;
+	shift[0] = (SIMG_X - (width * sq_size)) / 2;
+	shift[1] = (SIMG_Y - (height * sq_size)) / 2;
 }

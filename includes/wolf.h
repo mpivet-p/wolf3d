@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 15:13:41 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/21 16:09:43 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int				deal_key(int key, t_core *wolf);
 ** ============================================================================
 */
 
-void			center_map(int width, int height, int sq_size, int8_t *shift);
+void			center_map(int width, int height, int sq_size, int *shift);
 t_vector		rotate_vector(t_vector *vector, double angle);
 t_vector		set_vec(double x, double y);
 void			set_pixel(char *image, int x, int y, int color);
@@ -81,6 +81,9 @@ int				set_new_wall(t_core *wolf, char **properties
 		, char **files, int *tex_i);
 int				register_new_texture(t_core *wolf, char **prp
 		, char **files, int *tex_i);
+void	get_world_dimensions(t_world *world, int *array, int fd);
+void	get_spawn_coords(t_world *world, int *array, int fd);
+
 
 /*
 ** ============================================================================
@@ -100,5 +103,7 @@ void			debug_map(t_world *world);
 void	draw_scene(t_core *wolf);
 void	floor_ceiling_casting(t_core *wolf);
 void	draw_sprites(t_core *wolf, double *z_buffer);
+int		get_tex_dir(t_wall *wall, t_ray *ray);
+void	intersect(t_core *wolf, t_ray *ray, int *step);
 
 #endif

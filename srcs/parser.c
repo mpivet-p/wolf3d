@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:35 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/19 13:41:13 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:53:56 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,6 @@
 #include "libft.h"
 #include <fcntl.h>
 #include <stddef.h>
-
-static int	get_world_data(int fd, int *array)
-{
-	char	*line;
-	int		i;
-
-	line = NULL;
-	i = 0;
-	get_next_line(fd, &line);
-	if (ft_strlen(line) != 5 || line[2] != 'x')
-		return (1);
-	if ((array[0] = ft_atoi(line)) <= 0 || (array[1] = ft_atoi(line + 3)) <= 0)
-		return (1);
-	ft_strdel(&line);
-	return (0);
-}
 
 static int	check_line(char *str, t_world *world)
 {
@@ -99,22 +83,6 @@ static int	get_wolf_map(int fd, t_world *world)
 		i++;
 	}
 	return (0);
-}
-
-static void	get_world_dimensions(t_world *world, int *array, int fd)
-{
-	if (get_world_data(fd, array) != 0)
-		print_and_quit("wolf3d: parse error: line 1\n");
-	world->width = array[0];
-	world->height = array[1];
-}
-
-static void	get_spawn_coords(t_world *world, int *array, int fd)
-{
-	if (get_world_data(fd, array) != 0)
-		print_and_quit("wolf3d: parse error: line 2\n");
-	world->spawn_x = array[0];
-	world->spawn_y = array[1];
 }
 
 void		parse_wolf_map(t_core *wolf, t_world *world, char *filename)

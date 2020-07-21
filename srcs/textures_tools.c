@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:07:26 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 15:20:17 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/21 15:32:34 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,30 @@ int			register_new_texture(
 		(*tex_i)++;
 	}
 	return (tex_num);
+}
+
+int			get_tex_dir(t_wall *wall, t_ray *ray)
+{
+	int		ret;
+
+	if (wall->tex_id[1] == 0)
+		ret = TEX_ALL;
+	else if (ray->side == 0 && ray->dir.x > 0)
+	{
+		ret = TEX_EAST;
+	}
+	else if (ray->side == 0 && ray->dir.x < 0)
+	{
+		ret = TEX_WEST;
+	}
+	else if (ray->side == 1 && ray->dir.y > 0)
+	{
+		ret = TEX_NORTH;
+	}
+	else
+	{
+		ret = TEX_SOUTH;
+	}
+	ret = wall->tex_id[ret] - 1;
+	return ((ret < 0) ? TEX_MAX : ret);
 }
