@@ -6,13 +6,14 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/21 11:37:03 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/22 10:45:15 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLFDATA_H
+# define WOLFDATA_H
 
-#include <stdint.h>
+# include <stdint.h>
 # define SUCCESS	0
 # define FAILURE 	-1
 
@@ -108,6 +109,15 @@ typedef struct		s_sprite
 	double	y;
 	int8_t	tex_id;
 }					t_sprite;
+
+typedef struct		s_sprtcalc
+{
+	t_vector	transform;
+	t_vector	draw_start;
+	t_vector	draw_end;
+	int			sprite_size;
+	int			sprite_screen_x;
+}					t_sprtcalc;
 
 typedef struct		s_world
 {

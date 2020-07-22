@@ -6,16 +6,16 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/21 16:09:43 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/22 10:56:29 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF_H
 # define WOLF_H
 
-#include "wolfdata.h"
-#include <stdio.h>
-#include <stdint.h>
+# include "wolfdata.h"
+# include <stdio.h>
+# include <stdint.h>
 
 typedef struct	s_core
 {
@@ -52,16 +52,22 @@ void			set_pixel(char *image, int x, int y, int color);
 int				quit_wolf(void *wolf);
 void			init_camera(t_camera *cam, t_world *world);
 int				print_and_quit(char *error);
-void			map_visualizer(t_core *wolf);
+void			unit(t_vector *dir);
+t_vector		get_side_dist(
+		t_camera *cam, t_ray *ray, t_vector *delta_dist, int *step);
+t_vector		get_delta_dist(t_vector *raydir);
+
+/*
+** ============================================================================
+**	MAP VISUALIZER.............................................................
+** ============================================================================
+*/
+
 void			bresenham(t_core *wolf, t_vector one, t_vector two, int color);
 void			draw_ray(t_core *wolf, t_vector ray, int color);
-void			unit(t_vector *dir);
 void			draw_square(t_core *wolf, int x, int y, int color);
-
 void			draw_map(t_core *wolf, t_ray *ray, int *step);
-t_vector		get_side_dist(t_camera *cam, t_ray *ray,
-					t_vector *delta_dist, int *step);
-t_vector		get_delta_dist(t_vector *raydir);
+void			map_visualizer(t_core *wolf);
 
 /*
 ** ============================================================================
@@ -81,18 +87,8 @@ int				set_new_wall(t_core *wolf, char **properties
 		, char **files, int *tex_i);
 int				register_new_texture(t_core *wolf, char **prp
 		, char **files, int *tex_i);
-void	get_world_dimensions(t_world *world, int *array, int fd);
-void	get_spawn_coords(t_world *world, int *array, int fd);
-
-
-/*
-** ============================================================================
-**	DEBUG......................................................................
-** ============================================================================
-*/
-
-void			debug_camera(t_camera *cam);
-void			debug_map(t_world *world);
+void			get_world_dimensions(t_world *world, int *array, int fd);
+void			get_spawn_coords(t_world *world, int *array, int fd);
 
 /*
 ** ============================================================================
@@ -100,10 +96,11 @@ void			debug_map(t_world *world);
 ** ============================================================================
 */
 
-void	draw_scene(t_core *wolf);
-void	floor_ceiling_casting(t_core *wolf);
-void	draw_sprites(t_core *wolf, double *z_buffer);
-int		get_tex_dir(t_wall *wall, t_ray *ray);
-void	intersect(t_core *wolf, t_ray *ray, int *step);
+void			draw_scene(t_core *wolf);
+void			floor_ceiling_casting(t_core *wolf);
+void			draw_sprites(t_core *wolf, double *z_buffer);
+int				get_tex_dir(t_wall *wall, t_ray *ray);
+void			intersect(t_core *wolf, t_ray *ray, int *step);
+void			get_sprites_dist(t_core *wolf, int *sprite_order);
 
 #endif
