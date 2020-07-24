@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 15:21:40 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:50:22 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,29 @@ static void	init_core(t_core *wolf)
 	mlx_hook(wolf->win, 4, 0, mouse_press, wolf);
 }
 
-static void	parse_wolf(int argc, char **argv)
+static void	print_usage(void)
 {
-	if (argc != 2 || ft_strlen(argv[1]) < 5)
+	ft_putstr_fd("usage: wolf3d [file] [-M adress]\n", STDERR_FILENO);
+}
+
+static void	parse_args(int argc, char **argv)
+{
+	if (argc < 2)
 	{
-		ft_putstr_fd("usage: wolf3d map.txt\n", STDERR_FILENO);
+		print_usage();
 		exit(EXIT_FAILURE);
+	}
+	if (argc == 2)
+		return ;
+	if (argc == 4 && ft_strcmp("-M", argv[2]) == 0)
+	{
+//		connect_to_server(argv[3]);
+		dprintf(STDERR_FILENO, "Connection...\n");
+	}
+	else
+	{
+		print_usage();
+		exit(FAILURE);
 	}
 }
 
@@ -46,7 +63,7 @@ int			main(int argc, char **argv)
 	t_core	wolf;
 
 	ft_bzero(&wolf, sizeof(t_core));
-	parse_wolf(argc, argv);
+	parse_args(argc, argv);
 	if (!(wolf.mlx = mlx_init()))
 		quit_wolf(&wolf);
 	parse_wolf_map(&wolf, &(wolf.world), argv[1]);
