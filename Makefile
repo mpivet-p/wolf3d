@@ -6,7 +6,7 @@
 #    By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 02:45:47 by mpivet-p          #+#    #+#              #
-#    Updated: 2020/07/22 10:24:55 by mpivet-p         ###   ########.fr        #
+#    Updated: 2020/07/26 12:51:18 by mpivet-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,11 +41,15 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C libft
 ifeq ($(LOCAL), t)
-	gcc $(CFLAGS) -o $(NAME) $(OBJ) $(INC) -L libft/ -lft -L mlx/ -lmlx -lm $(MLX)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(INC) -L libft/ -lft -L mlx/ -lmlx -lm $(MLX)
 else
-	gcc $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LIBS) $(MLX)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LIBS) $(MLX)
 endif
 
+server:
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	$(CC) $(CFLAGS) -I includes -I libft/inc -o obj/server.o -c srcs/server.c
+	$(CC) $(CFLAGS) -o server obj/server.o -L libft -lft
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
@@ -57,6 +61,6 @@ clean:
 
 fclean: clean
 	@make -C libft fclean
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) server
 
 re: fclean all

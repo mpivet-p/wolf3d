@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 11:33:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/24 16:54:31 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/26 12:18:58 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # define MAX_CLIENTS	16
 # define WLF_PORT		4221
 # define SRV_BUFF		1024
+# define EOT			0x4
+# define INVALID_SOCKET	-1
+# define SOCKET_ERROR	-1
+# include "wolfdata.h"
+# include <arpa/inet.h>
 
 typedef struct	s_client
 {
