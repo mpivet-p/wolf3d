@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/26 12:50:41 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/27 14:26:14 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 #include "libft.h"
 #include <sys/socket.h>
 
-int8_t	init_socket(int *sockfd)
-{
-	/*
-	**	PF_INET = IPv4			PF_LOCAL = localhost
-	**	SOCK_STREAM => TCP		SOCK_DGRAM = UDP		SOCK_RAW = IP
-	*/
-	*sockfd = socket(PF_INET, SOCK_DGRAM, 0);
-	if (*sockfd == INVALID_SOCKET)
-	{
-		ft_putstr_fd("wolf server: socket error\n", STDERR_FILENO);
-		return (FAILURE);
-	}
-	return (SUCCESS);
-}
 
 int8_t	create_interface(int sockfd)
 {
@@ -67,6 +53,7 @@ static int8_t	connect_client(t_client *clients, struct sockaddr_in *csin, int *n
 	{
 		clients[*nbr].addr = csin->sin_addr.s_addr;
 		(*nbr)++;
+		ft_putstr_fd("wolf server: New client connected\n", STDERR_FILENO);
 		return (SUCCESS);
 	}
 	ft_putstr_fd("wolf server: Server is full !\n", STDERR_FILENO);
@@ -103,7 +90,7 @@ static int8_t	process_data(char *buffer, int len)
 {
 	if (buffer[0] == 4)
 		return (FAILURE);
-	(void)len;
+	write(STDOUT_FILENO, buffer, len);
 	ft_putstr("wolf server: New data received\n");
 	return (SUCCESS);
 }
@@ -116,6 +103,7 @@ static void	run_server(int socket, t_client *clients)
 	char				buffer[SRV_BUFF + 1];
 	int					len;
 
+	ft_putstr_fd("wolf server: Server is running...\n", STDERR_FILENO);
 	while(1)
 	{
 		FD_ZERO(&rdfs);
@@ -123,8 +111,13 @@ static void	run_server(int socket, t_client *clients)
 		if(select(socket + 1, &rdfs, NULL, NULL, NULL) == -1)
 		{
 			;
-			//close_all_connections();
 		}
+		if (FD_ISSET(STDIN_FILENO, &rdfs))
+		{
+			close(socket);
+			ft_putstr_fd("Ciao\n", STDOUT_FILENO);
+		}
+
 		if (FD_ISSET(socket, &rdfs))
 		{
 			ft_bzero(&csin, sizeof(csin));

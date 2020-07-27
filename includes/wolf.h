@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/22 10:56:29 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/27 14:10:46 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,9 @@ void			draw_sprites(t_core *wolf, double *z_buffer);
 int				get_tex_dir(t_wall *wall, t_ray *ray);
 void			intersect(t_core *wolf, t_ray *ray, int *step);
 void			get_sprites_dist(t_core *wolf, int *sprite_order);
+
+
+
+int8_t	connect_to_server(const char *address);
 
 #endif

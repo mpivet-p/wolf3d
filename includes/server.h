@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 11:33:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/26 12:18:58 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/27 11:58:21 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define SOCKET_ERROR	-1
 # include "wolfdata.h"
 # include <arpa/inet.h>
+
+int8_t	init_socket(int *sockfd);
 
 typedef struct	s_client
 {

@@ -6,7 +6,7 @@
 #    By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 02:45:47 by mpivet-p          #+#    #+#              #
-#    Updated: 2020/07/26 12:51:18 by mpivet-p         ###   ########.fr        #
+#    Updated: 2020/07/27 14:14:24 by mpivet-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC_NAME= main.c events.c tools.c camera.c parser.c misc.c draw_scene.c\
 			delta_dist.c side_dist.c textures_tools.c set_new_sprite.c\
 			get_map_properties.c set_new_wall.c floor_ceiling_casting.c\
 			get_index.c draw_sprites.c get_world_data.c intersect.c\
-			get_sprites_dist.c
+			get_sprites_dist.c init_socket.c connect.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
 INC= -I includes/ -I libft/inc/ -I mlx/
@@ -46,10 +46,11 @@ else
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LIBS) $(MLX)
 endif
 
-server:
+server: obj/init_socket.o obj/init_socket.o
+	make -C libft
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	$(CC) $(CFLAGS) -I includes -I libft/inc -o obj/server.o -c srcs/server.c
-	$(CC) $(CFLAGS) -o server obj/server.o -L libft -lft
+	$(CC) $(CFLAGS) -o server obj/server.o obj/init_socket.o -L libft -lft
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true

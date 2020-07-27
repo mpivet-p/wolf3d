@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/23 14:50:22 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/27 14:06:28 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	parse_args(int argc, char **argv)
 		return ;
 	if (argc == 4 && ft_strcmp("-M", argv[2]) == 0)
 	{
-//		connect_to_server(argv[3]);
+		connect_to_server(argv[3]);
 		dprintf(STDERR_FILENO, "Connection...\n");
 	}
 	else
