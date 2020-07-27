@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 14:55:04 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/27 14:12:13 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:41:52 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int8_t	connect_to_server(const char *address)
 	sin.sin_addr = *(struct in_addr*)hostinfo->h_addr;
 	sin.sin_port = htons(WLF_PORT);
 	sin.sin_family = PF_INET;
-	if (sendto(socket, "test", 4, 0, (struct sockaddr*)&sin, sizeof(sin)) < 0)
+	if (sendto(socket, "", 0, 0, (struct sockaddr*)&sin, sizeof(sin)) < 0)
 		dprintf(STDERR_FILENO, "ERROR\n");
 	close(socket);
 	return (socket);

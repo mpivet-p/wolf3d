@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/27 14:26:14 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:39:16 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include <sys/socket.h>
 
+#include <stdio.h>
 
 int8_t	create_interface(int sockfd)
 {
@@ -79,16 +80,21 @@ static void	remove_client(t_client *clients, in_addr_t address, int *nbr)
 	int	id;
 
 	id = 0;
-	while (id < *nbr || clients[id].addr != address)
+	ft_putstr("wolf server: Client disconnected\n");
+	while (id < *nbr && clients[id].addr != address)
 		id++;
+	dprintf(STDERR_FILENO, "%d %d %d\n", id, *nbr, (MAX_CLIENTS - id));
 	if (id < *nbr)
-		ft_memmove(clients + id, clients + id + 1
-				, sizeof(t_client) * (MAX_CLIENTS - *nbr + id));
+	{
+		memmove(&(clients[id]), &(clients[id + 1])
+				, sizeof(t_client) * (MAX_CLIENTS - id));
+		(*nbr)--;
+	}
 }
 
 static int8_t	process_data(char *buffer, int len)
 {
-	if (buffer[0] == 4)
+	if (len == 0)
 		return (FAILURE);
 	write(STDOUT_FILENO, buffer, len);
 	ft_putstr("wolf server: New data received\n");
@@ -107,6 +113,7 @@ static void	run_server(int socket, t_client *clients)
 	while(1)
 	{
 		FD_ZERO(&rdfs);
+		FD_SET(STDIN_FILENO, &rdfs);
 		FD_SET(socket, &rdfs);
 		if(select(socket + 1, &rdfs, NULL, NULL, NULL) == -1)
 		{
@@ -115,7 +122,8 @@ static void	run_server(int socket, t_client *clients)
 		if (FD_ISSET(STDIN_FILENO, &rdfs))
 		{
 			close(socket);
-			ft_putstr_fd("Ciao\n", STDOUT_FILENO);
+			ft_putstr_fd("wolf server: Server closing...\n", STDOUT_FILENO);
+			return ;
 		}
 
 		if (FD_ISSET(socket, &rdfs))

@@ -6,7 +6,7 @@
 #    By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 02:45:47 by mpivet-p          #+#    #+#              #
-#    Updated: 2020/07/27 14:14:24 by mpivet-p         ###   ########.fr        #
+#    Updated: 2020/07/27 15:24:42 by mpivet-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ else
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LIBS) $(MLX)
 endif
 
-server: obj/init_socket.o obj/init_socket.o
+server: obj/init_socket.o obj/init_socket.o obj/server.o
 	make -C libft
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	$(CC) $(CFLAGS) -I includes -I libft/inc -o obj/server.o -c srcs/server.c
