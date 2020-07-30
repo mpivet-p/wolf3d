@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 11:33:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/27 11:58:21 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/30 12:11:09 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int8_t	init_socket(int *sockfd);
 
 typedef struct	s_client
 {
-	in_addr_t	addr;
-	t_vector	player_pos;
-	int32_t		sockfd;
-	char		player_name[17];
-	int8_t		connection_status;
-	char		gap_0;
+	struct sockaddr_in	sin;
+	t_vector			player_pos;
+	int32_t				sockfd;
+	char				player_name[17];
+	int8_t				connection_status;
+	char				gap_0;
 }				t_client;
 
 #endif

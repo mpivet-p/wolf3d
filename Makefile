@@ -6,7 +6,7 @@
 #    By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 02:45:47 by mpivet-p          #+#    #+#              #
-#    Updated: 2020/07/27 15:24:42 by mpivet-p         ###   ########.fr        #
+#    Updated: 2020/07/30 14:55:23 by mpivet-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC_NAME= main.c events.c tools.c camera.c parser.c misc.c draw_scene.c\
 			delta_dist.c side_dist.c textures_tools.c set_new_sprite.c\
 			get_map_properties.c set_new_wall.c floor_ceiling_casting.c\
 			get_index.c draw_sprites.c get_world_data.c intersect.c\
-			get_sprites_dist.c init_socket.c connect.c
+			get_sprites_dist.c init_socket.c connect.c send_pos_to_server.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
 INC= -I includes/ -I libft/inc/ -I mlx/

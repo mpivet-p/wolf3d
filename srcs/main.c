@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/27 14:06:28 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/30 14:44:43 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,12 @@ static void	print_usage(void)
 	ft_putstr_fd("usage: wolf3d [file] [-M adress]\n", STDERR_FILENO);
 }
 
-static void	parse_args(int argc, char **argv)
+static void	parse_args(int argc)
 {
-	if (argc < 2)
+	if (argc != 2 && argc != 3)
 	{
 		print_usage();
 		exit(EXIT_FAILURE);
-	}
-	if (argc == 2)
-		return ;
-	if (argc == 4 && ft_strcmp("-M", argv[2]) == 0)
-	{
-		connect_to_server(argv[3]);
-		dprintf(STDERR_FILENO, "Connection...\n");
-	}
-	else
-	{
-		print_usage();
-		exit(FAILURE);
 	}
 }
 
@@ -63,13 +51,18 @@ int			main(int argc, char **argv)
 	t_core	wolf;
 
 	ft_bzero(&wolf, sizeof(t_core));
-	parse_args(argc, argv);
+	parse_args(argc);
 	if (!(wolf.mlx = mlx_init()))
 		quit_wolf(&wolf);
 	parse_wolf_map(&wolf, &(wolf.world), argv[1]);
 	init_camera(&(wolf.cam), &(wolf.world));
 	init_core(&wolf);
 	get_test_textures(&wolf);
+	if (argc == 3)
+	{
+		dprintf(STDERR_FILENO, "Connection...\n");
+		connect_to_server(&wolf, argv[2]);
+	}
 	draw_scene(&wolf);
 	mlx_loop(wolf.mlx);
 	return (0);

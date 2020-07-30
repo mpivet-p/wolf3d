@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/27 15:39:16 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/30 14:24:20 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int8_t	connect_client(t_client *clients, struct sockaddr_in *csin, int *n
 {
 	if (*nbr < MAX_CLIENTS)
 	{
-		clients[*nbr].addr = csin->sin_addr.s_addr;
+		clients[*nbr].sin = *csin;
 		(*nbr)++;
 		ft_putstr_fd("wolf server: New client connected\n", STDERR_FILENO);
 		return (SUCCESS);
@@ -68,7 +68,7 @@ static int8_t	is_client_known(t_client *clients, struct sockaddr_in *csin, int *
 	i = 0;
 	while (i < *nbr)
 	{
-		if (csin->sin_addr.s_addr == clients[i].addr)
+		if (csin->sin_addr.s_addr == clients[i].sin.sin_addr.s_addr)
 			return (SUCCESS);
 		i++;
 	}
@@ -81,7 +81,7 @@ static void	remove_client(t_client *clients, in_addr_t address, int *nbr)
 
 	id = 0;
 	ft_putstr("wolf server: Client disconnected\n");
-	while (id < *nbr && clients[id].addr != address)
+	while (id < *nbr && clients[id].sin.sin_addr.s_addr != address)
 		id++;
 	dprintf(STDERR_FILENO, "%d %d %d\n", id, *nbr, (MAX_CLIENTS - id));
 	if (id < *nbr)
@@ -92,12 +92,23 @@ static void	remove_client(t_client *clients, in_addr_t address, int *nbr)
 	}
 }
 
-static int8_t	process_data(char *buffer, int len)
+static void	print_addr(in_addr_t	*addr)
 {
-	if (len == 0)
+	printf("wolf server: client adresse is: %d.%d.%d.%d\n"
+			, *addr & 0x000000FF, (*addr & 0x0000FF00) >> 8
+			, (*addr & 0x00FF0000) >> 16, (*addr & 0xFF000000) >> 24);
+}
+
+static int8_t	process_data(struct sockaddr_in *sin, char *buffer, int len)
+{
+	t_vector	vec;
+
+	if (len != sizeof(t_vector))
 		return (FAILURE);
-	write(STDOUT_FILENO, buffer, len);
+	ft_memmove(&vec, buffer, sizeof(t_vector));
 	ft_putstr("wolf server: New data received\n");
+	print_addr(&(sin->sin_addr.s_addr));
+	printf("Data content : x= %f y= %f\n", vec.x, vec.y);
 	return (SUCCESS);
 }
 
@@ -131,7 +142,7 @@ static void	run_server(int socket, t_client *clients)
 			ft_bzero(&csin, sizeof(csin));
 			receive(socket, buffer, &csin, &len);
 			if (is_client_known(clients, &csin, &client_nbr) == SUCCESS)
-				if (process_data(buffer, len) != SUCCESS)
+				if (process_data(&csin, buffer, len) != SUCCESS)
 					remove_client(clients, csin.sin_addr.s_addr, &client_nbr);
 		}
 	}

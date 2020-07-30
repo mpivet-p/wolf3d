@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 06:54:43 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/08/22 05:23:46 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/30 14:57:14 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	move_camera(t_core *wolf, int key)
 		cam->pos.x += new_pos.x;
 	if (world->map[(int)(cam->pos.x)][(int)(cam->pos.y + new_pos.y)] == 0)
 		cam->pos.y += new_pos.y;
+	if (wolf->socket != -1)
+		send_pos_to_server(wolf);
 }
 
 void	rotate_camera(t_core *wolf, int key)

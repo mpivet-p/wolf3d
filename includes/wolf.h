@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/27 14:10:46 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/30 14:55:02 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@
 
 typedef struct	s_core
 {
-	void		*mlx;
-	void		*win;
-	void		*screen;
-	char		*img;
-	double		time;
-	double		oldtime;
-	t_world		world;
-	t_camera	cam;
+	void				*mlx;
+	void				*win;
+	void				*screen;
+	char				*img;
+	double				time;
+	double				oldtime;
+	t_world				world;
+	t_camera			cam;
+	int					socket;
+	struct sockaddr_in	sin;
 }				t_core;
 
 /*
@@ -105,6 +107,7 @@ void			get_sprites_dist(t_core *wolf, int *sprite_order);
 
 
 
-int8_t	connect_to_server(const char *address);
+int8_t			connect_to_server(t_core *wolf, const char *address);
+int8_t			send_pos_to_server(t_core *wolf);
 
 #endif

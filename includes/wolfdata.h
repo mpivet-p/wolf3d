@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/22 10:45:15 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/30 14:47:31 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define WOLFDATA_H
 
 # include <stdint.h>
+# include <netdb.h>
+
 # define SUCCESS	0
 # define FAILURE 	-1
 
