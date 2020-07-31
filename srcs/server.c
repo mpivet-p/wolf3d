@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/30 14:24:20 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/31 16:24:12 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,40 @@ static void	remove_client(t_client *clients, in_addr_t address, int *nbr)
 
 static void	print_addr(in_addr_t	*addr)
 {
-	printf("wolf server: client adresse is: %d.%d.%d.%d\n"
-			, *addr & 0x000000FF, (*addr & 0x0000FF00) >> 8
-			, (*addr & 0x00FF0000) >> 16, (*addr & 0xFF000000) >> 24);
+	ft_putnbr(*addr & 0x000000FF);
+	write(STDOUT_FILENO, ".", 1);
+	ft_putnbr((*addr & 0x0000FF00) >> 8);
+	write(STDOUT_FILENO, ".", 1);
+	ft_putnbr((*addr & 0x00FF0000) >> 16);
+	write(STDOUT_FILENO, ".", 1);
+	ft_putnbr((*addr & 0xFF000000) >> 24);
 }
 
-static int8_t	process_data(struct sockaddr_in *sin, char *buffer, int len)
+static void		send_pos_to_clients(t_client *clients
+		, struct sockaddr_in *sin, int client_nbr, char *buffer, int socket)
 {
 	t_vector	vec;
+	int			i;
 
+	i = 0;
+	ft_memmove(&vec, buffer, sizeof(t_vector));
+	while (i < client_nbr)
+	{
+		if (clients[i].sin.sin_addr.s_addr != sin->sin_addr.s_addr)
+		{
+			sendto(socket, &vec, sizeof(t_vector), 0
+					, (struct sockaddr*)sin, sizeof(struct sockaddr_in));
+		}
+		i++;
+	}
+}
+
+static int8_t	process_data(struct sockaddr_in *sin, int len)
+{
 	if (len != sizeof(t_vector))
 		return (FAILURE);
-	ft_memmove(&vec, buffer, sizeof(t_vector));
-	ft_putstr("wolf server: New data received\n");
 	print_addr(&(sin->sin_addr.s_addr));
-	printf("Data content : x= %f y= %f\n", vec.x, vec.y);
+	ft_putstr(": New data received\n");
 	return (SUCCESS);
 }
 
@@ -142,8 +161,12 @@ static void	run_server(int socket, t_client *clients)
 			ft_bzero(&csin, sizeof(csin));
 			receive(socket, buffer, &csin, &len);
 			if (is_client_known(clients, &csin, &client_nbr) == SUCCESS)
-				if (process_data(&csin, buffer, len) != SUCCESS)
+			{
+				if (process_data(&csin, len) != SUCCESS)
 					remove_client(clients, csin.sin_addr.s_addr, &client_nbr);
+				else
+					send_pos_to_clients(clients, &csin, client_nbr, buffer, socket);
+			}	
 		}
 	}
 }

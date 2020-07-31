@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/30 14:44:43 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/31 15:01:21 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ int			main(int argc, char **argv)
 	init_core(&wolf);
 	get_test_textures(&wolf);
 	if (argc == 3)
-	{
-		dprintf(STDERR_FILENO, "Connection...\n");
 		connect_to_server(&wolf, argv[2]);
-	}
 	draw_scene(&wolf);
 	mlx_loop(wolf.mlx);
 	return (0);

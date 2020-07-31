@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 14:55:04 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/30 14:53:52 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/07/31 15:02:14 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int8_t	connect_to_server(t_core *wolf, const char *address)
 	wolf->sin.sin_addr = *(struct in_addr*)hostinfo->h_addr;
 	wolf->sin.sin_port = htons(WLF_PORT);
 	wolf->sin.sin_family = PF_INET;
+	ft_putstr_fd("wolf: Connecting to server...\n", STDERR_FILENO);
 	return (send_pos_to_server(wolf));
 }
