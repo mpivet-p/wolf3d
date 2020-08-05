@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/31 16:24:12 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/05 17:52:50 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,28 @@ int8_t	receive(int socket, char *buffer, struct sockaddr_in *csin, int *len)
 	return (SUCCESS);
 }
 
+static void	print_addr(in_addr_t	*addr, int port)
+{
+	ft_putnbr(*addr & 0x000000FF);
+	write(STDOUT_FILENO, ".", 1);
+	ft_putnbr((*addr & 0x0000FF00) >> 8);
+	write(STDOUT_FILENO, ".", 1);
+	ft_putnbr((*addr & 0x00FF0000) >> 16);
+	write(STDOUT_FILENO, ".", 1);
+	ft_putnbr((*addr & 0xFF000000) >> 24);
+	write(STDOUT_FILENO, ":", 1);
+	ft_putnbr(port);
+}
+
 static int8_t	connect_client(t_client *clients, struct sockaddr_in *csin, int *nbr)
 {
 	if (*nbr < MAX_CLIENTS)
 	{
 		clients[*nbr].sin = *csin;
 		(*nbr)++;
-		ft_putstr_fd("wolf server: New client connected\n", STDERR_FILENO);
+		ft_putstr("wolf server: New client connected: ");
+		print_addr(&(csin->sin_addr.s_addr), csin->sin_port);
+		write(STDOUT_FILENO, "\n", 1);
 		return (SUCCESS);
 	}
 	ft_putstr_fd("wolf server: Server is full !\n", STDERR_FILENO);
@@ -68,7 +83,8 @@ static int8_t	is_client_known(t_client *clients, struct sockaddr_in *csin, int *
 	i = 0;
 	while (i < *nbr)
 	{
-		if (csin->sin_addr.s_addr == clients[i].sin.sin_addr.s_addr)
+		if (csin->sin_addr.s_addr == clients[i].sin.sin_addr.s_addr
+				&& csin->sin_port == clients[i].sin.sin_port)
 			return (SUCCESS);
 		i++;
 	}
@@ -83,24 +99,33 @@ static void	remove_client(t_client *clients, in_addr_t address, int *nbr)
 	ft_putstr("wolf server: Client disconnected\n");
 	while (id < *nbr && clients[id].sin.sin_addr.s_addr != address)
 		id++;
-	dprintf(STDERR_FILENO, "%d %d %d\n", id, *nbr, (MAX_CLIENTS - id));
 	if (id < *nbr)
 	{
-		memmove(&(clients[id]), &(clients[id + 1])
+		ft_memmove(&(clients[id]), &(clients[id + 1])
 				, sizeof(t_client) * (MAX_CLIENTS - id));
 		(*nbr)--;
 	}
 }
 
-static void	print_addr(in_addr_t	*addr)
+static void		send_all_pos(t_client *client, struct sockaddr_in *sin, int id, int client_nbr, int socket)
 {
-	ft_putnbr(*addr & 0x000000FF);
-	write(STDOUT_FILENO, ".", 1);
-	ft_putnbr((*addr & 0x0000FF00) >> 8);
-	write(STDOUT_FILENO, ".", 1);
-	ft_putnbr((*addr & 0x00FF0000) >> 16);
-	write(STDOUT_FILENO, ".", 1);
-	ft_putnbr((*addr & 0xFF000000) >> 24);
+	int		i;
+
+	i = 0;
+	ft_putstr("sending data...\n");
+	sendto(socket, "", 1, 0
+			, (struct sockaddr*)sin, sizeof(struct sockaddr_in));
+	while (i < client_nbr)
+	{
+		if (i != id)
+		{
+			sendto(socket, &(client[i].player_pos), sizeof(t_vector), 0
+					, (struct sockaddr*)sin, sizeof(struct sockaddr_in));
+		}
+		i++;
+	}
+	sendto(socket, "", 1, 0
+			, (struct sockaddr*)sin, sizeof(struct sockaddr_in));
 }
 
 static void		send_pos_to_clients(t_client *clients
@@ -113,22 +138,10 @@ static void		send_pos_to_clients(t_client *clients
 	ft_memmove(&vec, buffer, sizeof(t_vector));
 	while (i < client_nbr)
 	{
-		if (clients[i].sin.sin_addr.s_addr != sin->sin_addr.s_addr)
-		{
-			sendto(socket, &vec, sizeof(t_vector), 0
-					, (struct sockaddr*)sin, sizeof(struct sockaddr_in));
-		}
+		if (sin->sin_port != clients[i].sin.sin_port)
+			send_all_pos(clients, sin, i, client_nbr, socket);
 		i++;
 	}
-}
-
-static int8_t	process_data(struct sockaddr_in *sin, int len)
-{
-	if (len != sizeof(t_vector))
-		return (FAILURE);
-	print_addr(&(sin->sin_addr.s_addr));
-	ft_putstr(": New data received\n");
-	return (SUCCESS);
 }
 
 static void	run_server(int socket, t_client *clients)
@@ -162,7 +175,7 @@ static void	run_server(int socket, t_client *clients)
 			receive(socket, buffer, &csin, &len);
 			if (is_client_known(clients, &csin, &client_nbr) == SUCCESS)
 			{
-				if (process_data(&csin, len) != SUCCESS)
+				if (len != sizeof(t_vector))
 					remove_client(clients, csin.sin_addr.s_addr, &client_nbr);
 				else
 					send_pos_to_clients(clients, &csin, client_nbr, buffer, socket);

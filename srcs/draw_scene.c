@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:47:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/31 15:01:04 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/05 17:38:18 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void		draw_scene(t_core *wolf)
 	ft_bzero(wolf->img, SIMG_X * SIMG_Y * 4);
 	map_visualizer(wolf);
 	floor_ceiling_casting(wolf);
+	receive_players_pos(wolf);
 	while (++x < SIMG_X)
 	{
 		ray.map[0] = (int)(wolf->cam.pos.x);

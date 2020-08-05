@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/30 14:47:31 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/05 17:44:45 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@
 # define TEX_EAST	2
 # define TEX_WEST	3
 
+# define MAX_PLAYERS	16
+# define SRV_TRS_START	""
+# define SRV_TRS_DONE	""
+# ifndef SRV_BUFF
+#  define SRV_BUFF		16
+# endif
+
 typedef struct		s_vector
 {
 	double	x;
@@ -103,6 +110,7 @@ typedef struct		s_wall
 {
 	int8_t	tex_id[4];
 	int8_t	crossable;
+	char	gap_0[2];
 }					t_wall;
 
 typedef struct		s_sprite
@@ -110,6 +118,7 @@ typedef struct		s_sprite
 	double	x;
 	double	y;
 	int8_t	tex_id;
+	char	gap_0[3];
 }					t_sprite;
 
 typedef struct		s_sprtcalc
@@ -121,9 +130,16 @@ typedef struct		s_sprtcalc
 	int			sprite_screen_x;
 }					t_sprtcalc;
 
+typedef struct		s_player
+{
+	t_vector	pos;
+	int			id;
+}					t_player;
+
 typedef struct		s_world
 {
 	t_sprite	sprites[SPRT_MAX];
+	t_player	players[MAX_PLAYERS];
 	int8_t		sprt_nbr;
 	int8_t		ceiling;
 	int8_t		spawn_x;
@@ -131,6 +147,7 @@ typedef struct		s_world
 	int8_t		height;
 	int8_t		width;
 	int8_t		floor;
+	char		gap_0[1];
 	char		**map;
 	int			center[2];
 	int			texture[TEX_MAX + 1][TEX_HEIGHT * TEX_WIDTH];

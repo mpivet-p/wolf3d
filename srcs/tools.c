@@ -6,15 +6,13 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 04:49:56 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/21 11:37:36 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/05 16:08:33 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "wolf.h"
 #include <mlx.h>
-
-#include <stdio.h>
 
 void		set_pixel(char *image, int x, int y, int color)
 {
@@ -47,6 +45,9 @@ int			quit_wolf(void *param)
 		mlx_destroy_image(wolf->mlx, wolf->screen);
 	if (wolf->mlx && wolf->win)
 		mlx_destroy_window(wolf->mlx, wolf->win);
+	if (wolf->socket > -1)
+		sendto(wolf->socket, "", 1, 0
+			, (struct sockaddr*)&(wolf->sin), sizeof(struct sockaddr));
 	exit(0);
 }
 

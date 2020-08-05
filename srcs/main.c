@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/31 15:01:21 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/05 15:53:31 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	init_core(t_core *wolf)
 	mlx_hook(wolf->win, 17, 0, quit_wolf, wolf);
 	mlx_hook(wolf->win, 2, 0, deal_key, wolf);
 	mlx_hook(wolf->win, 4, 0, mouse_press, wolf);
+	wolf->socket = -1;
 }
 
 static void	print_usage(void)

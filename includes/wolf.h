@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/30 14:55:02 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/05 17:38:46 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ void			get_sprites_dist(t_core *wolf, int *sprite_order);
 
 int8_t			connect_to_server(t_core *wolf, const char *address);
 int8_t			send_pos_to_server(t_core *wolf);
+int8_t			receive_players_pos(t_core *wolf);
 
 #endif
