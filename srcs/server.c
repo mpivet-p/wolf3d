@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/05 17:52:50 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/06 15:43:49 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static int8_t	connect_client(t_client *clients, struct sockaddr_in *csin, int *n
 		clients[*nbr].sin = *csin;
 		(*nbr)++;
 		ft_putstr("wolf server: New client connected: ");
+		printf("new port : %d\n", csin->sin_port);
 		print_addr(&(csin->sin_addr.s_addr), csin->sin_port);
 		write(STDOUT_FILENO, "\n", 1);
 		return (SUCCESS);
@@ -112,36 +113,44 @@ static void		send_all_pos(t_client *client, struct sockaddr_in *sin, int id, int
 	int		i;
 
 	i = 0;
-	ft_putstr("sending data...\n");
 	sendto(socket, "", 1, 0
-			, (struct sockaddr*)sin, sizeof(struct sockaddr_in));
+			, (struct sockaddr*)&(client[id].sin), sizeof(struct sockaddr_in));
 	while (i < client_nbr)
 	{
 		if (i != id)
 		{
+			printf("Sending %d data to %d (%f %f)\n", sin->sin_port, client[id].sin.sin_port, client[id].player_pos.x, client[id].player_pos.y);
 			sendto(socket, &(client[i].player_pos), sizeof(t_vector), 0
-					, (struct sockaddr*)sin, sizeof(struct sockaddr_in));
+					, (struct sockaddr*)&(client[id].sin), sizeof(struct sockaddr_in));
 		}
 		i++;
 	}
 	sendto(socket, "", 1, 0
-			, (struct sockaddr*)sin, sizeof(struct sockaddr_in));
+			, (struct sockaddr*)&(client[id].sin), sizeof(struct sockaddr_in));
 }
 
 static void		send_pos_to_clients(t_client *clients
-		, struct sockaddr_in *sin, int client_nbr, char *buffer, int socket)
+		, struct sockaddr_in *sin, int client_nbr, int socket)
 {
-	t_vector	vec;
 	int			i;
 
 	i = 0;
-	ft_memmove(&vec, buffer, sizeof(t_vector));
 	while (i < client_nbr)
 	{
 		if (sin->sin_port != clients[i].sin.sin_port)
 			send_all_pos(clients, sin, i, client_nbr, socket);
 		i++;
 	}
+}
+
+static void	set_player_pos(t_client *clients, char *buffer, struct sockaddr_in *sin)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_CLIENTS && sin->sin_port != clients[i].sin.sin_port)
+		i++;
+	ft_memmove(&(clients[i].player_pos), buffer, sizeof(t_vector));
 }
 
 static void	run_server(int socket, t_client *clients)
@@ -152,23 +161,18 @@ static void	run_server(int socket, t_client *clients)
 	char				buffer[SRV_BUFF + 1];
 	int					len;
 
-	ft_putstr_fd("wolf server: Server is running...\n", STDERR_FILENO);
-	while(1)
+	while (1)
 	{
 		FD_ZERO(&rdfs);
 		FD_SET(STDIN_FILENO, &rdfs);
 		FD_SET(socket, &rdfs);
-		if(select(socket + 1, &rdfs, NULL, NULL, NULL) == -1)
-		{
-			;
-		}
+		select(socket + 1, &rdfs, NULL, NULL, NULL);
 		if (FD_ISSET(STDIN_FILENO, &rdfs))
 		{
 			close(socket);
 			ft_putstr_fd("wolf server: Server closing...\n", STDOUT_FILENO);
 			return ;
 		}
-
 		if (FD_ISSET(socket, &rdfs))
 		{
 			ft_bzero(&csin, sizeof(csin));
@@ -178,7 +182,10 @@ static void	run_server(int socket, t_client *clients)
 				if (len != sizeof(t_vector))
 					remove_client(clients, csin.sin_addr.s_addr, &client_nbr);
 				else
-					send_pos_to_clients(clients, &csin, client_nbr, buffer, socket);
+				{
+					set_player_pos(clients, buffer, &csin);
+					send_pos_to_clients(clients, &csin, client_nbr, socket);
+				}
 			}	
 		}
 	}
@@ -193,6 +200,7 @@ int		main(void)
 		return (EXIT_FAILURE);
 	if (create_interface(socket) != SUCCESS)
 		return (EXIT_FAILURE);
+	ft_putstr_fd("wolf server: Server is running...\n", STDERR_FILENO);
 	run_server(socket, clients);
 	close(socket);
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/05 15:53:31 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/06 15:52:38 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "wolf.h"
 #include <mlx.h>
 #include <stdio.h>
+
+#include <signal.h>
 
 static void	init_core(t_core *wolf)
 {
