@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:47:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/06 13:48:52 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/07 15:16:11 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ double		render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 	return (ray->wall_dist);
 }
 
-void		draw_scene(t_core *wolf)
+int			draw_scene(t_core *wolf)
 {
 	double		camera_x;
 	double		z_buffer[SIMG_X];
@@ -117,4 +117,5 @@ void		draw_scene(t_core *wolf)
 	}
 	draw_sprites(wolf, z_buffer);
 	mlx_put_image_to_window(wolf->mlx, wolf->win, wolf->screen, 0, 0);
+	return (0);
 }

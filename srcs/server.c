@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/06 15:43:49 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/07 14:29:22 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static int8_t	connect_client(t_client *clients, struct sockaddr_in *csin, int *n
 		clients[*nbr].sin = *csin;
 		(*nbr)++;
 		ft_putstr("wolf server: New client connected: ");
-		printf("new port : %d\n", csin->sin_port);
 		print_addr(&(csin->sin_addr.s_addr), csin->sin_port);
 		write(STDOUT_FILENO, "\n", 1);
 		return (SUCCESS);
@@ -108,7 +107,7 @@ static void	remove_client(t_client *clients, in_addr_t address, int *nbr)
 	}
 }
 
-static void		send_all_pos(t_client *client, struct sockaddr_in *sin, int id, int client_nbr, int socket)
+static void		send_all_pos(t_client *client, int id, int client_nbr, int socket)
 {
 	int		i;
 
@@ -119,7 +118,6 @@ static void		send_all_pos(t_client *client, struct sockaddr_in *sin, int id, int
 	{
 		if (i != id)
 		{
-			printf("Sending %d data to %d (%f %f)\n", sin->sin_port, client[id].sin.sin_port, client[id].player_pos.x, client[id].player_pos.y);
 			sendto(socket, &(client[i].player_pos), sizeof(t_vector), 0
 					, (struct sockaddr*)&(client[id].sin), sizeof(struct sockaddr_in));
 		}
@@ -138,7 +136,7 @@ static void		send_pos_to_clients(t_client *clients
 	while (i < client_nbr)
 	{
 		if (sin->sin_port != clients[i].sin.sin_port)
-			send_all_pos(clients, sin, i, client_nbr, socket);
+			send_all_pos(clients, i, client_nbr, socket);
 		i++;
 	}
 }

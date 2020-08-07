@@ -6,13 +6,14 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 06:54:43 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/30 14:57:14 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/07 15:14:54 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include <math.h>
 #include <string.h>
+#include <sys/select.h>
 
 void	move_camera(t_core *wolf, int key)
 {

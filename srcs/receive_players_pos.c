@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:22:58 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/06 15:24:53 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/07 15:24:05 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	if_packet(int socket, fd_set *rdfs)
 
 	FD_ZERO(rdfs);
 	FD_SET(socket, rdfs);
-	timeout.tv_usec = 2000;
+	timeout.tv_usec = 20;
 	timeout.tv_sec = 0;
 	select(socket + 1, rdfs, NULL, NULL, &timeout);
 }

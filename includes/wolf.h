@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/05 17:38:46 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/07 15:16:03 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void			get_spawn_coords(t_world *world, int *array, int fd);
 ** ============================================================================
 */
 
-void			draw_scene(t_core *wolf);
+int				draw_scene(t_core *wolf);
 void			floor_ceiling_casting(t_core *wolf);
 void			draw_sprites(t_core *wolf, double *z_buffer);
 int				get_tex_dir(t_wall *wall, t_ray *ray);
