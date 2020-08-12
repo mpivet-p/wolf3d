@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:22:58 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/07 16:21:00 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/12 12:55:23 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ static void	new_player(t_core *wolf, char *buffer)
 {
 	t_vector	vec;
 
-	(void)wolf;
-	ft_memmove(&vec, buffer, sizeof(t_vector));
-	printf("%f %f\n", vec.x, vec.y);
+	ft_memmove(&(vec), buffer, sizeof(t_vector));
+	wolf->world.player_nbr++;
+	wolf->world.sprt_nbr++;
+	wolf->world.sprites[wolf->world.sprt_nbr].x = vec.x;
+	wolf->world.sprites[wolf->world.sprt_nbr].y = vec.y;
+	//CHANGE TO wolf->world.player_tex; NEED PARSING
+	wolf->world.sprites[wolf->world.sprt_nbr].tex_id = 0;
 }
 
 static void	if_packet(int socket, fd_set *rdfs)
@@ -35,6 +39,14 @@ static void	if_packet(int socket, fd_set *rdfs)
 	select(socket + 1, rdfs, NULL, NULL, &timeout);
 }
 
+void	erase_players_sprites(t_core *wolf)
+{
+	wolf->world.sprt_nbr -= wolf->world.player_nbr;
+	ft_bzero(&(wolf->world.sprites[wolf->world.sprt_nbr])
+			, (SPRT_MAX - wolf->world.sprt_nbr) * sizeof(t_sprite));
+	wolf->world.player_nbr = 0;
+}
+
 int8_t		receive_players_pos(t_core *wolf)
 {
 	socklen_t	sinsize;
@@ -44,7 +56,8 @@ int8_t		receive_players_pos(t_core *wolf)
 	fd_set		rdfs;
 
 	i = 0;
-	sinsize = sizeof(struct sockaddr_in);
+	sinsize = sizeof(struct sockaddr);
+	erase_players_sprites(wolf);
 	while (i < 16)
 	{
 		if_packet(wolf->socket, &rdfs);

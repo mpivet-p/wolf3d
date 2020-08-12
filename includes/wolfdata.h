@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/12 12:08:58 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/12 12:33:08 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 # define TEX_HEIGHT		64
 # define TEX_WIDTH		64
 # define TEX_MAX		16
-# define SPRT_MAX		32
+# define SPRT_MAX		48
 
 # define TEX_ALL	0
 # define TEX_NORTH	0
@@ -130,16 +130,10 @@ typedef struct		s_sprtcalc
 	int			sprite_screen_x;
 }					t_sprtcalc;
 
-typedef struct		s_player
-{
-	t_vector	pos;
-	int			id;
-}					t_player;
-
 typedef struct		s_world
 {
 	t_sprite	sprites[SPRT_MAX];
-	t_player	players[MAX_PLAYERS];
+	int8_t		player_nbr;
 	int8_t		sprt_nbr;
 	int8_t		ceiling;
 	int8_t		spawn_x;
