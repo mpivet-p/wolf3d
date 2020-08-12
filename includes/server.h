@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 11:33:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/12 11:22:29 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/12 12:08:50 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define MAX_CLIENTS	16
 # define WLF_PORT		4221
 # ifndef SRV_BUFF
-#  define SRV_BUFF		1024
+#  define SRV_BUFF		16
 # endif
 # define INVALID_SOCKET	-1
 # define SOCKET_ERROR	-1

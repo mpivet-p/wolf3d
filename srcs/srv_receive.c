@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 16:09:47 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/07 16:10:13 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/12 12:15:08 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int8_t	receive(int socket, char *buffer, struct sockaddr_in *csin, int *len)
 {
 	size_t	sinsize;
 
-	ft_bzero(&csin, sizeof(*csin));
+	ft_bzero(csin, sizeof(*csin));
 	sinsize = sizeof(*csin);
 	if ((*len = recvfrom(socket, buffer, SRV_BUFF
 					, 0, (struct sockaddr*)csin, (socklen_t*)&sinsize)) < 0)

@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/07 16:16:00 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/12 12:15:04 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ static void	wait_event(int socket, fd_set *rdfs)
 static void	run_server(int socket, t_client *clients)
 {
 	struct sockaddr_in	csin;
-	int					client_nbr;
 	fd_set				rdfs;
 	char				buffer[SRV_BUFF + 1];
+	int					client_nbr;
 	int					len;
 
 	while (1)
