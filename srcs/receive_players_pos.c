@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:22:58 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/07 15:24:05 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/07 16:21:00 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	if_packet(int socket, fd_set *rdfs)
 	select(socket + 1, rdfs, NULL, NULL, &timeout);
 }
 
-int8_t	receive_players_pos(t_core *wolf)
+int8_t		receive_players_pos(t_core *wolf)
 {
 	socklen_t	sinsize;
 	char		buffer[SRV_BUFF];

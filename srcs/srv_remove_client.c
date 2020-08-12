@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shaders.c                                          :+:      :+:    :+:   */
+/*   srv_remove_client.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/31 15:00:43 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/07 16:17:25 by mpivet-p         ###   ########.fr       */
+/*   Created: 2020/08/07 16:04:43 by mpivet-p          #+#    #+#             */
+/*   Updated: 2020/08/12 11:01:40 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		test_shaders(int color, t_ray *ray)
-{
-	double	dist;
-	float	coeff;
-	int		r;
-	int		g;
-	int		b;
+#include "libft.h"
+#include "server.h"
 
-	dist = (ray->side == 0) ? ray->side_dist.x : ray->side_dist.y;
-	coeff = (exp(dist / 3) - 11) / -10;
-	if (coeff < 0.0)
-		coeff = 0;
-	r = (color & 0xFF0000) >> 16;
-	g = (color & 0x00FF00) >> 8;
-	b = (color & 0x0000FF);
-	return ((int)(r * coeff) << 16)
-	| ((int)(g * coeff) << 8) | (int)(b * coeff);
+void	remove_client(t_client *clients, in_addr_t address, int *nbr)
+{
+	int	id;
+
+	id = 0;
+	ft_putstr("wolf server: Client disconnected\n");
+	while (id < *nbr && clients[id].sin.sin_addr.s_addr != address)
+		id++;
+	if (id < *nbr)
+	{
+		ft_memmove(&(clients[id]), &(clients[id + 1])
+				, sizeof(t_client) * (MAX_CLIENTS - id));
+		(*nbr)--;
+	}
 }

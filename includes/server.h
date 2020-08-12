@@ -6,12 +6,15 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 11:33:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/05 17:45:21 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/12 11:22:29 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_H
 # define SERVER_H
+
+# include "wolfdata.h"
+# include <arpa/inet.h>
 
 # define MAX_CLIENTS	16
 # define WLF_PORT		4221
@@ -23,11 +26,6 @@
 # define PLAYER_POS		1
 # define REMOVE_PLAYER	2
 
-# include "wolfdata.h"
-# include <arpa/inet.h>
-
-int8_t	init_socket(int *sockfd);
-
 typedef struct	s_client
 {
 	struct sockaddr_in	sin;
@@ -37,5 +35,14 @@ typedef struct	s_client
 	int8_t				connection_status;
 	char				gap_0;
 }				t_client;
+
+int8_t			init_socket(int *sockfd);
+int8_t			receive(
+		int socket, char *buffer, struct sockaddr_in *csin, int *len);
+int8_t			is_client_known(
+		t_client *clients, struct sockaddr_in *csin, int *nbr);
+void			remove_client(t_client *clients, in_addr_t address, int *nbr);
+void			send_pos_to_clients(t_client *clients, struct sockaddr_in *sin
+			, int client_nbr, int socket);
 
 #endif

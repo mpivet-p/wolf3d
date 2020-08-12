@@ -6,7 +6,7 @@
 #    By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 02:45:47 by mpivet-p          #+#    #+#              #
-#    Updated: 2020/08/05 17:38:31 by mpivet-p         ###   ########.fr        #
+#    Updated: 2020/08/12 11:17:21 by mpivet-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,11 +47,17 @@ else
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LIBS) $(MLX)
 endif
 
-server: obj/init_socket.o obj/init_socket.o obj/server.o
+server: obj/init_socket.o obj/server.o obj/srv_connect_client.o\
+	obj/srv_receive.o obj/srv_remove_client.o obj/srv_send_data.o
 	make -C libft
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	$(CC) $(CFLAGS) -I includes -I libft/inc -o obj/server.o -c srcs/server.c
-	$(CC) $(CFLAGS) -o server obj/server.o obj/init_socket.o -L libft -lft
+	$(CC) $(CFLAGS) -I includes -I libft/inc -o obj/srv_connect_client.o -c srcs/srv_connect_client.c
+	$(CC) $(CFLAGS) -I includes -I libft/inc -o obj/srv_receive.o -c srcs/srv_receive.c
+	$(CC) $(CFLAGS) -I includes -I libft/inc -o obj/srv_remove_client.o -c srcs/srv_remove_client.c
+	$(CC) $(CFLAGS) -I includes -I libft/inc -o obj/srv_send_data.o -c srcs/srv_send_data.c
+	$(CC) $(CFLAGS) -o server obj/server.o obj/srv_connect_client.o obj/srv_receive.o \
+	obj/srv_remove_client.o obj/srv_send_data.o obj/init_socket.o -L libft -lft
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true

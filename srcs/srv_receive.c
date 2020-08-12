@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_socket.c                                      :+:      :+:    :+:   */
+/*   srv_receive.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/27 11:36:05 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/07 16:14:10 by mpivet-p         ###   ########.fr       */
+/*   Created: 2020/08/07 16:09:47 by mpivet-p          #+#    #+#             */
+/*   Updated: 2020/08/07 16:10:13 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
 #include "libft.h"
-#include <sys/socket.h>
-#include <stdio.h>
+#include "wolf.h"
 
-/*
-**	PF_INET = IPv4			PF_LOCAL = localhost
-**	SOCK_STREAM => TCP		SOCK_DGRAM = UDP		SOCK_RAW = IP
-*/
-
-int8_t	init_socket(int *sockfd)
+int8_t	receive(int socket, char *buffer, struct sockaddr_in *csin, int *len)
 {
-	*sockfd = socket(PF_INET, SOCK_DGRAM, 0);
-	if (*sockfd == INVALID_SOCKET)
+	size_t	sinsize;
+
+	ft_bzero(&csin, sizeof(*csin));
+	sinsize = sizeof(*csin);
+	if ((*len = recvfrom(socket, buffer, SRV_BUFF
+					, 0, (struct sockaddr*)csin, (socklen_t*)&sinsize)) < 0)
 	{
-		ft_putstr_fd("wolf server: socket error\n", STDERR_FILENO);
+		ft_putstr_fd("wolf server: recvfrom error\n", STDERR_FILENO);
 		return (FAILURE);
 	}
+	buffer[*len] = 0;
 	return (SUCCESS);
 }
