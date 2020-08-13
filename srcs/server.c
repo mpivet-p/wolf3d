@@ -6,14 +6,13 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/12 12:15:04 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/13 15:10:01 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 #include "libft.h"
 #include <sys/socket.h>
-
 #include <stdio.h>
 
 int8_t		create_interface(int sockfd)
@@ -71,12 +70,10 @@ static void	run_server(int socket, t_client *clients)
 			if (is_client_known(clients, &csin, &client_nbr) != SUCCESS)
 				continue ;
 			if (len != sizeof(t_vector))
-				remove_client(clients, csin.sin_addr.s_addr, &client_nbr);
+				remove_client(clients, &csin, &client_nbr);
 			else
-			{
 				set_player_pos(clients, buffer, &csin);
-				send_pos_to_clients(clients, &csin, client_nbr, socket);
-			}
+			send_pos_to_clients(clients, client_nbr, socket);
 		}
 	}
 }

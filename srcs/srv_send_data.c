@@ -6,13 +6,14 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 16:06:31 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/12 11:11:27 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/13 15:08:50 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 #include <sys/socket.h>
 
+#include <stdio.h>
 static void	send_all_pos(t_client *client, int id, int client_nbr, int socket)
 {
 	int			i;
@@ -35,16 +36,14 @@ static void	send_all_pos(t_client *client, int id, int client_nbr, int socket)
 			, (struct sockaddr*)&(client[id].sin), sinsize);
 }
 
-void		send_pos_to_clients(t_client *clients
-		, struct sockaddr_in *sin, int client_nbr, int socket)
+void		send_pos_to_clients(t_client *clients, int client_nbr, int socket)
 {
 	int			i;
 
 	i = 0;
 	while (i < client_nbr)
 	{
-		if (sin->sin_port != clients[i].sin.sin_port)
-			send_all_pos(clients, i, client_nbr, socket);
+		send_all_pos(clients, i, client_nbr, socket);
 		i++;
 	}
 }

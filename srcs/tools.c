@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 04:49:56 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/05 16:08:33 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/13 15:03:34 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ int			quit_wolf(void *param)
 	if (wolf->mlx && wolf->win)
 		mlx_destroy_window(wolf->mlx, wolf->win);
 	if (wolf->socket > -1)
+	{
 		sendto(wolf->socket, "", 1, 0
 			, (struct sockaddr*)&(wolf->sin), sizeof(struct sockaddr));
+		close(wolf->socket);
+	}
 	exit(0);
 }
 
