@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/12 12:33:08 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/14 13:33:57 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct		s_world
 	int8_t		player_nbr;
 	int8_t		sprt_nbr;
 	int8_t		ceiling;
+	int8_t		player;
 	int8_t		spawn_x;
 	int8_t		spawn_y;
 	int8_t		height;

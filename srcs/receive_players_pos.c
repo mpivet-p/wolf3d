@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 15:22:58 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/13 15:12:46 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/14 14:01:26 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ static void	new_player(t_core *wolf, char *buffer)
 	wolf->world.player_nbr++;
 	wolf->world.sprites[wolf->world.sprt_nbr].x = vec.x;
 	wolf->world.sprites[wolf->world.sprt_nbr].y = vec.y;
-	//CHANGE TO wolf->world.player_tex; NEED PARSING
-	wolf->world.sprites[wolf->world.sprt_nbr].tex_id = TEX_MAX;
+	if (wolf->world.player < 0)
+		wolf->world.sprites[wolf->world.sprt_nbr].tex_id = TEX_MAX;
+	else
+		wolf->world.sprites[wolf->world.sprt_nbr].tex_id =
+			wolf->world.player;
 	wolf->world.sprt_nbr++;
 }
 

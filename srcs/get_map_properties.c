@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:40:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 15:41:23 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/14 14:13:42 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,18 @@ static int8_t	set_floor_or_ceiling(
 		wolf->world.floor = tex_num;
 	else
 		wolf->world.ceiling = tex_num;
-	return (0);
+	return (SUCCESS);
+}
+
+static int8_t	set_player_texture(
+		t_core *wolf, char **prp, char **files, int *tex_i)
+{
+	int	tex_num;
+
+	if ((tex_num = register_new_texture(wolf, prp, files, tex_i)) == FAILURE)
+		return (FAILURE);
+	wolf->world.player = tex_num;	
+	return (SUCCESS);
 }
 
 static int8_t	get_property_line(
@@ -33,6 +44,8 @@ static int8_t	get_property_line(
 	if ((ft_strcmp("floor", prp[0]) == 0 || ft_strcmp("ceiling", prp[0]) == 0)
 			&& ft_tablen(prp) == 2)
 		return (set_floor_or_ceiling(wolf, prp, files, tex_i));
+	if (ft_strcmp("player", prp[0]) == 0 && ft_tablen(prp) == 2)
+		return (set_player_texture(wolf, prp, files, tex_i));
 	if (ft_strcmp(prp[0], "sprite") == 0 && ft_tablen(prp) == 4)
 		return (set_new_sprite(wolf, prp, files, tex_i));
 	return (set_new_wall(wolf, prp, files, tex_i));
