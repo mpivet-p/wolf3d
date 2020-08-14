@@ -6,14 +6,13 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 16:06:31 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/13 15:08:50 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/14 14:58:16 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 #include <sys/socket.h>
 
-#include <stdio.h>
 static void	send_all_pos(t_client *client, int id, int client_nbr, int socket)
 {
 	int			i;

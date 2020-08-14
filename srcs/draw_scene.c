@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:47:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/07 15:16:11 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/14 14:56:53 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int			draw_scene(t_core *wolf)
 
 	x = -1;
 	receive_players_pos(wolf);
-	ft_bzero(wolf->img, SIMG_X * SIMG_Y * 4);
 	map_visualizer(wolf);
 	floor_ceiling_casting(wolf);
 	while (++x < SIMG_X)

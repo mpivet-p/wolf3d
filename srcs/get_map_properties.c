@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:40:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/14 14:13:42 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/14 14:58:52 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int8_t	set_player_texture(
 
 	if ((tex_num = register_new_texture(wolf, prp, files, tex_i)) == FAILURE)
 		return (FAILURE);
-	wolf->world.player = tex_num;	
+	wolf->world.player = tex_num;
 	return (SUCCESS);
 }
 

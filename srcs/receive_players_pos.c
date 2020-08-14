@@ -5,17 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/05 15:22:58 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/14 14:01:26 by mpivet-p         ###   ########.fr       */
+/*   Created: 2020/08/14 14:59:04 by mpivet-p          #+#    #+#             */
+/*   Updated: 2020/08/14 15:00:02 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include "libft.h"
 
-#include <stdio.h>
-
-static void	new_player(t_core *wolf, char *buffer)
+static void		new_player(t_core *wolf, char *buffer)
 {
 	t_vector	vec;
 
@@ -31,7 +29,7 @@ static void	new_player(t_core *wolf, char *buffer)
 	wolf->world.sprt_nbr++;
 }
 
-static void	if_packet(int socket, fd_set *rdfs)
+static void		if_packet(int socket, fd_set *rdfs)
 {
 	struct timeval	timeout;
 
@@ -42,7 +40,7 @@ static void	if_packet(int socket, fd_set *rdfs)
 	select(socket + 1, rdfs, NULL, NULL, &timeout);
 }
 
-void	erase_players_sprites(t_core *wolf)
+static void		erase_players_sprites(t_core *wolf)
 {
 	wolf->world.sprt_nbr -= wolf->world.player_nbr;
 	ft_bzero(&(wolf->world.sprites[wolf->world.sprt_nbr])
@@ -50,7 +48,8 @@ void	erase_players_sprites(t_core *wolf)
 	wolf->world.player_nbr = 0;
 }
 
-static int8_t	receive_treat_data(t_core *wolf, char *buffer, int *i, socklen_t *sinsize)
+static int8_t	receive_treat_data(
+		t_core *wolf, char *buffer, int *i, socklen_t *sinsize)
 {
 	int			len;
 
@@ -73,7 +72,7 @@ static int8_t	receive_treat_data(t_core *wolf, char *buffer, int *i, socklen_t *
 	return (SUCCESS);
 }
 
-int8_t		receive_players_pos(t_core *wolf)
+int8_t			receive_players_pos(t_core *wolf)
 {
 	socklen_t	sinsize;
 	char		buffer[SRV_BUFF];
