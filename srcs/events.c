@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 06:54:43 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/07 15:14:54 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/15 11:41:08 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ int		deal_key(int key, t_core *wolf)
 		rotate_camera(wolf, key);
 	else if (key == KEY_TAB)
 		wolf->cam.mode ^= WLF_MAP;
-	else
-		return (key);
-	draw_scene(wolf);
 	return (key);
 }
 

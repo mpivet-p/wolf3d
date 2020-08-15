@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 14:55:04 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/05 17:12:59 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/15 16:12:26 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,32 @@
 #include <netdb.h>
 #include <sys/socket.h>
 
-int8_t	connect_to_server(t_core *wolf, const char *address)
+static int8_t	server_accept_connection(t_core *wolf)
+{
+	struct timeval	timeout;
+	socklen_t		sinsize;
+	fd_set			rdfs;
+	char			buffer[16];
+
+	timeout.tv_sec = 1;
+	timeout.tv_usec = 1000000;
+	sinsize = sizeof(struct sockaddr);
+	FD_ZERO(&rdfs);
+	FD_SET(wolf->socket, &rdfs);
+	select(wolf->socket + 1, &rdfs, NULL, NULL, &timeout);
+	if (FD_ISSET(wolf->socket, &rdfs))
+	{
+		printf("%d %d\n", wolf->socket, FD_ISSET(wolf->socket, &rdfs));
+		if (recvfrom(wolf->socket, buffer, 16, 0
+			, (struct sockaddr*)&(wolf->sin), &sinsize) == 1 && buffer[0] == 6)
+		{
+			return (SUCCESS);
+		}
+	}
+	return (FAILURE);
+}
+
+int8_t			connect_to_server(t_core *wolf, const char *address)
 {
 	struct hostent		*hostinfo;
 
@@ -34,5 +59,12 @@ int8_t	connect_to_server(t_core *wolf, const char *address)
 	wolf->sin.sin_port = htons(WLF_PORT);
 	wolf->sin.sin_family = PF_INET;
 	ft_putstr_fd("wolf: Connecting to server...\n", STDERR_FILENO);
-	return (send_pos_to_server(wolf));
+	send_pos_to_server(wolf);
+	if (server_accept_connection(wolf) != SUCCESS)
+	{
+		ft_putstr_fd("wolf: server connection failure!\n", STDERR_FILENO);
+		return (FAILURE);
+	}
+	ft_putstr_fd("wolf: connected!\n", STDERR_FILENO);
+	return (SUCCESS);
 }

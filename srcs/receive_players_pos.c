@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 14:59:04 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/14 15:00:02 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/15 14:42:29 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,17 @@ int8_t			receive_players_pos(t_core *wolf)
 	fd_set		rdfs;
 
 	i = 0;
-	sinsize = sizeof(struct sockaddr);
-	while (i < 16)
+	if (wolf->socket != -1)
 	{
-		if_packet(wolf->socket, &rdfs);
-		if (!FD_ISSET(wolf->socket, &rdfs))
-			return (SUCCESS);
-		if (receive_treat_data(wolf, buffer, &i, &sinsize) == FAILURE)
-			return (FAILURE);
+		sinsize = sizeof(struct sockaddr);
+		while (i < 16)
+		{
+			if_packet(wolf->socket, &rdfs);
+			if (!FD_ISSET(wolf->socket, &rdfs))
+				return (SUCCESS);
+			if (receive_treat_data(wolf, buffer, &i, &sinsize) == FAILURE)
+				return (FAILURE);
+		}
 	}
 	return (FAILURE);
 }

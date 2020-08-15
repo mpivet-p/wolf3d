@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 11:33:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/13 15:09:19 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/15 15:59:29 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int8_t			init_socket(int *sockfd);
 int8_t			receive(
 		int socket, char *buffer, struct sockaddr_in *csin, int *len);
 int8_t			is_client_known(
-		t_client *clients, struct sockaddr_in *csin, int *nbr);
+		t_client *clients, struct sockaddr_in *csin, int *nbr, int socket);
 void			remove_client(
 		t_client *clients, struct sockaddr_in *sin, int *nbr);
 void			send_pos_to_clients(

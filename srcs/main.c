@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 00:26:11 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/14 14:16:03 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/15 14:37:01 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "wolf.h"
 #include <mlx.h>
 #include <stdio.h>
-
-#include <signal.h>
 
 static void	init_core(t_core *wolf)
 {
@@ -32,7 +30,6 @@ static void	init_core(t_core *wolf)
 	mlx_hook(wolf->win, 17, 0, quit_wolf, wolf);
 	mlx_hook(wolf->win, 2, 0, deal_key, wolf);
 	mlx_hook(wolf->win, 4, 0, mouse_press, wolf);
-	wolf->socket = -1;
 }
 
 static void	print_usage(void)
@@ -55,6 +52,7 @@ int			main(int argc, char **argv)
 
 	ft_bzero(&wolf, sizeof(t_core));
 	parse_args(argc);
+	wolf.socket = -1;
 	wolf.world.player = -1;
 	if (!(wolf.mlx = mlx_init()))
 		quit_wolf(&wolf);

@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/13 15:10:01 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/15 15:58:34 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	run_server(int socket, t_client *clients)
 		if (FD_ISSET(socket, &rdfs))
 		{
 			receive(socket, buffer, &csin, &len);
-			if (is_client_known(clients, &csin, &client_nbr) != SUCCESS)
+			if (is_client_known(clients, &csin, &client_nbr, socket) != SUCCESS)
 				continue ;
 			if (len != sizeof(t_vector))
 				remove_client(clients, &csin, &client_nbr);

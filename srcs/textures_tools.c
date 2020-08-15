@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:07:26 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/21 15:32:34 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/15 13:00:14 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int8_t		file_to_texture(t_core *wolf, t_world *world, char *file, int tex_i)
 	}
 	else if (width != TEX_WIDTH || height != TEX_HEIGHT)
 	{
+		mlx_destroy_image(wolf->mlx, ptr);
 		ft_putstr_fd("wolf: texture size error\n", STDERR_FILENO);
 		return (1);
 	}
