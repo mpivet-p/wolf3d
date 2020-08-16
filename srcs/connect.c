@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 14:55:04 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/15 16:12:26 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/16 12:49:07 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,21 @@ static int8_t	server_accept_connection(t_core *wolf)
 	char			buffer[16];
 
 	timeout.tv_sec = 1;
-	timeout.tv_usec = 1000000;
+	timeout.tv_usec = 100000;
 	sinsize = sizeof(struct sockaddr);
 	FD_ZERO(&rdfs);
 	FD_SET(wolf->socket, &rdfs);
 	select(wolf->socket + 1, &rdfs, NULL, NULL, &timeout);
 	if (FD_ISSET(wolf->socket, &rdfs))
 	{
-		printf("%d %d\n", wolf->socket, FD_ISSET(wolf->socket, &rdfs));
 		if (recvfrom(wolf->socket, buffer, 16, 0
 			, (struct sockaddr*)&(wolf->sin), &sinsize) == 1 && buffer[0] == 6)
 		{
 			return (SUCCESS);
 		}
 	}
+	close(wolf->socket);
+	wolf->socket = -1;
 	return (FAILURE);
 }
 

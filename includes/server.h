@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 11:33:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/15 15:59:29 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/16 13:47:23 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void			remove_client(
 		t_client *clients, struct sockaddr_in *sin, int *nbr);
 void			send_pos_to_clients(
 		t_client *clients, int client_nbr, int socket);
+int8_t			quit_server(t_client *clients, int client_nbr, int socket);
 
 #endif

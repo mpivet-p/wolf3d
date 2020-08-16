@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 16:00:23 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/15 16:14:04 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/16 14:00:47 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static int8_t	connect_client(
 		return (SUCCESS);
 	}
 	sendto(socket, "", 1, 0, (struct sockaddr*)csin, sizeof(struct sockaddr));
-	ft_putstr_fd("wolf server: Server is full !\n", STDERR_FILENO);
+	ft_putstr_fd(
+		"wolf server: Client tried to join. Server is full.\n", STDERR_FILENO);
 	return (FAILURE);
 }
 

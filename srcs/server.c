@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/15 15:58:34 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/16 13:53:36 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/socket.h>
 #include <stdio.h>
 
-int8_t		create_interface(int sockfd)
+int8_t			create_interface(int sockfd)
 {
 	struct sockaddr_in	sin;
 
@@ -32,7 +32,7 @@ int8_t		create_interface(int sockfd)
 	return (SUCCESS);
 }
 
-static void	set_player_pos(t_client *clients, char *buffer
+static void		set_player_pos(t_client *clients, char *buffer
 		, struct sockaddr_in *sin)
 {
 	int	i;
@@ -43,7 +43,7 @@ static void	set_player_pos(t_client *clients, char *buffer
 	ft_memmove(&(clients[i].player_pos), buffer, sizeof(t_vector));
 }
 
-static void	wait_event(int socket, fd_set *rdfs)
+static void		wait_event(int socket, fd_set *rdfs)
 {
 	FD_ZERO(rdfs);
 	FD_SET(STDIN_FILENO, rdfs);
@@ -51,7 +51,7 @@ static void	wait_event(int socket, fd_set *rdfs)
 	select(socket + 1, rdfs, NULL, NULL, NULL);
 }
 
-static void	run_server(int socket, t_client *clients)
+static int8_t	run_server(int socket, t_client *clients)
 {
 	struct sockaddr_in	csin;
 	fd_set				rdfs;
@@ -63,7 +63,7 @@ static void	run_server(int socket, t_client *clients)
 	{
 		wait_event(socket, &rdfs);
 		if (FD_ISSET(STDIN_FILENO, &rdfs))
-			break ;
+			return (quit_server(clients, client_nbr, socket));
 		if (FD_ISSET(socket, &rdfs))
 		{
 			receive(socket, buffer, &csin, &len);
@@ -78,7 +78,7 @@ static void	run_server(int socket, t_client *clients)
 	}
 }
 
-int			main(void)
+int				main(void)
 {
 	t_client	clients[MAX_CLIENTS];
 	int			socket;

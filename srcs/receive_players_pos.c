@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/14 14:59:04 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/15 14:42:29 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2020/08/16 14:20:57 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,12 @@ int8_t			receive_players_pos(t_core *wolf)
 			if (!FD_ISSET(wolf->socket, &rdfs))
 				return (SUCCESS);
 			if (receive_treat_data(wolf, buffer, &i, &sinsize) == FAILURE)
+			{
+				ft_putstr_fd("wolf: Server disconnected.\n", STDERR_FILENO);
+				close(wolf->socket);
+				wolf->socket = -1;
 				return (FAILURE);
+			}
 		}
 	}
 	return (FAILURE);
