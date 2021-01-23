@@ -1,0 +1,44 @@
+19x24
+08x12
+1 1 1 1 1 1 1 0 0 0 1 1 1 1 1 1 1 1 1
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1
+1 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 1
+1 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 1
+1 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 1
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 1
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 1
+1 0 0 0 0 0 2 2 2 0 0 0 0 0 0 0 0 3 1
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 1
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 1
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 1
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 1
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 1
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 1
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 1
+4 0 0 0 9 9 8 8 8 7 7 5 5 0 0 0 0 2 1
+4 0 0 0 9 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+5 0 0 9 9 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+7 0 8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 1 2 2 3 3 2 3 2 3 2 3 2 3 2 3 2 0 0
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0
+1:textures/greystone.xpm
+2:textures/bluestone.xpm:textures/redbrick.xpm:textures/mossy.xpm:textures/purplestone.xpm
+3:textures/bluestone.xpm
+4:textures/redbrick.xpm
+5:textures/eagle.xpm
+6:textures/mossy.xpm
+7:textures/colorstone.xpm
+8:textures/purplestone.xpm
+9:textures/wood.xpm
+10:textures/pillar.xpm
+floor:textures/colorstone.xpm
+ceiling:textures/wood.xpm
+#sprite:texture path:x:y
+sprite:textures/pillar.xpm:5.2:10.2
+sprite:textures/pillar.xpm:5.0:10.0
+sprite:textures/greenlight.xpm:7.0:10.2
+sprite:textures/barrel.xpm:7.0:10.2
+player:textures/player.xpm

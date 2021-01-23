@@ -8,8 +8,8 @@
 3 0 0 0 0 0 3
 0 3 0 0 0 3 0
 0 0 3 3 3 0 0
-1:textures/brick.xpm
-2:textures/flag.xpm
-3:textures/wall.xpm
-floor:textures/metal.xpm
+1:textures/redbrick.xpm
+2:textures/eagle.xpm
+3:textures/bluestone.xpm
+floor:textures/greystone.xpm
 ceiling:textures/wood.xpm
