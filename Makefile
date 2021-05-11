@@ -42,8 +42,8 @@ OBJ= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 
 ifeq ($(OS), Linux)
-	LIBS= -lmlx -lX11 -lbsd
-	MLX=
+	LIBS= -L libft/ -lft -lX11 -lbsd -lm
+	MLX= -L mlx/mlx_linux/ -lmlx
 else
 	LIBS= -L libft/ -lft -L /usr/local/lib/ -lmlx -lm
 	MLX= -framework OpenGL -framework AppKit
