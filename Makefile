@@ -13,6 +13,7 @@
 NAME= wolf3d
 CC= gcc
 CFLAGS= -Wall -Wextra -Werror -g
+OS = $(shell uname)
 
 INC_PATH= includes/
 SRC_PATH= srcs/
@@ -28,11 +29,26 @@ SRC_NAME= main.c events.c tools.c camera.c parser.c misc.c draw_scene.c\
 			receive_players_pos.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
-INC= -I includes/ -I libft/inc/ -I mlx/
+
+ifeq ($(OS), Linux)
+	INC_MLX= mlx/mlx_linux/
+else
+	INC_MLX= mlx/mlx_mac/
+endif
+
+INC= -I includes/ -I libft/inc/ -I $(INC_MLX)
 SRC= $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
-LIBS= -L libft/ -lft -L /usr/local/lib/ -lmlx -lm
-MLX= -framework OpenGL -framework AppKit
+
+
+ifeq ($(OS), Linux)
+	LIBS= -lmlx -lX11 -lbsd
+	MLX=
+else
+	LIBS= -L libft/ -lft -L /usr/local/lib/ -lmlx -lm
+	MLX= -framework OpenGL -framework AppKit
+endif
+
 
 .PHONY: all clean fclean re local
 

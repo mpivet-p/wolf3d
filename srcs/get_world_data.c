@@ -16,10 +16,10 @@
 static int	get_world_data(int fd, int *array)
 {
 	char	*line;
-	int		i;
+	//int		i;
 
 	line = NULL;
-	i = 0;
+	//i = 0;
 	get_next_line(fd, &line);
 	if (ft_strlen(line) != 5 || line[2] != 'x')
 		return (1);

@@ -41,12 +41,12 @@ static int	check_line(char *str, t_world *world)
 static int	get_world_line(char *str, t_world *world, int line)
 {
 	int64_t		tmp;
-	size_t		len;
+	//size_t		len;
 	size_t		i;
 	char		**tab;
 
 	i = 0;
-	len = ft_strlen(str);
+	//len = ft_strlen(str);
 	if (check_line(str, world) != 0)
 		return (1);
 	tab = ft_strsplit(str, ' ');

@@ -35,12 +35,12 @@ static void	sort_sprites(int *sprite_order, double *sprite_dist, int len)
 void		get_sprites_dist(t_core *wolf, int *sprite_order)
 {
 	t_sprite	*sprt;
-	t_vector	*pos;
+	//t_vector	*pos;
 	double		sprite_dist[SPRT_MAX];
 	int			i;
 
 	i = 0;
-	pos = &(wolf->cam.pos);
+	//pos = &(wolf->cam.pos);
 	sprt = wolf->world.sprites;
 	while (i < wolf->world.sprt_nbr)
 	{
