@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/14 15:17:15 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:56:15 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_vector		get_delta_dist(t_vector *raydir);
 void			bresenham(t_core *wolf, t_vector one, t_vector two, int color);
 void			draw_ray(t_core *wolf, t_vector ray, int color);
 void			draw_square(t_core *wolf, int x, int y, int color);
-void			draw_map(t_core *wolf, t_ray *ray, int *step);
+void			draw_map(t_core *wolf, t_ray *ray);
 void			map_visualizer(t_core *wolf);
 
 /*

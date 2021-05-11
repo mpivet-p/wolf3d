@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:47:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/14 14:56:53 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:56:58 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int			draw_scene(t_core *wolf)
 		ray.dir.x = wolf->cam.dir.x + wolf->cam.plane.x * camera_x;
 		ray.dir.y = wolf->cam.dir.y + wolf->cam.plane.y * camera_x;
 		intersect(wolf, &ray, step);
-		draw_map(wolf, &ray, step);
+		draw_map(wolf, &ray);
 		if (wolf->cam.mode != WLF_MAP)
 			z_buffer[x] = render_wolf(wolf, &ray, x, step);
 	}
