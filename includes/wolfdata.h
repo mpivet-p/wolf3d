@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 01:19:54 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/11 13:34:45 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/13 00:03:25 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define COL_BLUE	0x0589F5
 # define COL_YELLO	0xF5A511
 # define COL_PURPLE	0xC017E6
-//
+
 # ifdef __linux__
 #  define KEY_UP	65362
 #  define KEY_DOWN	65364
@@ -68,7 +68,6 @@
 #  define KEY_LESS	69
 #  define KEY_PLUS	78
 # endif
-//
 
 # define MAPWIDTH	24
 # define MAPHEIGHT	24

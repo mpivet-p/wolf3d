@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 06:54:43 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/12 23:45:24 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/13 00:02:02 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	move_camera(t_core *wolf, int key)
 	if (world->map[(int)(cam->pos.x + new_pos.x)][(int)(cam->pos.y)] == 0)
 		cam->pos.x += new_pos.x * check_box(cam, new_pos, world);
 	if (world->map[(int)(cam->pos.x)][(int)(cam->pos.y + new_pos.y)] == 0)
-		cam->pos.y += new_pos.y * check_box(cam,  new_pos, world);
+		cam->pos.y += new_pos.y * check_box(cam, new_pos, world);
 	if (wolf->socket != -1)
 		send_pos_to_server(wolf);
 }

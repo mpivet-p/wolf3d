@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_world_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 14:35:49 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/21 15:16:15 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/13 00:02:42 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 static int	get_world_data(int fd, int *array)
 {
 	char	*line;
-	//int		i;
 
 	line = NULL;
-	//i = 0;
 	get_next_line(fd, &line);
 	if (ft_strlen(line) != 5 || line[2] != 'x')
 		return (1);
