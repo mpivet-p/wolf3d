@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visualizer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 14:44:26 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/14 14:57:19 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/12 17:09:38 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	draw_camera(t_core *wolf, t_camera *cam, char *img)
 	i = 0;
 	x = cam->pos.x * 21.0;
 	y = cam->pos.y * 21.0;
+	x = 21.0 * wolf->world.width - x + 20;
 	while (i < 3)
 	{
 		j = 0;
