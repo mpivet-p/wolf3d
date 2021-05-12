@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 02:45:47 by mpivet-p          #+#    #+#              #
-#    Updated: 2020/08/12 11:17:21 by mpivet-p         ###   ########.fr        #
+#    Updated: 2021/05/13 00:10:40 by mdavid           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME= wolf3d
 CC= gcc
-CFLAGS= -Wall -Wextra -Werror -g
+CFLAGS= -Wall -Wextra -Werror -g -fsanitize=address -fsanitize=undefined -fstack-protector
 OS = $(shell uname)
 
 INC_PATH= includes
