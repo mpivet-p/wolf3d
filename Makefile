@@ -15,7 +15,7 @@ CC= gcc
 CFLAGS= -Wall -Wextra -Werror -g
 OS = $(shell uname)
 
-INC_PATH= includes/
+INC_PATH= includes
 SRC_PATH= srcs/
 OBJ_PATH= obj/
 
@@ -30,9 +30,7 @@ SRC_NAME= main.c events.c tools.c camera.c parser.c misc.c draw_scene.c\
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
 ifeq ($(OS), Linux)
-	MLX_DIR= mlx/mlx_linux
-	LIB_MLX= -L $(MLX_DIR) -lmlx
-	LIBS= -L libft/ -lft -lX11 -lbsd -lm -lXext $(LIB_MLX)
+	LIBS= -L libft/ -lft -L mlx/mlx_linux/ -lmlx -lm -lbsd -lX11 -lXext
 	FRAM_MLX=
 else
 	MLX_DIR= mlx/mlx_mac
@@ -41,7 +39,7 @@ else
 	FRAM_MLX= -framework OpenGL -framework AppKit
 endif
 
-INC= -I includes/ -I libft/inc/ -I $(MLX_DIR)/
+INC= -I$(INC_PATH)/ -Ilibft/inc/ -Imlx/mlx_linux/
 SRC= $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 

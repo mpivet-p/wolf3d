@@ -27,9 +27,9 @@ static void	init_core(t_core *wolf)
 	if (!(wolf->img = mlx_get_data_addr(wolf->screen, &(tools[0]),
 					&(tools[1]), &(tools[2]))))
 		quit_wolf(wolf);
-	mlx_hook(wolf->win, 17, 0, quit_wolf, wolf);
-	mlx_hook(wolf->win, 2, 0, deal_key, wolf);
-	mlx_hook(wolf->win, 4, 0, mouse_press, wolf);
+	mlx_hook(wolf->win, 17, 1L << 1, quit_wolf, wolf);
+	mlx_hook(wolf->win, 2, 1L << 0, deal_key, wolf);
+	mlx_hook(wolf->win, 4, 1L << 1, mouse_press, wolf);
 }
 
 static void	print_usage(void)
