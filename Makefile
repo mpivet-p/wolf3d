@@ -29,25 +29,21 @@ SRC_NAME= main.c events.c tools.c camera.c parser.c misc.c draw_scene.c\
 			receive_players_pos.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
-
 ifeq ($(OS), Linux)
-	INC_MLX= mlx/mlx_linux/
+	MLX_DIR= mlx/mlx_linux
+	LIB_MLX= -L $(MLX_DIR) -lmlx
+	LIBS= -L libft/ -lft -lX11 -lbsd -lm -lXext $(LIB_MLX)
+	FRAM_MLX=
 else
-	INC_MLX= mlx/mlx_mac/
+	MLX_DIR= mlx/mlx_mac
+	LIB_MLX= -L $(MLX_DIR) -lmlx
+	LIBS= -L libft/ -lft -L /usr/local/lib/ -lm $(LIB_MLX)
+	FRAM_MLX= -framework OpenGL -framework AppKit
 endif
 
-INC= -I includes/ -I libft/inc/ -I $(INC_MLX)
+INC= -I includes/ -I libft/inc/ -I $(MLX_DIR)/
 SRC= $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
-
-
-ifeq ($(OS), Linux)
-	LIBS= -L libft/ -lft -lX11 -lbsd -lm
-	MLX= -L mlx/mlx_linux/ -lmlx
-else
-	LIBS= -L libft/ -lft -L /usr/local/lib/ -lmlx -lm
-	MLX= -framework OpenGL -framework AppKit
-endif
 
 
 .PHONY: all clean fclean re local
@@ -58,9 +54,9 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make -C libft
 ifeq ($(LOCAL), t)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(INC) -L libft/ -lft -L mlx/ -lmlx -lm $(MLX)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LIBS) $(FRAM_MLX)
 else
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LIBS) $(MLX)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(INC) $(LIBS) $(FRAM_MLX)
 endif
 
 server: obj/init_socket.o obj/server.o obj/srv_connect_client.o\
