@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 06:54:43 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/15 11:41:08 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/12 23:45:24 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	move_camera(t_core *wolf, int key)
 	new_pos.x *= (key == KEY_W || key == KEY_A) ? 0.10 : -0.10;
 	new_pos.y *= (key == KEY_W || key == KEY_A) ? 0.10 : -0.10;
 	if (world->map[(int)(cam->pos.x + new_pos.x)][(int)(cam->pos.y)] == 0)
-		cam->pos.x += new_pos.x;
+		cam->pos.x += new_pos.x * check_box(cam, new_pos, world);
 	if (world->map[(int)(cam->pos.x)][(int)(cam->pos.y + new_pos.y)] == 0)
-		cam->pos.y += new_pos.y;
+		cam->pos.y += new_pos.y * check_box(cam,  new_pos, world);
 	if (wolf->socket != -1)
 		send_pos_to_server(wolf);
 }

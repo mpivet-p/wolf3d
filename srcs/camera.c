@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:41:38 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 15:41:47 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/12 23:50:14 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,13 @@ void	init_camera(t_camera *cam, t_world *world)
 	cam->plane.x = 0;
 	cam->plane.y = 0.66;
 	cam->mode = WLF_RENDER;
+}
+
+int		check_box(t_camera *cam, t_vector d, t_world *world)
+{
+	if (world->map[(int)(cam->pos.x + 2 * d.x)][(int)(cam->pos.y)] != 0)
+		return (0);
+	if (world->map[(int)(cam->pos.x)][(int)(cam->pos.y + 2 * d.y)] != 0)
+		return (0);
+	return (1);
 }

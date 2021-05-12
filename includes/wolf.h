@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 03:55:16 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/11 11:56:15 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/12 23:31:15 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_core
 int				mouse_press(int button, int x, int y, t_core *wolf);
 int				mouse_move(int x, int y, t_core *wolf);
 int				deal_key(int key, t_core *wolf);
+int				check_box(t_camera *cam, t_vector d, t_world *world);
 
 /*
 ** ============================================================================
