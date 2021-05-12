@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:35 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/15 13:50:34 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/12 16:22:41 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,10 @@ static int	check_line(char *str, t_world *world)
 static int	get_world_line(char *str, t_world *world, int line)
 {
 	int64_t		tmp;
-	//size_t		len;
 	size_t		i;
 	char		**tab;
 
 	i = 0;
-	//len = ft_strlen(str);
 	if (check_line(str, world) != 0)
 		return (1);
 	tab = ft_strsplit(str, ' ');
