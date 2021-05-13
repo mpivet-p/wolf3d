@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_new_sprite.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:01:32 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/20 15:38:32 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/13 12:47:21 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int8_t	char_to_double(char *str, double *num)
 	double	decimal;
 	int8_t	ret;
 	char	**tab;
+	double	delta;
 
 	ret = SUCCESS;
 	if ((tab = ft_strsplit(str, '.')) == NULL)
@@ -32,7 +33,8 @@ static int8_t	char_to_double(char *str, double *num)
 		if (ft_tablen(tab) == 2 && ft_atol(tab[1], &tmp) == SUCCESS
 				&& tmp < INT_MAX)
 		{
-			decimal = tmp / pow(10, (int)log(tmp) + 1);
+			delta = (tmp == 0) ? 0.5 : 0;
+			decimal = tmp * pow(10, -(int64_t)log(tmp) - 1);
 			*num += (decimal > 0) ? decimal : 0;
 		}
 		else
