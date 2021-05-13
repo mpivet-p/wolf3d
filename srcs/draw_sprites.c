@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 14:36:50 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/23 12:28:56 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/13 17:58:20 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "wolf.h"
 #include <math.h>
 
@@ -88,8 +89,12 @@ void		draw_sprites(t_core *wolf, double *z_buffer)
 	i = 0;
 	if (wolf->cam.mode == WLF_MAP)
 		return ;
-	correction = 1.0 / (wolf->cam.plane.x * wolf->cam.dir.y
-				- wolf->cam.dir.x * wolf->cam.plane.y);
+	//correction = 1.0 / (wolf->cam.plane.x * wolf->cam.dir.y
+	//			- wolf->cam.dir.x * wolf->cam.plane.y);
+	correction = 1.515152;
+	//printf("correction = %f ||| ", correction);
+	//printf("cam.plane.x = %f | %f ||| ", wolf->cam.plane.x, wolf->cam.plane.y);
+	//printf("cam.dir = %f | %f\n", wolf->cam.dir.x, wolf->cam.dir.y);
 	get_sprites_dist(wolf, sprite_order);
 	while (i < wolf->world.sprt_nbr)
 	{
