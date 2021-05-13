@@ -1,0 +1,20 @@
+10x10
+05x05
+1:textures/greystone.xpm
+2:textures/bluestone.xpm:textures/redbrick.xpm:textures/mossy.xpm:textures/purplestone.xpm
+3:textures/bluestone.xpm
+4:textures/redbrick.xpm
+5:textures/eagle.xpm
+6:textures/mossy.xpm
+7:textures/colorstone.xpm
+8:textures/purplestone.xpm
+9:textures/wood.xpm
+10:textures/pillar.xpm
+floor:textures/colorstone.xpm
+ceiling:textures/wood.xpm
+#sprite:texture path:x:y
+sprite:textures/pillar.xpm:5.2:10.2
+sprite:textures/pillar.xpm:5.0:10.0
+sprite:textures/greenlight.xpm:7.0:10.2
+sprite:textures/barrel.xpm:7.0:10.2
+player:textures/player.xpm

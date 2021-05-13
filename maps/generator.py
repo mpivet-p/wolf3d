@@ -68,7 +68,7 @@ if __name__ == "__main__":
 	
 	player_x = -1
 	player_y = -1
-	while not isinstance(player_x, int) or not (player_x > 0 and player_x < col):
+	while not isinstance(player_x, int) or not (player_x > 0):
 		tmp = input("Give the player x coordinates within the maze:")
 		if tmp != None:
 			player_x = int(tmp)

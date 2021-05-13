@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:35 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/13 14:37:01 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/13 17:10:21 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	get_wolf_map(int fd, t_world *world)
 	return (0);
 }
 
-static int check_spawn(t_core *wolf)
+static int	check_spawn(t_core *wolf)
 {
 	if (wolf->world.map[wolf->world.spawn_x][wolf->world.spawn_y] != 0)
 		return (FAILURE);
