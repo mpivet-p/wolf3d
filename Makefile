@@ -6,13 +6,13 @@
 #    By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/22 02:45:47 by mpivet-p          #+#    #+#              #
-#    Updated: 2021/05/13 12:57:43 by mpivet-p         ###   ########.fr        #
+#    Updated: 2021/05/13 15:23:37 by mpivet-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME= wolf3d
 CC= gcc
-CFLAGS= -Wall -Wextra -Werror -g -fsanitize=address -fsanitize=undefined -fstack-protector
+CFLAGS= -Wall -Wextra -Werror -g #-fsanitize=address -fsanitize=undefined -fstack-protector
 OS = $(shell uname)
 
 INC_PATH= includes
