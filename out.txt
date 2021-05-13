@@ -1,0 +1,15 @@
+07x08
+09x01
+0 1 1 2 1 1 0
+1 1 0 0 0 1 1
+3 0 0 0 0 0 1
+3 3 0 0 0 0 1
+0 3 0 0 0 3 0
+3 0 0 0 0 0 3
+0 3 0 0 0 3 0
+0 0 3 3 3 0 0
+1:textures/redbrick.xpm
+2:textures/eagle.xpm
+3:textures/bluestone.xpm
+floor:textures/greystone.xpm
+ceiling:textures/wood.xpm

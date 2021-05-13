@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 14:35:49 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/13 00:02:42 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/13 14:19:03 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,6 @@ void		get_spawn_coords(t_world *world, int *array, int fd)
 		print_and_quit("wolf3d: parse error: line 2\n");
 	world->spawn_x = array[0];
 	world->spawn_y = array[1];
+	if (array[0] <= 0 || array[1] <= 0 || array[0] >= world->width || array[1] >= world->height)
+		print_and_quit("wolf3d: parse error: invalid spawn coordinates\n");
 }
