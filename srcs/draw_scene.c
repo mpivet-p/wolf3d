@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:47:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/11 11:56:58 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/13 13:01:15 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	prepare_draw_vert(
 {
 	double	line_height;
 
-	line_height = (int)(SIMG_Y / ray->wall_dist);
+	line_height = (int)(SIMG_Y / (ray->wall_dist + 0.01));
 	*step = 1.0 * TEX_HEIGHT / line_height;
 	*tex_pos = (start_end[0] - SIMG_Y / 2 + line_height / 2) * *step;
 }
@@ -78,7 +78,7 @@ double		render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 	else
 		ray->wall_dist = (ray->map[1] - wolf->cam.pos.y
 				+ (1 - step[1]) / 2) / ray->dir.y;
-	line_height = (int)(SIMG_Y / ray->wall_dist);
+	line_height = (int)(SIMG_Y / (ray->wall_dist + 0.01));
 	tmp = (line_height / -2) + (SIMG_Y / 2);
 	start_end[0] = (tmp < 0) ? 0 : tmp;
 	tmp = (line_height / 2) + (SIMG_Y / 2);
