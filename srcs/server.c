@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 12:16:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/08/16 13:53:36 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/13 14:23:23 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int8_t	run_server(int socket, t_client *clients)
 	int					client_nbr;
 	int					len;
 
+	client_nbr = 0;
 	while (1)
 	{
 		wait_event(socket, &rdfs);
