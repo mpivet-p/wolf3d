@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:35 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/13 14:17:16 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/13 14:37:01 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ static int	get_wolf_map(int fd, t_world *world)
 	return (0);
 }
 
+static int check_spawn(t_core *wolf)
+{
+	if (wolf->world.map[wolf->world.spawn_x][wolf->world.spawn_y] != 0)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 void		parse_wolf_map(t_core *wolf, t_world *world, char *filename)
 {
 	int	fd;
@@ -99,7 +106,8 @@ void		parse_wolf_map(t_core *wolf, t_world *world, char *filename)
 	if (!(world->map = ft_memalloc(sizeof(char*) * (world->width + 1))))
 		print_and_quit("wolf3d: malloc error\n");
 	if (get_wolf_map(fd, world) != SUCCESS
-		|| get_map_properties(wolf, fd) != SUCCESS)
+		|| get_map_properties(wolf, fd) != SUCCESS
+		|| check_spawn(wolf) != SUCCESS)
 	{
 		quit_wolf(wolf);
 	}
