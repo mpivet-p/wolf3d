@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:57:35 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/12 16:22:41 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/13 12:27:23 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	get_world_line(char *str, t_world *world, int line)
 	while (tab[i])
 	{
 		if (world->map[i] == NULL)
-			world->map[i] = ft_memalloc(sizeof(char) * (world->width));
+			world->map[i] = ft_memalloc(sizeof(char) * (world->height));
 		tmp = 0;
 		if (ft_atol(tab[i], &tmp) != 0 || tmp > 255 || tmp < 0)
 			return (-1);
@@ -81,7 +81,7 @@ static int	get_wolf_map(int fd, t_world *world)
 		ft_strdel(&line);
 		i++;
 	}
-	world->map[i] = 0;
+	world->map[world->width] = 0;
 	return (0);
 }
 
@@ -96,7 +96,7 @@ void		parse_wolf_map(t_core *wolf, t_world *world, char *filename)
 	world->floor = -1;
 	get_world_dimensions(world, array, fd);
 	get_spawn_coords(world, array, fd);
-	if (!(world->map = ft_memalloc(sizeof(char*) * (world->height + 1))))
+	if (!(world->map = ft_memalloc(sizeof(char*) * (world->width + 1))))
 		print_and_quit("wolf3d: malloc error\n");
 	if (get_wolf_map(fd, world) != SUCCESS
 		|| get_map_properties(wolf, fd) != SUCCESS)
