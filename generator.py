@@ -9,7 +9,7 @@ def generate_map(line, col, player_x, player_y, nb_sprite):
 	maze[:,0] = 1
 	maze[:,-1] = 1
 
-	draw = randint(1, (line - 1) * (col - 1))
+	draw = randint(1, int((line - 1) * (col - 1) / 3))
 	for _ in range(draw):
 		x_coord = randint(1, col - 2)
 		y_coord = randint(1, line - 2)
@@ -85,9 +85,9 @@ if __name__ == "__main__":
 	while (path.exists(f"map_{id_map}.txt")):
 		id_map += 1
 
-	nb_sprite = 10
+	nb_sprite = 8
 	with open(f"map_{id_map}.txt", "w+") as opened_file:
-		opened_file.write(f"{line}x{col}\n")
+		opened_file.write(f"{col}x{line}\n")
 		opened_file.write(f"{player_x:2d}x{player_y:2d}\n".replace(' ','0'))
 		opened_file.write(generate_map(line, col, player_x, player_y, nb_sprite)+"\n")
 		opened_file.write(sprite_things())
