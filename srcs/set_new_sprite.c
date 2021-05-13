@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:01:32 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/13 12:47:21 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/13 12:54:10 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,21 @@ static int8_t	char_to_double(char *str, double *num)
 	char	**tab;
 	double	delta;
 
-	ret = SUCCESS;
+	ret = FAILURE;
 	if ((tab = ft_strsplit(str, '.')) == NULL)
 		return (FAILURE);
-	if (ft_tablen(tab) <= 2 && ft_atol(tab[0], &tmp) == SUCCESS
+	if (ft_tablen(tab) == 2 && ft_atol(tab[0], &tmp) == SUCCESS
 			&& tmp < 100 && tmp >= 0)
 	{
 		*num = tmp;
-		if (ft_tablen(tab) == 2 && ft_atol(tab[1], &tmp) == SUCCESS
-				&& tmp < INT_MAX)
+		if (ft_atol(tab[1], &tmp) == SUCCESS && tmp < INT_MAX)
 		{
 			delta = (tmp == 0) ? 0.5 : 0;
-			decimal = tmp * pow(10, -(int64_t)log(tmp) - 1);
+			decimal = tmp * pow(10, -(int64_t)log(tmp + delta) - 1);
 			*num += (decimal > 0) ? decimal : 0;
+			ret = SUCCESS;
 		}
-		else
-			ret = FAILURE;
 	}
-	else
-		ret = FAILURE;
 	free_tab(&tab);
 	return (ret);
 }
