@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 06:54:43 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/13 00:02:02 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/14 01:11:40 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	move_camera(t_core *wolf, int key)
 	if (key == KEY_W || key == KEY_S)
 		new_pos = cam->dir;
 	else
-		new_pos = rotate_vector(&(cam->dir), M_PI / 2);
+		new_pos = rotate_vector(&(cam->dir), -M_PI / 2);
 	new_pos.x *= (key == KEY_W || key == KEY_A) ? 0.10 : -0.10;
 	new_pos.y *= (key == KEY_W || key == KEY_A) ? 0.10 : -0.10;
 	if (world->map[(int)(cam->pos.x + new_pos.x)][(int)(cam->pos.y)] == 0)
@@ -41,7 +41,7 @@ void	rotate_camera(t_core *wolf, int key)
 {
 	double		angle;
 
-	angle = (key == KEY_RIGHT) ? M_PI / -40 : M_PI / 40;
+	angle = (key == KEY_RIGHT) ? M_PI / 40 : -M_PI / 40;
 	wolf->cam.dir = rotate_vector(&(wolf->cam.dir), angle);
 	wolf->cam.plane = rotate_vector(&(wolf->cam.plane), angle);
 }

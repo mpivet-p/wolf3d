@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_tools.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:07:26 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/13 15:24:47 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/14 01:16:44 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ static void	fill_texture(t_world *world, char *img, int tex_i)
 		while (y < TEX_HEIGHT)
 		{
 			i = ((TEX_WIDTH * y) + x) * 4;
-			color = ((img[i + 2] & 0xFF) << 16) + ((img[i + 1] & 0xFF) << 8) + (img[i] & 0xFF);
+			color = ((img[i + 2] & 0xFF) << 16) + ((img[i + 1] & 0xFF) << 8)
+				+ (img[i] & 0xFF);
 			world->texture[tex_i][TEX_WIDTH * y + x] = color;
 			y++;
 		}

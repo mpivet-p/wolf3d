@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   floor_ceiling_casting.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 12:31:29 by mpivet-p          #+#    #+#             */
-/*   Updated: 2020/07/21 15:35:31 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/14 01:15:55 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ static void	draw_lines(t_core *wolf, t_vector *floor, int y, int x)
 		if ((tex_num = wolf->world.ceiling) >= 0)
 		{
 			color = wolf->world.texture[tex_num][TEX_WIDTH * tex.y + tex.x];
-			set_pixel(wolf->img, x, y, ((color >> 1) & 0x7F7F7F));
+			set_pixel(wolf->img, SIMG_X - x, y, ((color >> 1) & 0x7F7F7F));
 		}
 		if ((tex_num = wolf->world.floor) >= 0)
 		{
 			color = wolf->world.texture[tex_num][TEX_WIDTH * tex.y + tex.x];
-			set_pixel(wolf->img, x, SIMG_Y - y - 1, ((color >> 1) & 0x7F7F7F));
+			set_pixel(wolf->img, SIMG_X - x, SIMG_Y - y - 1,
+				((color >> 1) & 0x7F7F7F));
 		}
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:47:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/13 13:01:15 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/14 00:38:54 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int			draw_scene(t_core *wolf)
 		intersect(wolf, &ray, step);
 		draw_map(wolf, &ray);
 		if (wolf->cam.mode != WLF_MAP)
-			z_buffer[x] = render_wolf(wolf, &ray, x, step);
+			z_buffer[x] = render_wolf(wolf, &ray, SIMG_X - x, step);
 	}
 	draw_sprites(wolf, z_buffer);
 	mlx_put_image_to_window(wolf->mlx, wolf->win, wolf->screen, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 14:36:50 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/13 22:18:14 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/14 01:17:14 by mdavid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	draw_sprite_vert(
 				tex.y = ((d * TEX_HEIGHT) / sprt->sprite_size) / 2;
 				color = wolf->world.texture[tex_id][TEX_WIDTH * tex.y + tex.x];
 				if ((color & 0x00FFFFFF) != 0)
-					set_pixel(wolf->img, x, y, color);
+					set_pixel(wolf->img, SIMG_X - x, y, color);
 			}
 		}
 	}
@@ -76,15 +76,12 @@ static void	prepare_sprites(
 	sprt.sprite_screen_x = (int)((SIMG_X / 2)
 			* (1 + sprt.transform.x / sprt.transform.y));
 	sprt.sprite_size = (int)fabs(SIMG_Y / sprt.transform.y);
-	sprt.sprite_screen_x = (sprt.sprite_screen_x >= 10000) ? 10000 : sprt.sprite_screen_x;
-	sprt.sprite_screen_x = (sprt.sprite_screen_x <= -10000) ? -10000 : sprt.sprite_screen_x;
+	sprt.sprite_screen_x = (sprt.sprite_screen_x >= 10000) ? 10000
+		: sprt.sprite_screen_x;
+	sprt.sprite_screen_x = (sprt.sprite_screen_x <= -10000) ? -10000
+		: sprt.sprite_screen_x;
 	sprt.sprite_size = (sprt.sprite_size >= 10000) ? 10000 : sprt.sprite_size;
 	sprt.sprite_size = (sprt.sprite_size <= -10000) ? -10000 : sprt.sprite_size;
-	//if (sprt.sprite_size > 10000 || sprt.sprite_screen_x > 10000)
-	//{
-	//printf("sprite_screen_x = %d ||| ", sprt.sprite_screen_x);
-	//printf("sprite_size = %d\n",sprt.sprite_size);
-	//}
 	calc_start_end(&sprt);
 	draw_sprite_vert(wolf, &sprt, z_buffer, curr_sprite->tex_id);
 }
