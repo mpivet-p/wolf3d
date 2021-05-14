@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 14:58:21 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/04/27 16:14:00 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2021/05/14 11:40:18 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 	{
 		dest[i] = str[i];
 		if (str[i] == (char)c)
-			return (dst +i + 1);
+			return (dst + i + 1);
 		i++;
 		n--;
 	}
