@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 06:54:43 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/14 01:11:40 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/14 11:38:18 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ void	move_camera(t_core *wolf, int key)
 		new_pos = rotate_vector(&(cam->dir), -M_PI / 2);
 	new_pos.x *= (key == KEY_W || key == KEY_A) ? 0.10 : -0.10;
 	new_pos.y *= (key == KEY_W || key == KEY_A) ? 0.10 : -0.10;
-	if (world->map[(int)(cam->pos.x + new_pos.x)][(int)(cam->pos.y)] == 0)
-		cam->pos.x += new_pos.x * check_box(cam, new_pos, world);
-	if (world->map[(int)(cam->pos.x)][(int)(cam->pos.y + new_pos.y)] == 0)
-		cam->pos.y += new_pos.y * check_box(cam, new_pos, world);
+	if (cam->pos.x + new_pos.x < world->width && cam->pos.x + new_pos.x >= 0
+		&& world->map[(int)(cam->pos.x + new_pos.x)][(int)(cam->pos.y)] == 0)
+		cam->pos.x += new_pos.x;
+	if (cam->pos.y + new_pos.y < world->height && cam->pos.y + new_pos.y >= 0
+		&& world->map[(int)(cam->pos.x)][(int)(cam->pos.y + new_pos.y)] == 0)
+		cam->pos.y += new_pos.y;
 	if (wolf->socket != -1)
 		send_pos_to_server(wolf);
 }

@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:47:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/14 00:38:54 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/14 11:37:15 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,11 @@ double		render_wolf(t_core *wolf, t_ray *ray, int x, int *step)
 	tmp = (line_height / 2) + (SIMG_Y / 2);
 	start_end[1] = (tmp >= SIMG_Y) ? SIMG_Y - 1 : tmp;
 	ray->tex_x = get_texture_x(&(wolf->cam), ray);
-	ray->tex_num = wolf->world.map[ray->map[0]][ray->map[1]];
+	if (ray->map[0] >= wolf->world.width || ray->map[1] >= wolf->world.height
+			|| ray->map[0] < 0 || ray->map[1] < 0)
+		ray->tex_num = TEX_MAX;
+	else
+		ray->tex_num = wolf->world.map[ray->map[0]][ray->map[1]];
 	ray->tex_num = get_tex_dir(&(wolf->world.wall[ray->tex_num]), ray);
 	draw_vert(wolf, x, start_end, ray);
 	return (ray->wall_dist);

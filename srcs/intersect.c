@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:09:01 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/14 09:45:37 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/14 11:37:48 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,18 @@ void	intersect(t_core *wolf, t_ray *ray, int *step)
 		if (ray->side_dist.x < ray->side_dist.y)
 		{
 			ray->side_dist.x += delta_dist.x;
-			ray->map[0] += (ray->map[0] == 0 && step[0] == -1) ? 0 : step[0];
-			//ray->map[0] += step[0];
+			ray->map[0] += step[0];
 			ray->side = 0;
 		}
 		else
 		{
 			ray->side_dist.y += delta_dist.y;
-			ray->map[1] += (ray->map[1] == 0 && step[1] == -1) ? 0 : step[1];
-			//ray->map[1] += step[1];
+			ray->map[1] += step[1];
 			ray->side = 1;
 		}
-		if (ray->map[0] > wolf->world.width || ray->map[0] < 0
-				|| ray->map[1] > wolf->world.height || ray->map[1] < 0)
-			{
-				ft_putstr("ici \n");
-				quit_wolf(wolf);
-			}
+		if (ray->map[0] >= wolf->world.width || ray->map[0] < 0
+				|| ray->map[1] >= wolf->world.height || ray->map[1] < 0)
+			break ;
 		if (wolf->world.map[ray->map[0]][ray->map[1]] != 0)
 			break ;
 	}
