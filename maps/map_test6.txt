@@ -37,8 +37,8 @@
 floor:textures/colorstone.xpm
 ceiling:textures/wood.xpm
 #sprite:texture path:x:y
-sprite:textures/pillar.xpm:5.2:10.2
-sprite:textures/pillar.xpm:5.0:10.0
+sprite:textures/barrel.xpm:5.2:10.2
+sprite:textures/barrel.xpm:5.0:10.0
 sprite:textures/greenlight.xpm:7.0:10.2
 sprite:textures/barrel.xpm:7.0:10.2
 player:textures/player.xpm

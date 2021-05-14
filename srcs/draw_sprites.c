@@ -6,7 +6,7 @@
 /*   By: mdavid <mdavid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 14:36:50 by mpivet-p          #+#    #+#             */
-/*   Updated: 2021/05/14 01:17:14 by mdavid           ###   ########.fr       */
+/*   Updated: 2021/05/14 12:45:56 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	calc_start_end(t_sprtcalc *sprt)
 	sprt->draw_end.y = sprt->sprite_size / 2 + SIMG_Y / 2;
 	if (sprt->draw_end.y < 0 || sprt->draw_end.y > SIMG_Y)
 		sprt->draw_end.y = SIMG_Y - 1;
-	sprt->sprite_size = (int)fabs(SIMG_Y / sprt->transform.y);
+	sprt->sprite_size = (int)fabs(SIMG_Y / (sprt->transform.y + 0.00001));
 	sprt->draw_start.x = sprt->sprite_screen_x - sprt->sprite_size / 2;
 	if (sprt->draw_start.x < 0)
 		sprt->draw_start.x = 0;
@@ -74,14 +74,9 @@ static void	prepare_sprites(
 	sprt.transform.y = correc
 		* (wolf->cam.plane.x * sprite.y - wolf->cam.plane.y * sprite.x);
 	sprt.sprite_screen_x = (int)((SIMG_X / 2)
-			* (1 + sprt.transform.x / sprt.transform.y));
-	sprt.sprite_size = (int)fabs(SIMG_Y / sprt.transform.y);
-	sprt.sprite_screen_x = (sprt.sprite_screen_x >= 10000) ? 10000
-		: sprt.sprite_screen_x;
-	sprt.sprite_screen_x = (sprt.sprite_screen_x <= -10000) ? -10000
-		: sprt.sprite_screen_x;
-	sprt.sprite_size = (sprt.sprite_size >= 10000) ? 10000 : sprt.sprite_size;
-	sprt.sprite_size = (sprt.sprite_size <= -10000) ? -10000 : sprt.sprite_size;
+			* (1 + sprt.transform.x / (sprt.transform.y + 0.00001)));
+	sprt.sprite_size = (int)fabs(SIMG_Y / (sprt.transform.y + 0.00001));
+	sprt.sprite_screen_x = sprt.sprite_screen_x;
 	calc_start_end(&sprt);
 	draw_sprite_vert(wolf, &sprt, z_buffer, curr_sprite->tex_id);
 }
